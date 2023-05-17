@@ -323,7 +323,7 @@ converts it into readable form. It was written by Mika Tuupola
 and available here: https://github.com/tuupola/micropython-gnssl76l
 
 We provide it in this repo for convenience. Please download this file:
-![gnssl76l.py](/gnssl76l.py)
+![gnssl76l.py](./gnssl76l.py)
 
 Now let's disconnect Walter and attach it to the Pytrack companion board.
 
@@ -337,7 +337,7 @@ Now we shall install our demo `boot.py` that interfaces with Pytrack.
 The GPS demo is called `boot_gps.py` in our repository. Please download this file
 to your development system:
 
-![boot_gps.py](/boot_gps.py)
+![boot_gps.py](./boot_gps.py)
 
 On the Walter board this file must be named `boot.py`, and by passing an extra
 parameter to `amply` we can provide the destination filename:
@@ -357,7 +357,7 @@ or you can also simply unplug and reconnect Walter before starting minicom.
 
 It should start spitting out GPS information. See the screenshot:
 
-![alt text](/images/gps_readout.png)
+![alt text](./images/gps_readout.png)
 
 Note that Walter also has its own GPS module onboard.
 A demonstration script for communicating with the built-in GPS module will be
@@ -376,11 +376,11 @@ In addition, pin 0 must to be set to output, and value 0 must written to it to s
 Like in step 8 we will use a helper module to interpret the I2C communication to
 actual accelerometer information. Please download it here:
 
-![lis2hh12.py](/lis2hh12.py)
+![lis2hh12.py](./lis2hh12.py)
 
 Download our demo `boot_acc.py` file:
 
-![boot_acc.py](/boot_acc.py)
+![boot_acc.py](./boot_acc.py)
 
 In `boot_acc.py` you will also recognize the pin setup as described above.
 
@@ -403,4 +403,4 @@ movement.
 
 Demo output:
 
-![alt text](/images/acc_readout.png)
+![alt text](./images/acc_readout.png)
