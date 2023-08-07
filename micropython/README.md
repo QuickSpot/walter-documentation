@@ -142,14 +142,19 @@ administrator privilege.
 
 ## 4. Install MicroPython using esptool
 
-This process is described on the following webpage
-https://micropython.org/download/GENERIC_S3/ and summarized briefly below.
+Look specifically for the ESP32 release with SPIRAM support. This release
+currently lives at https://micropython.org/download/esp32spiram/ .
+
+The setup process is described on the download page, and summarized briefly below.
 
 First download the MicroPython image to be installed on your Walter.
-Download the file with the `.bin` extension. We suggest using the latest release,
-which was v1.20.0 at the time this document was authored. The filename was
-`GENERIC_S3-20230426-v1.20.0.bin`. Please replace below by the actual
-filename that you download.
+Use the nightly build, since the release build currently does not work.
+Download the file with the `.bin` extension.
+
+The version we tested with is `GENERIC_S3_SPIRAM-20230602-unstable-v1.20.0-140-g7a17596e1.bin`
+and is included in the QuickSpot MicroPython library repository for your convenience.
+
+Please replace below by the actual filename that you downloaded.
 
 Now we shall perform the steps described on the webpage:
 
@@ -162,7 +167,7 @@ esptool.py --chip esp32s3 --port /dev/ttyACM0 erase_flash
 2. Upload the MicroPython image to Walter:
 
 ```
-esptool.py --chip esp32s3 --port /dev/ttyACM0 write_flash -z 0 GENERIC_S3-20230426-v1.20.0.bin
+esptool.py --chip esp32s3 --port /dev/ttyACM0 write_flash -z 0 GENERIC_S3_SPIRAM-20230602-unstable-v1.20.0-140-g7a17596e1.bin
 ```
 
 ## 5. Install the ampy tool to manage the MicroPython scripts installed on Walter
@@ -323,7 +328,7 @@ converts it into readable form. It was written by Mika Tuupola
 and available here: https://github.com/tuupola/micropython-gnssl76l
 
 We provide it in this repo for convenience. Please download this file:
-![gnssl76l.py](./gnssl76l.py)
+![gnssl76l.py](/gnssl76l.py)
 
 Now let's disconnect Walter and attach it to the Pytrack companion board.
 
@@ -337,7 +342,7 @@ Now we shall install our demo `boot.py` that interfaces with Pytrack.
 The GPS demo is called `boot_gps.py` in our repository. Please download this file
 to your development system:
 
-![boot_gps.py](./boot_gps.py)
+![boot_gps.py](/boot_gps.py)
 
 On the Walter board this file must be named `boot.py`, and by passing an extra
 parameter to `amply` we can provide the destination filename:
@@ -357,7 +362,7 @@ or you can also simply unplug and reconnect Walter before starting minicom.
 
 It should start spitting out GPS information. See the screenshot:
 
-![alt text](./images/gps_readout.png)
+![alt text](/images/gps_readout.png)
 
 Note that Walter also has its own GPS module onboard.
 A demonstration script for communicating with the built-in GPS module will be
@@ -376,11 +381,11 @@ In addition, pin 0 must to be set to output, and value 0 must written to it to s
 Like in step 8 we will use a helper module to interpret the I2C communication to
 actual accelerometer information. Please download it here:
 
-![lis2hh12.py](./lis2hh12.py)
+![lis2hh12.py](/lis2hh12.py)
 
 Download our demo `boot_acc.py` file:
 
-![boot_acc.py](./boot_acc.py)
+![boot_acc.py](/boot_acc.py)
 
 In `boot_acc.py` you will also recognize the pin setup as described above.
 
@@ -403,4 +408,18 @@ movement.
 
 Demo output:
 
-![alt text](./images/acc_readout.png)
+![alt text](/images/acc_readout.png)
+
+## 10. Using the Walter Micropython library
+
+Upload all the `.py` files to Walter's root directory using the aforementioned `ampy` tool.
+
+ - `queue.py` which is a third-party `Queue` implementation that is missing in `uasyncio`, MicroPython's `asyncio` implementation -- cherry-picked from this great repo by Peter Hinch: https://github.com/peterhinch/micropython-async/blob/master/v3/docs/TUTORIAL.md
+ - `_walter.py` which contains the constants and helper objects, separated from the main library because uploading everything as one single file to Walter would take quite long
+ - `walter.py` which contains our library implementation
+ - `boot.py` which contains your code - the repo contains whatever we were recently testing when committing; probably one of the examples
+
+You can find examples in the `examples` folder.
+
+We use asyncio coroutines for communicating with the modem, queueing commands and running your user code. You can create your own
+coroutines, which will probably be useful to wait for a GNSS fix in the background.
