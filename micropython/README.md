@@ -421,5 +421,31 @@ Upload all the `.py` files to Walter's root directory using the aforementioned `
 
 You can find examples in the `examples` folder.
 
-We use asyncio coroutines for communicating with the modem, queueing commands and running your user code. You can create your own
-coroutines, which will probably be useful to wait for a GNSS fix in the background.
+We use asyncio coroutines for communicating with the modem, queueing commands and running your user code.
+
+You can create your own coroutines, for example to wait for a
+GNSS fix in the background instead of blocking the main coroutine.
+You can simply create any extra tasks in your main routine passed to
+the `modem.begin(main_routine)` call:
+
+```
+import uasyncio
+import walter
+import _walter
+
+async def my_extra_task():
+    # ...
+    
+
+async def main():
+    # ...
+    # ......
+
+    uasyncio.create_task(my_extra_task())
+
+    # ......
+    # ...
+
+modem = walter.Modem()
+modem.begin(main)
+```
