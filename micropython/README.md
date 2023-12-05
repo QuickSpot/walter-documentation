@@ -142,16 +142,17 @@ administrator privilege.
 
 ## 4. Install MicroPython using esptool
 
-Look specifically for the ESP32 release with SPIRAM support. This release
-currently lives at https://micropython.org/download/esp32spiram/ .
+Look specifically for the ESP32S3 release, which has SPIRAM support.
+This release currently lives at https://micropython.org/download/ESP32_GENERIC_S3/ .
 
 The setup process is described on the download page, and summarized briefly below.
 
 First download the MicroPython image to be installed on your Walter.
-Use the nightly build, since the release build currently does not work.
-Download the file with the `.bin` extension.
+please use the regular firmware, not the one with Octal-SPIRAM support,
+since the ESP32S3 on Walter has Quad-SPIRAM. Download the latest release
+and use the file with the `.bin` extension.
 
-The version we tested with is `GENERIC_S3_SPIRAM-20230602-unstable-v1.20.0-140-g7a17596e1.bin`
+The version we are currently using for tests is `ESP32_GENERIC_S3-20231005-v1.21.0.bin`
 and is included in the QuickSpot MicroPython library repository for your convenience.
 
 Please replace below by the actual filename that you downloaded.
@@ -167,7 +168,7 @@ esptool.py --chip esp32s3 --port /dev/ttyACM0 erase_flash
 2. Upload the MicroPython image to Walter:
 
 ```
-esptool.py --chip esp32s3 --port /dev/ttyACM0 write_flash -z 0 GENERIC_S3_SPIRAM-20230602-unstable-v1.20.0-140-g7a17596e1.bin
+esptool.py --chip esp32s3 --port /dev/ttyACM0 write_flash -z 0 ESP32_GENERIC_S3-20231005-v1.21.0.bin
 ```
 
 ## 5. Install the ampy tool to manage the MicroPython scripts installed on Walter
