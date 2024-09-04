@@ -1,5 +1,3 @@
-# Walter Documentation
-
 ## Introduction
 
 This repository contains all information and documentation about Walter and
@@ -28,21 +26,6 @@ more than welcome.
 
 ## Structure
 
-We strive the support as many software platforms as possible and we have thus
-created the following documentation structure:
-  - common: this directory contains documentation which is independant from the 
-            chosen software toolchain.
-  - arduino: this directory contains documentation which is specific to using
-             Walter with the Arduino toolchain.
-  - toit: this directory contains documentation which is specific to using
-             Walter with the Toit toolchain.
-  - esp-idf: this directory contains documentation which is specific to using
-             Walter with the Espressif IDF toolchain.
-  - micropython: this directory contains documentation which is specific to
-                 using Walter with the MicroPython toolchain.
-
-## Getting started
-
-Every toolchain has it's own getting started guide but a common guide which
-doesn't involve any programming can be found in
-[common/getting-started.md](common/getting-started.md).
+All documentation is created in markdown and it is visualized by docsify on the 
+quickspot website. The documentation website can be found here: 
+https://www.quickspot.io/documentation.html
