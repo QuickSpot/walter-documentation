@@ -6,3 +6,4 @@
 * [Micropython](/micropython.md)
 * [ESP-IDF](/esp_idf.md)
 * [Zephyr](/zephyr.md)
+* [Cellular connectivity](/cellular_connectivity.md)
