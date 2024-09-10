@@ -147,7 +147,7 @@ following table gives an overview of the internal pin connections:
 
 ## Test pins
 
-![drawing](./img/walter-testpoints.png)
+![drawing](./img/walter-testpoints.svg)
 
 Walter contains 22 testpoints on the bottom of the board that serve multiple
 purposes. You can use these pins for debugging, interfacing and/or flashing of
