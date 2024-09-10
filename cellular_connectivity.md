@@ -33,6 +33,20 @@ roaming is still in development. As the availability gets better every day,
 Soracom keeps track of coverage with eDRX and PSM availability in a 
 [Github repository](https://github.com/soracom/coverage-tests/blob/main/SORACOM-LPWAN-with-features.csv). 
 
+## Other tested SIM cards
+
+Our customers have tested Walter with a variety of SIM cards that might also
+be interesting for your business case. People have reported success with the 
+following SIM card providers:
+
+ - [1NCE](https://1nce.com/): known for their 10EUR/10Years cards
+ - [Vodaphone](https://www.vodafone.com/business/products/iot-connectivity): an MNO with a global presence
+ - [SIM control](https://simcontrol.co.za/): NB-IoT in South Africa
+ - [Telenet](https://www2.telenet.be/business/nl/sme-le/aanbod/verbinden/bedrijfsnetwerk/internet-of-things.html): Belgium NB-IoT
+
+There are definitely many other SIM cards/vendors that will work and this is one
+of the biggest advantages of cellular IoT. You have a choice. 
+
 ## Consumer cards that support LTE-M
 
 In 3GPP release 13 it is not possible for providers to check if an incoming 
