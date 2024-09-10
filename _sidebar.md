@@ -5,3 +5,4 @@
 * [Arduino](/arduino.md)
 * [Micropython](/micropython.md)
 * [ESP-IDF](/esp_idf.md)
+* [Zephyr](/zephyr.md)
