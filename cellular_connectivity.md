@@ -33,6 +33,10 @@ roaming is still in development. As the availability gets better every day,
 Soracom keeps track of coverage with eDRX and PSM availability in a 
 [Github repository](https://github.com/soracom/coverage-tests/blob/main/SORACOM-LPWAN-with-features.csv). 
 
+> We have received feedback from UK users with a Soracom card that LTE-M
+> coverage has not been very good. Therefore we advice to stick to NB-IoT
+> in the UK. 
+
 ## Other tested SIM cards
 
 Our customers have tested Walter with a variety of SIM cards that might also
