@@ -58,6 +58,11 @@ cell count of the connected battery:
 | 9          | L      | L      | H      |
 | 12         | H      | H      | H      |
 
+Legend:
+ - H: close the ON jumper, leave OFF jumper open.
+ - L: close the OFF jumper, leave ON jumper open.
+ - Z: leave ON and OFF jumper open.
+
 The below table gives an overview of the possible chemistries and how to
 configure them. If you choose the *programmable* option you must make sure to
 adopt your firmware to correctly configure charging parameters in the LTC4015.
@@ -73,3 +78,8 @@ adopt your firmware to correctly configure charging parameters in the LTC4015.
 | LiFePO4 fixed standard charge | H     | Z     |
 | Lead-Acid fixed               | Z     | Z     |
 | Lead-Acid programmable        | L     | H     |
+
+Legend:
+ - H: close the ON jumper, leave OFF jumper open.
+ - L: close the OFF jumper, leave ON jumper open.
+ - Z: leave ON and OFF jumper open.
