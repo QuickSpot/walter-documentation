@@ -123,6 +123,11 @@ When configuring PSM using `configPSM(WALTER_MODEM_PSM_ENABLE)`, the modem will 
 
 ## Troubleshooting
 
+### I'm unable to flash Walter. How do I force the module into flash mode?
+Walter utilizes the ESP32-S3's built-in USB-to-serial peripheral. However, if the chip has been flashed with software that disables this functionality or if the firmware is stuck in a high-frequency boot loop, you may encounter issues when attempting to flash the Walter module.
+
+To resolve this, you can force Walter into flashing mode by pulling `GPIO0` to ground before powering it on. This will prevent the chip from booting its current firmware, allowing it to remain in a waiting state for new firmware to be downloaded over USB-C or serial.
+
 ### Why does Walter keep restarting?
 Common causes include:
 1. Insufficient power supply - ensure stable power through USB-C or external power
