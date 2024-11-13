@@ -135,7 +135,6 @@ Set the Arduino IDE debug level to "Debug" in board settings, or in code:
 ```cpp
 modem.setDebug(true);
 ```
-
 ### Serial Monitor issues with sleep mode?
 The Arduino IDE serial monitor may not reconnect properly after sleep mode. This is due to the fact that Walter uses the USB-Serial hardware that is built-in into the ESP32-S3, this converter is powered off in deep sleep which effectively disconnects the Walter module from the host computer during deep sleep. Not all software can handle this correctly, possible solutions are:
 1. Use Visual Studio Code with the Serial Monitor extension
