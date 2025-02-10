@@ -51,15 +51,10 @@ sudo dnf install python3 python3-pip
 
 #### **Windows**
 
-Open a terminal window in your project directory.
+1. Open a terminal window in your project directory.
 
-- Open Terminal and navigate to the project directory with:
-
-```shell
-cd path/to/your/project/dir
-```
-
-Alternatively, navigate to your project directory in File Explorer, then right-click in the empty space and select "Open in Terminal."
+- *Open "Terminal" and navigate to the project directory `cd path/to/your/project/dir`*
+- *Alternatively, navigate to your project directory in File Explorer, then right-click in the empty space and select "Open in Terminal."*
 
 Create a virtual environment:
 
