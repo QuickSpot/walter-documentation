@@ -290,48 +290,58 @@ You can write and test simple scripts directly in the REPL, such as the followin
 
 Uploading files to a Walter running MicroPython lets you deploy full scripts that are saved to the device’s filesystem, making them persistent and ready to run even after a reboot. Several tools are available, such as [Thonny](https://thonny.org/), [ampy](https://github.com/scientifichackers/ampy) and [rshell](https://github.com/dhylands/rshell). Thonny is an integrated development environment (IDE) designed for Python. It also supports MicroPython, making it a popular choice for uploading scripts to a MicroPython device.
 
-1. **Install Thonny**:
-   
-   - **Windows**: Download and install Thonny from the [official website](https://thonny.org/).
-   
-   - **Debian-based OS**: Install Thonny using the following command:
-     
-     ```shell
-     sudo apt-get install thonny
-     ```
+### Install Thonny
 
-2. **Connect Thonny to ESP32-S3**:
-   
-   - Open Thonny and go to `Tools` > `Options` > `Interpreter`.
-   
-   - Set the interpreter to `MicroPython (ESP32)`.
-   
-   - Set the port to `< Try to detect port automatically >`.
+<!-- tabs:start -->
 
-3. **Write and upload scripts**:
-   
-   - Write your MicroPython script in the editor.
-   
-   - Click the `Run current script` button to run the script on Walter.
+#### **Windows**
+
+Download and install Thonny from the [official website](https://thonny.org/).
+
+#### **Linux: Debian-based**
+
+Install Thonny using the following command:
+
+```shell
+sudo apt-get install thonny
+```
+
+#### **Linux: Fedora**
+
+Install Thonny using the following command:
+
+```shell
+sudo dnf install thonny
+```
+<!-- tabs:end -->
+
+### Connect Thonny to ESP32-S3
+
+- Open Thonny and go to `Tools` > `Options` > `Interpreter`.
+- Set the interpreter to `MicroPython (ESP32)`.
+- Set the port to `< Try to detect port automatically >`.
+
+### Write and upload scripts
+
+- Write your MicroPython script in the editor.
+- Click the `Run current script` button to run the script on Walter.
 
 ## Step 7: Using the Walter MicroPython library
 
 1. **Clone the Walter MicroPython library**:
-   
+
    ```shell
    git clone https://github.com/QuickSpot/walter-micropython.git
    ```
 
 2. **Open the repository in Thonny**:
-   
+
    - Open Thonny and ensure that the MicroPython interpreter is set up correctly (as done in Step 6).
-   
    - Go to `File` -> `Open...`.
-   
    - Navigate to the local directory where you cloned the repository.
 
 3. **Upload all files to Walter**:
-   
+
    - Upload the `boot.py`, `queue.py`, `walter.py` and `_walter.py` file by right clicking on each file and selecting `Upload to /`.  Now, the library is uploaded to Walter and the uploaded `boot.py` script will run on every restart.
 
 You can find some example applications for Walter in the `examples` folder.
