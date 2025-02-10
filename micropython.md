@@ -342,7 +342,7 @@ sudo dnf install thonny
 
 3. **Upload all files to Walter**:
 
-   - Upload the `boot.py`, `queue.py`, `walter.py` and `_walter.py` file by right clicking on each file and selecting `Upload to /`.  Now, the library is uploaded to Walter and the uploaded `boot.py` script will run on every restart.
+   - Upload the `boot.py`, `queue.py`, `walter.py` and `_walter.py` file by right clicking on each file and selecting `Upload to /`, if this option is not availble, click on: `File` -> `Save as...`, and select `MicroPython device`.  Now, the library is uploaded to Walter and the uploaded `boot.py` script will run on every restart.
 
 You can find some example applications for Walter in the `examples` folder.
 
