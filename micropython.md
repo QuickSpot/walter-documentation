@@ -6,76 +6,127 @@
 
 ## Step 1: Install Python and required tools
 
-### Windows
+### Python
 
-1. **Install Python**: Download and install Python from the [official website](https://www.python.org/downloads/). During installation, ensure you select the option to add Python to your PATH.
+<!-- tabs:start -->
 
-2. **Set up a Python virtual environment**:
-   
-   - Open Terminal and navigate to your project directory.
-   
-   - Create a virtual environment:
-     
-     ```shell
-     python -m venv micropython-env
-     ```
-   
-   - Activate the virtual environment:
-     
-     ```shell
-     micropython-env\Scripts\activate
-     ```
-   
-   - Your terminal prompt should change to indicate that the virtual environment is active.
+#### **Windows**
 
-3. **Install esptool**: [esptool](https://docs.espressif.com/projects/esptool/en/latest/esp32s3/index.html) is a Python-based tool that helps you flash the MicroPython firmware onto the ESP32-S3 SoC of your Walter board. Within the virtual environment, install esptool using pip:
-   
-   ```shell
-   pip install esptool
-   ```
+Download and install Python from the [official website](https://www.python.org/downloads/). During installation, ensure you select the option to add Python to your PATH.
 
-### Debian-based OS
+### **Linux: Debian based**
 
-1. **Install Python**: Most Debian-based systems come with Python pre-installed. Verify by running:
-   
-   ```shell
-   python3 --version
-   ```
-   
-   If not installed, install it with:
-   
-   ```shell
-   sudo apt-get update
-   sudo apt-get install python3 python3-pip
-   ```
+Most Debian-based systems come with Python pre-installed. Verify by running:
 
-2. **Set up a Python virtual environment**:
-   
-   - Install the `venv` module if it's not already installed:
-     
-     ```shell
-     sudo apt-get install python3-venv
-     ```
-   
-   - Create a virtual environment inside your project directory:
-     
-     ```shell
-     python3 -m venv micropython-env
-     ```
-   
-   - Activate the virtual environment:
-     
-     ```shell
-     source micropython-env/bin/activate
-     ```
-   
-   - Your terminal prompt should change to indicate that the virtual environment is active.
+```shell
+python3 --version
+```
 
-3. **Install esptool**: [esptool](https://docs.espressif.com/projects/esptool/en/latest/esp32s3/index.html) is a Python-based tool that helps you flash the MicroPython firmware onto the ESP32-S3 SoC of your Walter board. Within the virtual environment, install esptool using pip:
-   
-   ```shell
-   pip install esptool
-   ```
+If not installed, install it with:
+
+```shell
+sudo apt-get update
+sudo apt-get install python3 python3-pip
+```
+
+### **Linux: Fedora**
+
+Fedora normally comes with Python pre-installed, to verify this, run:
+
+```shell
+python3 --version
+```
+
+If Python is not installed on your system, you can install it like so:
+
+```shell
+sudo dnf install python3 python3-pip
+```
+
+<!-- tabs:end -->
+
+### Python virtual environment
+
+<!-- tabs:start -->
+
+#### **Windows**
+
+Open a terminal window in your project directory.
+
+- Open Terminal and navigate to the project directory with:
+
+```shell
+cd path/to/your/project/dir
+```
+
+Alternatively, navigate to your project directory in File Explorer, then right-click in the empty space and select "Open in Terminal."
+
+Create a virtual environment:
+
+```shell
+python -m venv micropython-env
+```
+
+Activate the virtual environment:
+
+```shell
+micropython-env\Scripts\activate
+```
+
+> **NOTE**\
+> In PowerShell, the activation command would be:
+>
+> ```ps
+> .\micropython-env\Scripts\Activate.ps1
+> ```
+
+#### **Linux: Debian based**
+
+Install the `venv` module if it's not already installed:
+
+```shell
+sudo apt-get install python3-venv
+```
+
+Create a virtual environment inside your project directory:
+
+```shell
+python3 -m venv micropython-env
+```
+
+Activate the virtual environment:
+
+```shell
+source micropython-env/bin/activate
+```
+
+### **Linux: Fedora**
+
+In Fedora, Python 3 includes the built-in venv module.
+
+Create a virtual environment inside your project directory:
+
+```shell
+python3 -m venv micropython-env
+```
+
+Activate the virtual environment:
+
+```shell
+source micropython-env/bin/activate
+```
+
+<!-- tabs:end -->
+
+*Your terminal prompt should change to indicate that the virtual environment is active.*
+
+### ESPTool
+
+[esptool](https://docs.espressif.com/projects/esptool/en/latest/esp32s3/index.html) is a Python-based tool that helps you flash the MicroPython firmware onto the ESP32-S3 SoC of your Walter board. Within the virtual environment, install esptool using pip:
+
+```shell
+pip install esptool
+```
 
 ## Step 2: Download MicroPython firmware
 
