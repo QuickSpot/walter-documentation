@@ -14,7 +14,7 @@
 
 Download and install Python from the [official website](https://www.python.org/downloads/). During installation, ensure you select the option to add Python to your PATH.
 
-### **Linux: Debian based**
+#### **Linux: Debian based**
 
 Most Debian-based systems come with Python pre-installed. Verify by running:
 
@@ -29,7 +29,7 @@ sudo apt-get update
 sudo apt-get install python3 python3-pip
 ```
 
-### **Linux: Fedora**
+#### **Linux: Fedora**
 
 Fedora normally comes with Python pre-installed, to verify this, run:
 
@@ -100,7 +100,7 @@ Activate the virtual environment:
 source micropython-env/bin/activate
 ```
 
-### **Linux: Fedora**
+#### **Linux: Fedora**
 
 In Fedora, Python 3 includes the built-in venv module.
 
