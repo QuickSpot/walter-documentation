@@ -51,7 +51,7 @@ sudo dnf install python3 python3-pip
 
 #### **Windows**
 
-1. Open a terminal window in your project directory.
+Open a terminal window in your project directory.
 
 - *Open "Terminal" and navigate to the project directory `cd path/to/your/project/dir`*
 - *Alternatively, navigate to your project directory in File Explorer, then right-click in the empty space and select "Open in Terminal."*
@@ -162,57 +162,45 @@ The port will look something like `/dev/ttyACM0`, remember the port for the foll
 
 ### **Windows**
 
-#### Erase the flash
+1. **Erase the flash** Run the following command, replacing `<your_port>` with your identifed port from the previous step:
 
-Run the following command, replacing `<your_port>` with your identifed port from the previous step:
+   ```shell
+   esptool --chip esp32s3 --port <your_port> erase_flash
+   ```
 
-```shell
-esptool --chip esp32s3 --port <your_port> erase_flash
-```
-
-#### Flash the firmware
-
-Use esptool to flash the MicroPython firmware onto the ESP32-S3. Replace `<your_port>` and `<firmware_path>` with your port and the path to the downloaded firmware:
+2. **Flash the firmware** Use esptool to flash the MicroPython firmware onto the ESP32-S3. Replace `<your_port>` and `<firmware_path>` with your port and the path to the downloaded firmware:
   
-```shell
-esptool --chip esp32s3 --port <your_port> write_flash -z 0 <firmware_path>
-```
+   ```shell
+   esptool --chip esp32s3 --port <your_port> write_flash -z 0 <firmware_path>
+   ```
 
 ### **Linux: Debian-based**
 
-#### Erase the flash
+1. **Erase the flash** Run the following command, replacing `<your_port>` with your identifed port from the previous step:
 
-Run the following command, replacing `<your_port>` with your identifed port from the previous step:
+   ```shell
+   esptool.py --chip esp32s3 --port <your_port> erase_flash
+   ```
 
-```shell
-esptool.py --chip esp32s3 --port <your_port> erase_flash
-```
+2. **Flash the firmware** Use esptool to flash the MicroPython firmware onto the ESP32-S3. Replace `<your_port>` and `<firmware_path>` with your port and the path to the downloaded firmware:
 
-#### Flash the firmware
-
-Use esptool to flash the MicroPython firmware onto the ESP32-S3. Replace `<your_port>` and `<firmware_path>` with your port and the path to the downloaded firmware:
-
-```shell
-esptool.py --chip esp32s3 --port <your_port> write_flash -z 0 <firmware_path>
-```
+   ```shell
+   esptool.py --chip esp32s3 --port <your_port> write_flash -z 0 <firmware_path>
+   ```
 
 ### **Linux: Fedora**
 
-#### Erase the flash
+1. **Erase the flash** Run the following command, replacing `<your_port>` with your identifed port from the previous step:
 
-Run the following command, replacing `<your_port>` with your identifed port from the previous step:
+   ```shell
+   esptool.py --chip esp32s3 --port <your_port> erase_flash
+   ```
 
-```shell
-esptool.py --chip esp32s3 --port <your_port> erase_flash
-```
+2. **Flash the firmware** Use esptool to flash the MicroPython firmware onto the ESP32-S3. Replace `<your_port>` and `<firmware_path>` with your port and the path to the downloaded firmware:
 
-#### Flash the firmware
-
-Use esptool to flash the MicroPython firmware onto the ESP32-S3. Replace `<your_port>` and `<firmware_path>` with your port and the path to the downloaded firmware:
-
-```shell
-esptool.py --chip esp32s3 --port <your_port> write_flash -z 0 <firmware_path>
-```
+   ```shell
+   esptool.py --chip esp32s3 --port <your_port> write_flash -z 0 <firmware_path>
+   ```
 
 <!-- tabs:end -->
 
@@ -220,52 +208,73 @@ esptool.py --chip esp32s3 --port <your_port> write_flash -z 0 <firmware_path>
 
 The REPL (Read-Eval-Print Loop) is an interactive prompt that allows you to run Python commands directly on the ESP32-S3.
 
-### Windows
+<!-- tabs:start -->
+
+### **Windows**
 
 1. **Install PuTTY**: Download and install PuTTY from the [official website](https://www.putty.org/).
 
 2. **Open PuTTY**:
-   
    - Set the connection type to `Serial`.
-   
    - Enter your COM port (e.g., `COM3`) and set the speed to `115200`.
-   
    - Click "Open" to start the session.
 
 3. **Access the REPL**: Press the `Enter` key. You should see the MicroPython prompt (`>>>`). Try typing the following in the prompt:
-   
+
    ```python
    >>> print('Hello Walter!')
    Hello Walter!
    ```
 
-### Debian-based OS
+### **Linux: Debian-based**
 
 1. **Install picocom**: If you don't have picocom installed, install it using:
-   
+
    ```shell
    sudo apt-get install picocom
    ```
 
 2. **Open a serial terminal**: Open picocom with the following command:
-   
+
    ```shell
    picocom -b 115200 <your_port>
    ```
 
 3. **Access the REPL**: Press the `Enter` key. You should see the MicroPython prompt (`>>>`). Try typing the following in the prompt:
-   
+
    ```python
    >>> print('Hello Walter!')
    Hello Walter!
    ```
+
+### **Linux: Fedora**
+
+1. **Install picocom**: If you don't have picocom installed, install it using:
+
+   ```shell
+   sudo dnf install picocom
+   ```
+
+2. **Open a serial terminal**: Open picocom with the following command:
+
+   ```shell
+   picocom -b 115200 <your_port>
+   ```
+
+3. **Access the REPL**: Press the `Enter` key. You should see the MicroPython prompt (`>>>`). Try typing the following in the prompt:
+
+   ```python
+   >>> print('Hello Walter!')
+   Hello Walter!
+   ```
+<!-- tabs:end -->
 
 ## Step 5: Writing and running your first MicroPython script
 
 You can write and test simple scripts directly in the REPL, such as the following Hello World example:
 
 1. **Hello World**: This simple script will print `Hello World` followed by a random int between 0 and 10 every second. Enter the following code in the REPL:
-   
+
    ```python
    from time import sleep
    from random import randint
