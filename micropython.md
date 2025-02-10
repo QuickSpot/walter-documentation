@@ -14,7 +14,7 @@
 
 Download and install Python from the [official website](https://www.python.org/downloads/). During installation, ensure you select the option to add Python to your PATH.
 
-#### **Linux: Debian based**
+#### **Linux: Debian-based**
 
 Most Debian-based systems come with Python pre-installed. Verify by running:
 
@@ -80,7 +80,7 @@ micropython-env\Scripts\activate
 > .\micropython-env\Scripts\Activate.ps1
 > ```
 
-#### **Linux: Debian based**
+#### **Linux: Debian-based**
 
 Install the `venv` module if it's not already installed:
 
