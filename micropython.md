@@ -158,11 +158,11 @@ The port will look something like `/dev/ttyACM0`, remember the port for the foll
 
 ## Step 3: Flash MicroPython onto the ESP32-S3
 
-### Erase the flash
-
 <!-- tabs:start -->
 
-#### **Windows**
+### **Windows**
+
+#### Erase the flash
 
 Run the following command, replacing `<your_port>` with your identifed port from the previous step:
 
@@ -170,29 +170,7 @@ Run the following command, replacing `<your_port>` with your identifed port from
 esptool --chip esp32s3 --port <your_port> erase_flash
 ```
 
-#### **Linux: Debian-based**
-
-Run the following command, replacing `<your_port>` with your identifed port from the previous step:
-
-```shell
-esptool.py --chip esp32s3 --port <your_port> erase_flash
-```
-
-#### **Linux: Fedora**
-
-Run the following command, replacing `<your_port>` with your identifed port from the previous step:
-
-```shell
-esptool.py --chip esp32s3 --port <your_port> erase_flash
-```
-
-<!-- tabs:end -->
-
-### Flash the firmware
-
-<!-- tabs:start -->
-
-#### **Windows**
+#### Flash the firmware
 
 Use esptool to flash the MicroPython firmware onto the ESP32-S3. Replace `<your_port>` and `<firmware_path>` with your port and the path to the downloaded firmware:
   
@@ -200,7 +178,17 @@ Use esptool to flash the MicroPython firmware onto the ESP32-S3. Replace `<your_
 esptool --chip esp32s3 --port <your_port> write_flash -z 0 <firmware_path>
 ```
 
-#### **Linux: Debian-based**
+### **Linux: Debian-based**
+
+#### Erase the flash
+
+Run the following command, replacing `<your_port>` with your identifed port from the previous step:
+
+```shell
+esptool.py --chip esp32s3 --port <your_port> erase_flash
+```
+
+#### Flash the firmware
 
 Use esptool to flash the MicroPython firmware onto the ESP32-S3. Replace `<your_port>` and `<firmware_path>` with your port and the path to the downloaded firmware:
 
@@ -208,13 +196,24 @@ Use esptool to flash the MicroPython firmware onto the ESP32-S3. Replace `<your_
 esptool.py --chip esp32s3 --port <your_port> write_flash -z 0 <firmware_path>
 ```
 
-#### **Linux: Fedora**
+### **Linux: Fedora**
+
+#### Erase the flash
+
+Run the following command, replacing `<your_port>` with your identifed port from the previous step:
+
+```shell
+esptool.py --chip esp32s3 --port <your_port> erase_flash
+```
+
+#### Flash the firmware
 
 Use esptool to flash the MicroPython firmware onto the ESP32-S3. Replace `<your_port>` and `<firmware_path>` with your port and the path to the downloaded firmware:
 
 ```shell
 esptool.py --chip esp32s3 --port <your_port> write_flash -z 0 <firmware_path>
 ```
+
 <!-- tabs:end -->
 
 ## Step 4: Access the MicroPython REPL
