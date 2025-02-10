@@ -125,21 +125,36 @@ pip install esptool
 
 ## Step 2: Download MicroPython firmware
 
-1. **Download the MicroPython firmware**: Visit the [MicroPython ESP32-S3 download page](https://micropython.org/download/ESP32_GENERIC_S3/) and download the latest stable **.bin** firmware release for the ESP32-S3.
+### Download the MicroPython firmware
 
-2. **Identify the correct COM port**:
-   
-   - **Windows**: Connect your Walter to your computer via USB. Identify the COM port by opening Device Manager and checking under "Ports (COM & LPT)". The port will be labeled something like `COM3` or `COM4`.
-   
-   - **Debian-based OS**: Connect your ESP32-S3 to your computer via USB and identify the port by running:
-     
-     ```shell
-     ls /dev/ttyACM*
-     ```
-     
-     The port will look something like `/dev/ttyACM0`.
-   
-   - Remember the port for the following steps.
+Visit the [MicroPython ESP32-S3 download page](https://micropython.org/download/ESP32_GENERIC_S3/) and download the latest stable **.bin** firmware release for the ESP32-S3.
+
+### Identify the correct COM port
+
+<!-- tabs:start -->
+
+#### **Windows**
+
+Connect your Walter to your computer via USB. Identify the COM port by opening Device Manager and checking under "Ports (COM & LPT)". The port will be labeled something like `COM3` or `COM4`.
+
+#### **Linux: Debian-based**
+
+Connect your ESP32-S3 to your computer via USB and identify the port by running:
+
+```shell
+ls /dev/ttyACM*
+```
+
+#### **Linux: Fedora**
+
+Connect your ESP32-S3 to your computer via USB and identify the port by running:
+
+```shell
+ls /dev/ttyACM*
+```
+<!-- tabs:end -->
+
+The port will look something like `/dev/ttyACM0`, remember the port for the following steps.
 
 ## Step 3: Flash MicroPython onto the ESP32-S3
 
