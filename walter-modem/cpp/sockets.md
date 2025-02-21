@@ -9,13 +9,37 @@
 
 ## methods
 ---
-### createSocket 
+### `createSocket`
 > Create a new socket in a certain PDP context.
 >
-> This function will create a new socket. After socket creation one can set additional socket settings and use the socket for communication.
+> This function will create a new socket. \
+> After socket creation one can set additional socket settings and use the socket for communication.
 
 > [!NOTE]
 > id's are from 1-6
+> 
+<!-- tabs:start -->
+#### **Arduino**
+```cpp
+WalterModemRsp rsp = {};
+int socketId = 0;
+if(modem.createSocket(&rsp)) {
+    Serial.printf("socket created successfully\n");
+    socketId = rsp.data.socketId;
+}
+```
+#### **ESP-IDF**
+```cpp
+WalterModemRsp rsp = {};
+int socketId = 0;
+if(modem.createSocket(&rsp)) {
+    ESP_LOGI("socket", "created successfully");
+    socketId = rsp.data.socketId;
+}
+```
+#### **Micropython**
+<!-- tabs:end -->
+
 #### params:
 
 <!-- tabs:start -->
@@ -49,7 +73,27 @@ True on success, false otherwise.
 
 ---
 
-## enums
+### `configSocket`
+> This step is required for the library to correctly configure the modem to use this socket.
+
+#### params:
+<!-- tabs:start -->
+#### **Arduino / ESP-IDF**
+| Param      | Description                                                                      | Default  |
+| ---------- | -------------------------------------------------------------------------------- | -------- |
+| `rsp`      | Pointer to a modem response structure to save the result of the command in.      | **NULL** |
+| `cb`       | Optional callback argument, when not NULL this function will return immediately. | **NULL** |
+| `args`     | Optional argument to pass to the callback.                                       | **NULL** |
+| `socketId` | The id of the socket to connect or -1 to re-use the last one.                    | **-1**   |
 
 
-## example ?
+
+#### **Micropython**
+| Param | Description | Default |
+| ----- | ----------- | ------- |
+
+<!-- tabs:end -->
+
+### Returns:
+`bool`
+True on success, false otherwise.
