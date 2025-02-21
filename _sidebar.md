@@ -2,9 +2,11 @@
 * [Walter module hardware](/hardware_walter.md)
 * [Walter feels hardware](/hardware_feels.md)
 * [Toit](/toit.md)
-* [Arduino](/arduino.md)
 * [Micropython](/micropython.md)
 * [ESP-IDF](/esp_idf.md)
 * [Zephyr](/zephyr.md)
 * [Cellular connectivity](/cellular_connectivity.md)
 * [Frequently Asked Questions](/faq.md)
+* walter modem
+    * [sockets](/walter-modem/cpp/sockets.md)
+    * [Arduino](/walter-modem/cpp/arduino.md)
