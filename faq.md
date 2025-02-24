@@ -112,14 +112,14 @@ The modem automatically enters its lowest power mode when:
 Example code for configuring power saving:
 ```cpp
 // Enable PSM (Power Saving Mode)
-modem.configPSM(WALTER_MODEM_PSM_ENABLE);
+modem.configPSM(WALTER_MODEM_PSM_ENABLE,"01101011", "00101010");
 
 // or configure eDRX
 modem.configEDRX();
 ```
 
 ### What happens when ESP32 goes into deep sleep?
-When configuring PSM using `configPSM(WALTER_MODEM_PSM_ENABLE)`, the modem will automatically enter sleep mode when the conditions are met. You don't need to explicitly disconnect from the network. The `configPSM()` function only configures the behavior and doesn't immediately trigger sleep mode.
+When configuring PSM using `configPSM(WALTER_MODEM_PSM_ENABLE, "01101011", "00101010")`, the modem will automatically enter sleep mode when the conditions are met. You don't need to explicitly disconnect from the network. The `configPSM()` function only configures the behavior and doesn't immediately trigger sleep mode.
 
 ## Troubleshooting
 

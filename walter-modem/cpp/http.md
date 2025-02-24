@@ -221,7 +221,14 @@ True on success, false otherwise.
  */
 uint8_t incomingBuf[256] = { 0 };
 
+/**
+ * @brief How many times we have left to receive response
+ */
 static short httpReceiveAttemptsLeft = 0;
+
+/**
+ * @brief Buffer for Content-Type
+ */
 static char ctbuf[32];
 
 
@@ -229,12 +236,40 @@ static char ctbuf[32];
 while(modem.httpDidRing(HTTP_PROFILE, incomingBuf, sizeof(incomingBuf), &rsp)) {
     httpReceiveAttemptsLeft = 0;
 
-    Serial.printf("http status code: %d\r\n", rsp.data.httpResponse.httpStatus);
-    Serial.printf("content type: %s\r\n", ctbuf);
-    Serial.printf("[%s]\r\n", incomingBuf);
+    Serial.printf("http: status code: %d\r\n", rsp.data.httpResponse.httpStatus);
+    Serial.printf("http: content type: %s\r\n", ctbuf);
+    Serial.printf("http: [%s]\r\n", incomingBuf);
 }
 ```
 #### **ESP-IDF**
+```cpp
+/**
+ * @brief Buffer for incoming HTTP response
+ */
+uint8_t incomingBuf[256] = { 0 };
+
+/**
+ * @brief How many times we have left to receive response
+ */
+static short httpReceiveAttemptsLeft = 0;
+
+/**
+ * @brief Buffer for Content-Type
+ */
+static char ctbuf[32];
+
+
+/* while loop so we can fetch old responses as well as the expected response */
+while(modem.httpDidRing(HTTP_PROFILE, incomingBuf, sizeof(incomingBuf), &rsp)) {
+    httpReceiveAttemptsLeft = 0;
+
+    ESP_LOGI("http", "status code: %d", rsp.data.httpResponse.httpStatus);
+    ESP_LOGI("http", "content type: %s", ctbuf);
+    ESP_LOGI("http", "[%s]\r\n", incomingBuf);
+}
+```
 #### **Micropython**
 <!-- tabs:end -->
+
+### params: 
 
