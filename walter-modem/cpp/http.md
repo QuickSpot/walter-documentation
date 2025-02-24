@@ -8,6 +8,10 @@
 
 ## enums overview
 
+- [WalterModemHttpSendCmd](#waltermodemhttpsendcmd)
+- [WalterModemHttpQueryCmd](#waltermodemhttpquerycmd)
+- [WalterModemHttpPostParam](#waltermodemhttppostparam)
+
 ## methods
 ---
 ### `httpConfigProfile`
@@ -142,8 +146,8 @@ if(modem.httpSend(HTTP_PROFILE, "/", dataBuf, 8, WALTER_MODEM_HTTP_SEND_CMD_POST
 | `uri`                | The URI                                                  | **None**                                     |
 | `data`               | Data to be sent to the server                            | **None**                                     |
 | `dataSize`           | Length of the data buffer to be sent to the server       | **None**                                     |
-| `httpSendCmd`        | POST or PUT command                                      | **WALTER_MODEM_HTTP_SEND_CMD_POST**          |
-| `httpPostParam`      | Content type (enum value)                                | **WALTER_MODEM_HTTP_POST_PARAM_UNSPECIFIED** |
+| `httpSendCmd`        | POST or PUT [command](#waltermodemhttpsendcmd)           | **WALTER_MODEM_HTTP_SEND_CMD_POST**          |
+| `httpPostParam`      | [Content type](#waltermodemhttppostparam) (enum value)   | **WALTER_MODEM_HTTP_POST_PARAM_UNSPECIFIED** |
 | `contentTypeBuf`     | Optional user buffer to store content type header in     | **NULL**                                     |
 | `contentTypeBufSize` | Size of the user buffer, including terminating null byte | **0**                                        |
 | `rsp`                | Response object                                          | **NULL**                                     |
@@ -195,7 +199,7 @@ if(modem.httpQuery(HTTP_PROFILE, "/", WALTER_MODEM_HTTP_QUERY_CMD_GET, ctbuf, si
 | -------------------- | -------------------------------------------------------- | ----------------------------------- |
 | `profileId`          | The profile id (0, 1, or 2) of the HTTP context          | **None**                            |
 | `uri`                | The URI                                                  | **None**                            |
-| `httpQueryCmd`       | GET, DELETE, or HEAD command                             | **WALTER_MODEM_HTTP_QUERY_CMD_GET** |
+| `httpQueryCmd`       | GET, DELETE, or HEAD [command](#waltermodemhttpquerycmd) | **WALTER_MODEM_HTTP_QUERY_CMD_GET** |
 | `contentTypeBuf`     | Optional user buffer to store content type header in     | **NULL**                            |
 | `contentTypeBufSize` | Size of the user buffer, including terminating null byte | **0**                               |
 | `rsp`                | Response object                                          | **NULL**                            |
@@ -271,5 +275,50 @@ while(modem.httpDidRing(HTTP_PROFILE, incomingBuf, sizeof(incomingBuf), &rsp)) {
 #### **Micropython**
 <!-- tabs:end -->
 
-### params: 
+### params:
+<!-- tabs:start -->
+#### **Arduino / ESP-IDF**
+| Param           | Description                                                                 | Default  |
+| --------------- | --------------------------------------------------------------------------- | -------- |
+| `profileId`     | Profile for which to get the response                                       | **None** |
+| `targetBuf`     | User buffer to store response in                                            | **None** |
+| `targetBufSize` | Size of the user buffer, including space for a terminating null byte        | **None** |
+| `rsp`           | Pointer to a modem response structure to save the result of the command in. | **NULL** |
 
+#### **Micropython**
+
+<!-- tabs:end -->
+
+## enums
+### `WalterModemHttpSendCmd`
+The possible commands for a HTTP send operation.
+
+> **WALTER_MODEM_HTTP_SEND_CMD_POST** = `0` \
+> perform a POST request \
+> **WALTER_MODEM_HTTP_SEND_CMD_PUT** = `1` \
+> perform PUT request \
+
+### `WalterModemHttpQueryCmd`
+The possible commands for a HTTP query operation.
+
+> **WALTER_MODEM_HTTP_QUERY_CMD_GET** = `0` \
+> perform a GET request \
+> **WALTER_MODEM_HTTP_QUERY_CMD_HEAD** = `1` \
+> perform a HEAD request \
+> **WALTER_MODEM_HTTP_QUERY_CMD_DELETE** = `2` \
+> perform a DELETE request
+
+### `WalterModemHttpPostParam`
+The possible post params for a HTTP send operation.
+
+> **WALTER_MODEM_HTTP_POST_PARAM_URL_ENCODED** = `0` \
+> param type is encoded in the url \
+> **WALTER_MODEM_HTTP_POST_PARAM_TEXT_PLAIN** = `1` \
+> param is plain text \
+> **WALTER_MODEM_HTTP_POST_PARAM_OCTET_STREAM** = `2` \
+> param is an octet/byte stream \
+> **WALTER_MODEM_HTTP_POST_PARAM_FORM_DATA** = `3` \
+> param is form data \
+> **WALTER_MODEM_HTTP_POST_PARAM_JSON** = `4` \
+> param is JSON
+> **WALTER_MODEM_HTTP_POST_PARAM_UNSPECIFIED** = `99` \
