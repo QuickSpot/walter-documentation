@@ -9,4 +9,5 @@
 * [Frequently Asked Questions](/faq.md)
 * walter modem
     * [sockets](/walter-modem/cpp/sockets.md)
+    * [http](/walter-modem/cpp/http.md)
     * [Arduino](/walter-modem/cpp/arduino.md)
