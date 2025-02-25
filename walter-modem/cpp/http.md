@@ -296,7 +296,7 @@ The possible commands for a HTTP send operation.
 > **WALTER_MODEM_HTTP_SEND_CMD_POST** = `0` \
 > perform a POST request \
 > **WALTER_MODEM_HTTP_SEND_CMD_PUT** = `1` \
-> perform PUT request \
+> perform PUT request
 
 ### `WalterModemHttpQueryCmd`
 The possible commands for a HTTP query operation.
