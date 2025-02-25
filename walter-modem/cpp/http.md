@@ -322,3 +322,4 @@ The possible post params for a HTTP send operation.
 > **WALTER_MODEM_HTTP_POST_PARAM_JSON** = `4` \
 > param is JSON
 > **WALTER_MODEM_HTTP_POST_PARAM_UNSPECIFIED** = `99` \
+> param is unspecified
