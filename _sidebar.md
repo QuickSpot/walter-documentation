@@ -7,7 +7,8 @@
 * [Zephyr](/zephyr.md)
 * [Cellular connectivity](/cellular_connectivity.md)
 * [Frequently Asked Questions](/faq.md)
-* walter modem
+* Walter Modem library
     * [sockets](/walter-modem/cpp/sockets.md)
-    * [http](/walter-modem/cpp/http.md)
+    * [HTTP](/walter-modem/cpp/http.md)
+    * [MQTT](/walter-modem/cpp/mqtt.md)
     * [Arduino](/walter-modem/cpp/arduino.md)
