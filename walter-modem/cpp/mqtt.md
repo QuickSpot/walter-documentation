@@ -5,8 +5,6 @@
 - [mqttPublish](#mqttpublish)
 - [mqttDidRing](#mqttdidring)
 
-## enums overview
-
 ## methods
 ### `mqttConnect`
 > Initialize MQTT and establish connection in one call.
@@ -251,3 +249,6 @@ while(modem.mqttDidRing("waltertopic", incomingBuf, sizeof(incomingBuf), &rsp)) 
 #### **Micropython**
 <!-- tabs:end -->
 
+### Returns:
+`bool`
+True on success, false if no message arrived or error or no message expected (eg no ring received).
