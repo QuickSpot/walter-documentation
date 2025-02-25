@@ -112,14 +112,14 @@ The modem automatically enters its lowest power mode when:
 Example code for configuring power saving:
 ```cpp
 // Enable PSM (Power Saving Mode)
-modem.configPSM(WALTER_MODEM_PSM_ENABLE);
+modem.configPSM(WALTER_MODEM_PSM_ENABLE,"01101011", "00101010");
 
 // or configure eDRX
 modem.configEDRX();
 ```
 
 ### What happens when ESP32 goes into deep sleep?
-When configuring PSM using `configPSM(WALTER_MODEM_PSM_ENABLE)`, the modem will automatically enter sleep mode when the conditions are met. You don't need to explicitly disconnect from the network. The `configPSM()` function only configures the behavior and doesn't immediately trigger sleep mode.
+When configuring PSM using `configPSM(WALTER_MODEM_PSM_ENABLE, "01101011", "00101010")`, the modem will automatically enter sleep mode when the conditions are met. You don't need to explicitly disconnect from the network. The `configPSM()` function only configures the behavior and doesn't immediately trigger sleep mode.
 
 ## Troubleshooting
 
@@ -142,5 +142,5 @@ modem.setDebug(true);
 ```
 ### Serial Monitor issues with sleep mode?
 The Arduino IDE serial monitor may not reconnect properly after sleep mode. This is due to the fact that Walter uses the USB-Serial hardware that is built-in into the ESP32-S3, this converter is powered off in deep sleep which effectively disconnects the Walter module from the host computer during deep sleep. Not all software can handle this correctly, possible solutions are:
-1. Use Visual Studio Code with the Serial Monitor extension
+1. Use Visual Studio Code with the [Serial Monitor extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-serial-monitor)
 2. Use an external USB-to-UART converter
