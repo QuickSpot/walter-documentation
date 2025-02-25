@@ -3,7 +3,7 @@
 - [mqttConnect](#mqttconnect)
 - [mqttSubscribe](#mqttSubscribe)
 - [mqttPublish](#mqttpublish)
-- [mqttDidRing]()
+- [mqttDidRing](#mqttdidring)
 
 ## enums overview
 
@@ -228,3 +228,26 @@ while(modem.mqttDidRing("waltertopic", incomingBuf, sizeof(incomingBuf), &rsp)) 
 
 #### **Micropython**
 <!-- tabs:end -->
+
+### params:
+
+<!-- tabs:start -->
+#### **Arduino**
+| Param           | Description                                                                                           | Default  |
+| --------------- | ----------------------------------------------------------------------------------------------------- | -------- |
+| `topic`         | Topic to poll                                                                                         | **None** |
+| `targetBuf`     | Target buffer to write incoming MQTT data in                                                          | **None** |
+| `targetBufSize` | Size of the target buffer                                                                             | **None** |
+| `rsp`           | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored | **NULL** |
+
+#### **ESP-IDF**
+| Param           | Description                                                                                           | Default  |
+| --------------- | ----------------------------------------------------------------------------------------------------- | -------- |
+| `topic`         | Topic to poll                                                                                         | **None** |
+| `targetBuf`     | Target buffer to write incoming MQTT data in                                                          | **None** |
+| `targetBufSize` | Size of the target buffer                                                                             | **None** |
+| `rsp`           | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored | **NULL** |
+
+#### **Micropython**
+<!-- tabs:end -->
+
