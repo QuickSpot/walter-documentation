@@ -68,7 +68,21 @@ if(modem.httpConfigProfile(HTTP_PROFILE, "tls13.akamai.io", 443, TLS_PROFILE)) {
 
 ### params:
 <!-- tabs:start -->
-#### **Arduino / ESP-IDF**
+#### **Arduino**
+| Param          | Description                                                                                                           | Default   |
+| -------------- | --------------------------------------------------------------------------------------------------------------------- | --------- |
+| `profileId`    | HTTP profile id (0, 1 or 2)                                                                                           | **None**  |
+| `serverName`   | The server name to connect to.                                                                                        | **None**  |
+| `port`         | The port of the server to connect to.                                                                                 | **80**    |
+| `tlsProfileId` | If not 0, TLS is used with the given profile (1-6).                                                                   | **0**     |
+| `useBasicAuth` | Set true to use basic auth and send username/pw.                                                                      | **false** |
+| `authUser`     | Username.                                                                                                             | **""**    |
+| `authPass`     | Password.                                                                                                             | **""**    |
+| `rsp`          | Pointer to a modem response structure to save the result of the command in. When NULL is given the result is ignored. | **NULL**  |
+| `cb`           | Optional callback argument, when not NULL this function will return immediately.                                      | **NULL**  |
+| `args`         | Optional argument to pass to the callback.                                                                            | **NULL**  |
+
+#### **ESP-IDF**
 | Param          | Description                                                                                                           | Default   |
 | -------------- | --------------------------------------------------------------------------------------------------------------------- | --------- |
 | `profileId`    | HTTP profile id (0, 1 or 2)                                                                                           | **None**  |
@@ -139,7 +153,7 @@ if(modem.httpSend(HTTP_PROFILE, "/", dataBuf, 8, WALTER_MODEM_HTTP_SEND_CMD_POST
 
 ### params:
 <!-- tabs:start -->
-#### **Arduino / ESP-IDF**
+#### **Arduino**
 | Param                | Description                                              | Default                                      |
 | -------------------- | -------------------------------------------------------- | -------------------------------------------- |
 | `profileId`          | The profile id (0, 1 or 2) of the HTTP context           | **None**                                     |
@@ -153,6 +167,22 @@ if(modem.httpSend(HTTP_PROFILE, "/", dataBuf, 8, WALTER_MODEM_HTTP_SEND_CMD_POST
 | `rsp`                | Response object                                          | **NULL**                                     |
 | `cb`                 | Callback                                                 | **NULL**                                     |
 | `args`               | Callback arguments                                       | **NULL**                                     |
+
+#### **ESP-IDF**
+| Param                | Description                                              | Default                                      |
+| -------------------- | -------------------------------------------------------- | -------------------------------------------- |
+| `profileId`          | The profile id (0, 1 or 2) of the HTTP context           | **None**                                     |
+| `uri`                | The URI                                                  | **None**                                     |
+| `data`               | Data to be sent to the server                            | **None**                                     |
+| `dataSize`           | Length of the data buffer to be sent to the server       | **None**                                     |
+| `httpSendCmd`        | POST or PUT [command](#waltermodemhttpsendcmd)           | **WALTER_MODEM_HTTP_SEND_CMD_POST**          |
+| `httpPostParam`      | [Content type](#waltermodemhttppostparam) (enum value)   | **WALTER_MODEM_HTTP_POST_PARAM_UNSPECIFIED** |
+| `contentTypeBuf`     | Optional user buffer to store content type header in     | **NULL**                                     |
+| `contentTypeBufSize` | Size of the user buffer, including terminating null byte | **0**                                        |
+| `rsp`                | Response object                                          | **NULL**                                     |
+| `cb`                 | Callback                                                 | **NULL**                                     |
+| `args`               | Callback arguments                                       | **NULL**                                     |
+
 #### **Micropython**
 <!-- tabs:end -->
 
@@ -194,7 +224,7 @@ if(modem.httpQuery(HTTP_PROFILE, "/", WALTER_MODEM_HTTP_QUERY_CMD_GET, ctbuf, si
 
 ### params:
 <!-- tabs:start -->
-#### **Arduino / ESP-IDF**
+#### **Arduino**
 | Param                | Description                                              | Default                             |
 | -------------------- | -------------------------------------------------------- | ----------------------------------- |
 | `profileId`          | The profile id (0, 1, or 2) of the HTTP context          | **None**                            |
@@ -205,6 +235,19 @@ if(modem.httpQuery(HTTP_PROFILE, "/", WALTER_MODEM_HTTP_QUERY_CMD_GET, ctbuf, si
 | `rsp`                | Response object                                          | **NULL**                            |
 | `cb`                 | Callback                                                 | **NULL**                            |
 | `args`               | Callback arguments                                       | **NULL**                            |
+
+#### **ESP-IDF**
+| Param                | Description                                              | Default                             |
+| -------------------- | -------------------------------------------------------- | ----------------------------------- |
+| `profileId`          | The profile id (0, 1, or 2) of the HTTP context          | **None**                            |
+| `uri`                | The URI                                                  | **None**                            |
+| `httpQueryCmd`       | GET, DELETE, or HEAD [command](#waltermodemhttpquerycmd) | **WALTER_MODEM_HTTP_QUERY_CMD_GET** |
+| `contentTypeBuf`     | Optional user buffer to store content type header in     | **NULL**                            |
+| `contentTypeBufSize` | Size of the user buffer, including terminating null byte | **0**                               |
+| `rsp`                | Response object                                          | **NULL**                            |
+| `cb`                 | Callback                                                 | **NULL**                            |
+| `args`               | Callback arguments                                       | **NULL**                            |
+
 #### **Micropython**
 <!-- tabs:end -->
 
@@ -277,7 +320,15 @@ while(modem.httpDidRing(HTTP_PROFILE, incomingBuf, sizeof(incomingBuf), &rsp)) {
 
 ### params:
 <!-- tabs:start -->
-#### **Arduino / ESP-IDF**
+#### **Arduino**
+| Param           | Description                                                                 | Default  |
+| --------------- | --------------------------------------------------------------------------- | -------- |
+| `profileId`     | Profile for which to get the response                                       | **None** |
+| `targetBuf`     | User buffer to store response in                                            | **None** |
+| `targetBufSize` | Size of the user buffer, including space for a terminating null byte        | **None** |
+| `rsp`           | Pointer to a modem response structure to save the result of the command in. | **NULL** |
+
+#### **ESP-IDF**
 | Param           | Description                                                                 | Default  |
 | --------------- | --------------------------------------------------------------------------- | -------- |
 | `profileId`     | Profile for which to get the response                                       | **None** |

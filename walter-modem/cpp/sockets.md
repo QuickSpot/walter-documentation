@@ -22,7 +22,8 @@
 
 > [!NOTE]
 > id's are from **1-6**.
-> 
+
+
 <!-- tabs:start -->
 #### **Arduino**
 ```cpp
@@ -33,6 +34,7 @@ if(modem.createSocket(&rsp)) {
     socketId = rsp.data.socketId;
 }
 ```
+
 #### **ESP-IDF**
 ```cpp
 WalterModemRsp rsp = {};
@@ -43,33 +45,45 @@ if(modem.createSocket(&rsp)) {
 }
 ```
 #### **Micropython**
+
 <!-- tabs:end -->
 
-#### params:
+### params:
 
 <!-- tabs:start -->
-#### **Arduino / ESP-IDF**
-| Param | Description | Default
-| --- | --- | ---
-| `rsp` | Pointer to a [modem response structure]() to save the result of the command in. When NULL is given the result is ignored. | **None** |
-| `cb` | Optional callback argument, when not NULL this function will return immediately. | **nullptr** |
-| `args` | Optional argument to pass to the callback. | **nullptr** |
-| `pdpCtxId` | The PDP context id or -1 to re-use the last one. | **-1** |
-| `mtu`  | The maximum transmission unit used by the socket. | **300** |
-| `exchangeTimeout` | The maximum number of seconds this socket can be inactive. | **90** |
-| `connTimeout` | The maximum number of seconds this socket is allowed to try to connect | **60** |
-| `sendDelayMs` | The number of milliseconds send delay | **5000** |
+#### **Arduino**
+| Param             | Description                                                                                                               | Default     |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `rsp`             | Pointer to a [modem response structure]() to save the result of the command in. When NULL is given the result is ignored. | **None**    |
+| `cb`              | Optional callback argument, when not NULL this function will return immediately.                                          | **nullptr** |
+| `args`            | Optional argument to pass to the callback.                                                                                | **nullptr** |
+| `pdpCtxId`        | The PDP context id or -1 to re-use the last one.                                                                          | **-1**      |
+| `mtu`             | The maximum transmission unit used by the socket.                                                                         | **300**     |
+| `exchangeTimeout` | The maximum number of seconds this socket can be inactive.                                                                | **90**      |
+| `connTimeout`     | The maximum number of seconds this socket is allowed to try to connect                                                    | **60**      |
+| `sendDelayMs`     | The number of milliseconds send delay                                                                                     | **5000**    |
+
+#### **ESP-IDF**
+| Param             | Description                                                                                                               | Default     |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `rsp`             | Pointer to a [modem response structure]() to save the result of the command in. When NULL is given the result is ignored. | **None**    |
+| `cb`              | Optional callback argument, when not NULL this function will return immediately.                                          | **nullptr** |
+| `args`            | Optional argument to pass to the callback.                                                                                | **nullptr** |
+| `pdpCtxId`        | The PDP context id or -1 to re-use the last one.                                                                          | **-1**      |
+| `mtu`             | The maximum transmission unit used by the socket.                                                                         | **300**     |
+| `exchangeTimeout` | The maximum number of seconds this socket can be inactive.                                                                | **90**      |
+| `connTimeout`     | The maximum number of seconds this socket is allowed to try to connect                                                    | **60**      |
+| `sendDelayMs`     | The number of milliseconds send delay                                                                                     | **5000**    |
 
 #### **Micropython**
 
-| Param | Description | Default
-| --- | --- | ---
-| `pdp_context_id` | The PDP context id or -1 to re-use the last one. | **-1** |
-| `mtu`  | The maximum transmission unit used by the socket. | **300** |
-| `exchange_timeout` | The maximum number of seconds this socket can be inactive. | **90** |
-| `conn_timeout` | The maximum number of seconds this socket is allowed to try to connect | **60** |
-| `send_delay_ms` | The number of milliseconds send delay | **5000** |
-
+| Param              | Description                                                            | Default  |
+| ------------------ | ---------------------------------------------------------------------- | -------- |
+| `pdp_context_id`   | The PDP context id or -1 to re-use the last one.                       | **-1**   |
+| `mtu`              | The maximum transmission unit used by the socket.                      | **300**  |
+| `exchange_timeout` | The maximum number of seconds this socket can be inactive.             | **90**   |
+| `conn_timeout`     | The maximum number of seconds this socket is allowed to try to connect | **60**   |
+| `send_delay_ms`    | The number of milliseconds send delay                                  | **5000** |
 <!-- tabs:end -->
 
 ### Returns:
@@ -103,7 +117,15 @@ if(modem.configSocket()) {
 
 #### params:
 <!-- tabs:start -->
-#### **Arduino / ESP-IDF**
+#### **Arduino**
+| Param      | Description                                                                      | Default  |
+| ---------- | -------------------------------------------------------------------------------- | -------- |
+| `rsp`      | Pointer to a modem response structure to save the result of the command in.      | **NULL** |
+| `cb`       | Optional callback argument, when not NULL this function will return immediately. | **NULL** |
+| `args`     | Optional argument to pass to the callback.                                       | **NULL** |
+| `socketId` | The id of the socket to connect or **-1 to re-use the last one.**                | **-1**   |
+
+#### **ESP-IDF**
 | Param      | Description                                                                      | Default  |
 | ---------- | -------------------------------------------------------------------------------- | -------- |
 | `rsp`      | Pointer to a modem response structure to save the result of the command in.      | **NULL** |
@@ -172,10 +194,23 @@ if(modem.connectSocket(SERV_ADDR, SERV_PORT, SERV_PORT)) {
 #### **Micropython**
 <!-- tabs:end -->
 
-#### params:
+### params:
 <!-- tabs:start -->
 
-##### **Arduino / ESP-IDF**
+#### **Arduino**
+| Param             | Description                                                                      | Default                                     |
+| ----------------- | -------------------------------------------------------------------------------- | ------------------------------------------- |
+| `remoteHost`      | The remote IPv4/IPv6 or hostname to connect to.                                  | **None**                                    |
+| `remotePort`      | The remote port to connect on.                                                   | **None**                                    |
+| `localPort`       | The local port in case of a UDP socket.                                          | **0**                                       |
+| `rsp`             | Pointer to a modem response structure to save the result of the command in.      | **NULL**                                    |
+| `cb`              | Optional callback argument, when not NULL this function will return immediately. | **NULL**                                    |
+| `args`            | Optional argument to pass to the callback.                                       | **NULL**                                    |
+| `protocol`        | The [protocol](#waltermodemsocketproto) to use, UDP by default.                  | **WALTER_MODEM_SOCKET_PROTO_UDP**           |
+| `acceptAnyRemote` | How to [accept remote](#waltermodemsocketacceptanyremote) UDP packets.           | **WALTER_MODEM_ACCEPT_ANY_REMOTE_DISABLED** |
+| `socketId`        | The id of the socket to connect or **-1 to re-use the last one**.                | **-1**                                      |
+
+#### **ESP-IDF**
 | Param             | Description                                                                      | Default                                     |
 | ----------------- | -------------------------------------------------------------------------------- | ------------------------------------------- |
 | `remoteHost`      | The remote IPv4/IPv6 or hostname to connect to.                                  | **None**                                    |
@@ -189,6 +224,7 @@ if(modem.connectSocket(SERV_ADDR, SERV_PORT, SERV_PORT)) {
 | `socketId`        | The id of the socket to connect or **-1 to re-use the last one**.                | **-1**                                      |
 
 #### **Micropython**
+
 <!-- tabs:end -->
 ### Returns:
 `bool`
@@ -257,7 +293,7 @@ if(modem.socketSend(dataBuf, 8)) {
 #### params:
 <!-- tabs:start -->
 
-##### **Arduino / ESP-IDF**
+#### **Arduino**
 | Param      | Description                                                                      | Default                      |
 | ---------- | -------------------------------------------------------------------------------- | ---------------------------- |
 | `data`     | The data to send.                                                                | **None**                     |
@@ -268,7 +304,18 @@ if(modem.socketSend(dataBuf, 8)) {
 | `rai`      | The release assistance information.                                              | **WALTER_MODEM_RAI_NO_INFO** |
 | `socketId` | The id of the socket to close or **-1 to re-use the last one.**                  | **-1**                       |
 
-##### **Micropython**
+#### **ESP-IDF**
+| Param      | Description                                                                      | Default                      |
+| ---------- | -------------------------------------------------------------------------------- | ---------------------------- |
+| `data`     | The data to send.                                                                | **None**                     |
+| `dataSize` | The number of bytes to transmit.                                                 | **None**                     |
+| `rsp`      | Pointer to a modem response structure to save the result of the command in.      | **NULL**                     |
+| `cb`       | Optional callback argument, when not NULL this function will return immediately. | **NULL**                     |
+| `args`     | Optional argument to pass to the callback.                                       | **NULL**                     |
+| `rai`      | The release assistance information.                                              | **WALTER_MODEM_RAI_NO_INFO** |
+| `socketId` | The id of the socket to close or **-1 to re-use the last one.**                  | **-1**                       |
+
+#### **Micropython**
 
 <!-- tabs:end -->
 
@@ -284,10 +331,10 @@ True on success, false otherwise.
 > [!WARNING]
 > Sockets can only be **closed** when they are **suspended or inactive**.
 
-#### params:
+### params:
 
 <!-- tabs:start -->
-##### **Arduinp / ESP-IDF**
+#### **Arduino**
 | Param      | Description                                                                      | Default  |
 | ---------- | -------------------------------------------------------------------------------- | -------- |
 | `rsp`      | Pointer to a modem response structure to save the result of the command in.      | **NULL** |
@@ -295,7 +342,15 @@ True on success, false otherwise.
 | `args`     | Optional argument to pass to the callback.                                       | **NULL** |
 | `socketId` | The id of the socket to close or **-1 to re-use the last one.**                  | **-1**   |
 
-##### **Micropython**
+#### **ESP-IDF**
+| Param      | Description                                                                      | Default  |
+| ---------- | -------------------------------------------------------------------------------- | -------- |
+| `rsp`      | Pointer to a modem response structure to save the result of the command in.      | **NULL** |
+| `cb`       | Optional callback argument, when not NULL this function will return immediately. | **NULL** |
+| `args`     | Optional argument to pass to the callback.                                       | **NULL** |
+| `socketId` | The id of the socket to close or **-1 to re-use the last one.**                  | **-1**   |
+
+#### **Micropython**
 
 <!-- tabs:end -->
 
