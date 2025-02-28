@@ -1,3 +1,135 @@
+# Getting Started
+
+<!-- tabs:start -->
+
+## **ESP-IDF**
+
+# Using ESP-IDF with the Walter Modem
+
+## Introduction
+
+> If you have already set up the ESP-IDF development environment and want to
+> quickly start with Walter you can download our ESP-IDF library and run some
+> examples. All source code is available on Github: 
+> https://github.com/QuickSpot/walter-esp-idf
+
+## vscode
+> [!NOTE]
+> vscode usage is recommended!
+## Step 1: installing the ESP-IDF extension
+
+> To start with vscode you will need the [ESP-IDF](https://marketplace.visualstudio.com/items?itemName=espressif.esp-idf-extension) extension.
+>
+> After installing the extension you will be prompted to setup the extension.
+>
+> Select the latest ESP-IDF version and click install. \
+> ![esp-idf-setup](../../img/esp-idf-setup.png)
+>
+> After that the extension will install all necessary tools required for using esp32 \
+> ![esp-idf-install](../../img/esp-idf-install.png)
+
+## step 2: Create a new project.
+
+> To create a new project enter the following command in the vscode quikmenu:
+> ```VSCODE
+> >ESP-IDF:Create project from Extension Template
+> ```
+> And select the `template-app`.
+## Step 3: Install the walter-modem ESP-IDF component.
+> After installing the extension you will have to install the [walter modem](https://components.espressif.com/components/dptechnics/walter-modem/) library.
+
+> [!WARNING]
+> idf.py commands should pe passed down to the ESP-IDF terminal. \
+> ```VSCODE
+> >ESP-IDF: Open ESP-IDF Terminal
+> ```
+
+>Execute the following command in the ESP-IDF terminal:
+>```ESP-IDF terminal
+>idf.py add-dependency "dptechnics/walter-modem^1.1.3"
+>```
+
+> [!NOTE]
+> viewing the component registry cann be done using the following command:
+> 
+>```VSCODE
+> >ESP-IDF: Show ESP Component Registry
+>```
+
+## Step 4: Setting the Device Target.
+after installing the walter modem extension the Device Target needs to be set to esp32s3 (this needs to be done for each project)
+>vscode quikmenu command:
+```VSCODE
+>ESP-IDF: Set Espressif Device Target
+```
+## examples
+[github examples](https://github.com/QuickSpot/walter-esp-idf/tree/main/examples)
+
+## **Arduino**
+
+# Using arduino with the Walter Modems
+
+## Introduction
+
+[Arduino](https://www.arduino.cc/) is an open-source electronics platform based on easy-to-use hardware and software. This tutorial will guide you through setting up Arduino on Walter, running your first sketch, and using the [Walter Arduino library](https://github.com/QuickSpot/walter-arduino).
+
+
+## step 1: Installing the arduino IDE
+Download and install the Arduino IDE from the [official website](https://www.arduino.cc/en/software).
+
+## step2: Install the ESP32 board manager
+> ![ESP32 board manager](../../img/arduino_board_manager.png)
+
+## step3: Installing the walter modem library
+> The walter modem libray can be installed via the build in arduino library manager. \
+> ![Arduino libary Manager](../../img/arduino_library_manager.png)
+
+## step4: Opening an example
+> [!NOTE]
+> The walter modem libary has some useful examples, it is also recommended to start from one of these examples!
+
+> To open example you will have to go to the libary manager again ad type in `WalterModem`. \
+> After you have done that, you can hover on the top right corner and `3 dots` will appear with `more actions ...`. \
+> ![Arduino Examples](../../img/arduino_examples.png)
+
+## step6: Selecting the board
+> To select the board you must click the board selection button on the `top left`. \
+> ![Board Selection](../../img/board_selection.png)
+>
+> After having pressed the button you can search for the `DPTechnics Walter` board. \
+> ![Board Selection Screen](../../img/board_selection_screen.png)
+
+## step7: Applying the board configuration
+> [!NOTE]
+> The board configuration can be set automatically by pressing the `Get Board Info` button in the `Tools` tab.
+### configuration:
+ - Board: ESP32S3 Dev Module
+ - Upload Speed: 921600
+ - USB Mode: Hardware CDC and JTAG
+ - USB CDC On Boot: Enabled
+ - USB Firmware MSC On Boot: Disabled
+ - USB DFU On Boot: Disabled
+ - Upload Mode: UART0 / Hardware CDC
+ - CPU Frequency: 240MHz (WiFi)
+ - Flash Mode: QIO 80MHz
+ - Flash Size: 16MB (128Mb)
+ - Partition Scheme: 16M Flash (2MB APP/12.5MB FATFS) (must be this partition scheme to make modem firmware updates possible)
+ - Core Debug Level: Anything that goes for you
+ - PSRAM: QSPI PSRAM
+ - Arduino Runs On: Core 1
+ - Events Run On: Core 1
+ - Erase All Flash Before Sketch Upload: Enabled
+ - JTAG Adapter: Integrated USB JTAG
+ - Zigbee Mode: Disabled
+
+> That's it, you can now run any of the examples and connect to the internet.
+
+## Aditional Resources
+- [library source](https://github.com/QuickSpot/walter-arduino
+)
+
+## **Micropython**
+
 # Using MicroPython with the Walter board
 
 ## Introduction
@@ -68,7 +200,7 @@ Activate the virtual environment:
 micropython-env\Scripts\activate
 ```
 
-> **NOTE**\
+> [!NOTE]
 > In PowerShell, the activation command would be:
 >
 > ```ps
@@ -381,3 +513,5 @@ modem.begin(main)
 - [Thonny IDE](https://thonny.org/)
 - [scientifichackers/ampy: MicroPython Tool - Utility to interact with a MicroPython board over a serial connection.](https://github.com/scientifichackers/ampy)
 - [dhylands/rshell: Remote Shell for MicroPython](https://github.com/dhylands/rshell)
+
+<!-- tabs:end -->
