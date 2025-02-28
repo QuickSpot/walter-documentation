@@ -12,10 +12,54 @@
 
 [Arduino](https://www.arduino.cc/) is an open-source electronics platform based on easy-to-use hardware and software. This tutorial will guide you through setting up Arduino on Walter, running your first sketch, and using the [Walter Arduino library](https://github.com/QuickSpot/walter-arduino).
 
-### step 1: installing the arduino IDE
+
+## step 1: installing the arduino IDE
 Download and install the Arduino IDE from the [official website](https://www.arduino.cc/en/software).
 
-#### step2: install the ESP32 board manager
+## step2: install the ESP32 board manager
+> ![ESP32 board manager](../../img/arduino_board_manager.png)
+
+## step3: installing the walter modem library
+> The walter modem libray can be installed via the build in arduino library manager. \
+> ![Arduino libary Manager](../../img/arduino_library_manager.png)
+
+## step4: opening an example
+> [!NOTE]
+> The walter modem libary has some useful examples, it is also recommended to start from one of these examples!
+
+> To open example you will have to go to the libary manager again ad type in `WalterModem`. \
+> After you have done that, you can hover on the top right corner and `3 dots` will appear with `more actions ...`. \
+> ![Arduino Examples](../../img/arduino_examples.png)
+
+## step6: Selecting the board
+> To select the board you must click the board selection button on the `top left`. \
+> ![Board Selection](../../img/board_selection.png)
+>
+> After having pressed the button you can search for the `DPTechnics Walter` board. \
+> ![Board Selection Screen](../../img/board_selection_screen.png)
+
+## step7: board configuration
+> [!NOTE]
+> The board configuration can be set automatically by pressing the `Get Board Info` button in the `Tools` tab.
+### configuration:
+ - Board: ESP32S3 Dev Module
+ - Upload Speed: 921600
+ - USB Mode: Hardware CDC and JTAG
+ - USB CDC On Boot: Enabled
+ - USB Firmware MSC On Boot: Disabled
+ - USB DFU On Boot: Disabled
+ - Upload Mode: UART0 / Hardware CDC
+ - CPU Frequency: 240MHz (WiFi)
+ - Flash Mode: QIO 80MHz
+ - Flash Size: 16MB (128Mb)
+ - Partition Scheme: 16M Flash (2MB APP/12.5MB FATFS) (must be this partition scheme to make modem firmware updates possible)
+ - Core Debug Level: Anything that goes for you
+ - PSRAM: QSPI PSRAM
+ - Arduino Runs On: Core 1
+ - Events Run On: Core 1
+ - Erase All Flash Before Sketch Upload: Enabled
+ - JTAG Adapter: Integrated USB JTAG
+ - Zigbee Mode: Disabled
 
 ## **Micropython**
 
