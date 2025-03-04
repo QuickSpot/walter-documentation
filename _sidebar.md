@@ -9,7 +9,7 @@
 * [Frequently Asked Questions](/faq.md)
 * Walter Modem library
     * [Getting Started](/walter-modem/getting_started.md)
-    * [sockets](/walter-modem/cpp/sockets.md)
+    * [Sockets](/walter-modem/cpp/sockets.md)
     * [HTTP](/walter-modem/cpp/http.md)
     * [MQTT](/walter-modem/cpp/mqtt.md)
     * [Arduino](/walter-modem/cpp/arduino.md)
