@@ -8,7 +8,8 @@
 * [Cellular connectivity](/cellular_connectivity.md)
 * [Frequently Asked Questions](/faq.md)
 * Walter Modem library
-    * [sockets](/walter-modem/cpp/sockets.md)
+    * [Getting Started](/walter-modem/getting_started.md)
+    * [Sockets](/walter-modem/cpp/sockets.md)
     * [HTTP](/walter-modem/cpp/http.md)
     * [MQTT](/walter-modem/cpp/mqtt.md)
     * [Arduino](/walter-modem/cpp/arduino.md)
