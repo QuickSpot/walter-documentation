@@ -13,7 +13,9 @@
 - [WalterModemHttpPostParam](#waltermodemhttppostparam)
 
 ## methods
+
 ---
+
 ### `httpConfigProfile`
 > Configure a HTTP profile.
 >
@@ -28,6 +30,7 @@
 
 <!-- tabs:start -->
 #### **Arduino**
+
 ```cpp
 /**
  * @brief HTTP profile
@@ -45,7 +48,9 @@ if(modem.httpConfigProfile(HTTP_PROFILE, "tls13.akamai.io", 443, TLS_PROFILE)) {
     Serial.print("http: Failed to configure HTTP profile\r\n");
 }
 ```
+
 #### **ESP-IDF**
+
 ```cpp
 /**
  * @brief HTTP profile
@@ -113,6 +118,7 @@ True on success, false otherwise.
 
 <!-- tabs:start -->
 #### **Arduino**
+
 ```cpp
 /**
  * @brief The buffer to transmit to the HTTP server.
@@ -262,6 +268,7 @@ True on success, false otherwise.
 
 <!-- tabs:start -->
 #### **Arduino**
+
 ```cpp
 /**
  * @brief Buffer for incoming HTTP response
@@ -288,7 +295,9 @@ while(modem.httpDidRing(HTTP_PROFILE, incomingBuf, sizeof(incomingBuf), &rsp)) {
     Serial.printf("http: [%s]\r\n", incomingBuf);
 }
 ```
+
 #### **ESP-IDF**
+
 ```cpp
 /**
  * @brief Buffer for incoming HTTP response
@@ -315,12 +324,16 @@ while(modem.httpDidRing(HTTP_PROFILE, incomingBuf, sizeof(incomingBuf), &rsp)) {
     ESP_LOGI("http", "[%s]\r\n", incomingBuf);
 }
 ```
+
 #### **Micropython**
+
 <!-- tabs:end -->
 
 ### params:
+
 <!-- tabs:start -->
 #### **Arduino**
+
 | Param           | Description                                                                 | Default  |
 | --------------- | --------------------------------------------------------------------------- | -------- |
 | `profileId`     | Profile for which to get the response                                       | **None** |
@@ -329,6 +342,7 @@ while(modem.httpDidRing(HTTP_PROFILE, incomingBuf, sizeof(incomingBuf), &rsp)) {
 | `rsp`           | Pointer to a modem response structure to save the result of the command in. | **NULL** |
 
 #### **ESP-IDF**
+
 | Param           | Description                                                                 | Default  |
 | --------------- | --------------------------------------------------------------------------- | -------- |
 | `profileId`     | Profile for which to get the response                                       | **None** |

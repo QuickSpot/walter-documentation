@@ -35,6 +35,11 @@
 > >ESP-IDF:Create project from Extension Template
 > ```
 > And select the `template-app`.
+
+> [!WARNING]
+> When using the walter modem all implementation files (`.c`, `.cpp`) should have the `.cpp` extension.
+> -> not `main.c` but `main.cpp`
+
 ## Step 3: Install the walter-modem ESP-IDF component.
 > After installing the extension you will have to install the [walter modem](https://components.espressif.com/components/dptechnics/walter-modem/) library.
 
@@ -55,6 +60,17 @@
 >```VSCODE
 > >ESP-IDF: Show ESP Component Registry
 >```
+
+> [!NOTE]
+> If you want to use youre own `fork` or use the `DEV` version of waltermodem, you can use the following snippet inside ´idf_component.yml´
+>
+> ```yml
+> dependencies:
+>  dptechnics/walter-modem:
+>    version: "*"
+>    git: "https://github.com/QuickSpot/walter-esp-idf.git"
+> ```
+
 
 ## Step 4: Setting the Device Target.
 after installing the walter modem extension the Device Target needs to be set to esp32s3 (this needs to be done for each project)
