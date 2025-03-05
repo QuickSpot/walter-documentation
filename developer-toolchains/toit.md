@@ -26,7 +26,7 @@ As of writing, all drivers for cellular modems are in the
 
 To install it, run the following command:
 
-```
+```toit
 jag pkg install github.com/toitware/cellular@v2
 ```
 
@@ -35,7 +35,7 @@ We will use the
 [certificate-roots](https://pkg.toit.io/package/github.com%2Ftoitware%2Ftoit-cert-roots@v1)
 packages to fetch data from the internet.
 
-```
+```toit
 jag pkg install github.com/toitlang/pkg-http@v2
 jag pkg install github.com/toitware/toit-cert-roots@v1
 ```
@@ -45,7 +45,7 @@ jag pkg install github.com/toitware/toit-cert-roots@v1
 Start a new Toit program `walter.toit` and watch it with Jaguar. If necessary,
 uncomment the `CONFIG-APN` line and set the correct APN for your provider.
 
-```
+```toit
 import cellular.modules.sequans.monarch
 import http
 import encoding.json
@@ -102,7 +102,7 @@ network.
 
 For example, the `do-network-things` function could look as follows:
 
-```
+```toit
 do-network-things network/net.Client:
   certificate-roots.install-common-trusted-roots
   client := http.Client.tls network
@@ -123,7 +123,7 @@ We can fix this, by installing the cellular provider in its own container.
 Create a new file `cellular.toit` with the following content. If necessary,
 uncomment the `CONFIG-APN` line and set the correct APN for your provider.
 
-```
+```toit
 import net.cellular
 import cellular.modules.sequans.monarch
 ​
@@ -167,7 +167,7 @@ The `main` function then installs the provider, so that containers can use it.
 
 We can now install this container on the device:
 
-```
+```toit
 jag container install cellular cellular.toit
 ```
 
@@ -175,7 +175,7 @@ Other containers can now use the cellular provider.
 
 For example, create, and watch the following `cellular-user.toit` program:
 
-```
+```toit
 import net
 import net.cellular
 ​

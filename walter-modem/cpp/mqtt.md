@@ -1,18 +1,27 @@
 # MQTT
-## methods overview
+
+## Methods Overview
+
 - [mqttConnect](#mqttconnect)
-- [mqttSubscribe](#mqttSubscribe)
+- [mqttSubscribe](#mqttsubscribe)
 - [mqttPublish](#mqttpublish)
 - [mqttDidRing](#mqttdidring)
 
-## methods
+---
+
+## Methods
+
 ### `mqttConnect`
-> Initialize MQTT and establish connection in one call.
->
-> This function initializes the mqtt client on the modem and establishes a connection.
+
+Initialize MQTT and establish connection in one call.
+
+This function initializes the mqtt client on the modem
+and establishes a connection.
 
 <!-- tabs:start -->
+
 #### **Arduino**
+
 ```cpp
 if(modem.mqttConnect("test.mosquitto.org", 8883, macString, "user", "pass", 1)) {
     Serial.println("mqtt: connection succeeded");
@@ -20,7 +29,9 @@ if(modem.mqttConnect("test.mosquitto.org", 8883, macString, "user", "pass", 1)) 
     Serial.println("mqtt: connection failed");
 }
 ```
+
 #### **ESP-IDF**
+
 ```cpp
 if(modem.mqttConnect("test.mosquitto.org", 8883, macString, "user", "pass", 1)) {
     ESP_LOGI("mqtt", "connection succeeded");
@@ -32,9 +43,13 @@ if(modem.mqttConnect("test.mosquitto.org", 8883, macString, "user", "pass", 1)) 
 #### **Micropython**
 
 <!-- tabs:end -->
+
 ### params:
+
 <!-- tabs:start -->
+
 #### **Arduino**
+
 | Param          | Description                                                                                           | Default                  |
 | -------------- | ----------------------------------------------------------------------------------------------------- | ------------------------ |
 | `serverName`   | MQTT broker hostname                                                                                  | **None**                 |
@@ -46,7 +61,9 @@ if(modem.mqttConnect("test.mosquitto.org", 8883, macString, "user", "pass", 1)) 
 | `rsp`          | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored | **NULL**                 |
 | `cb`           | Optional callback argument. When not NULL, this function returns immediately                          | **NULL**                 |
 | `args`         | Optional argument to pass to the callback                                                             | **NULL**                 |
+
 #### **ESP-IDF**
+
 | Param          | Description                                                                                           | Default                |
 | -------------- | ----------------------------------------------------------------------------------------------------- | ---------------------- |
 | `serverName`   | MQTT broker hostname                                                                                  | **None**               |
@@ -60,21 +77,27 @@ if(modem.mqttConnect("test.mosquitto.org", 8883, macString, "user", "pass", 1)) 
 | `args`         | Optional argument to pass to the callback                                                             | **NULL**               |
 
 #### **Micropython**
+
 <!-- tabs:end -->
 
 ### Returns:
+
 `bool`
 True on success, false otherwise.
 
 ---
 
 ### `mqttSubscribe`
-> Subscribe to a mqtt topic
->
-> This function subscribes to a given topic using the connection established earlier through [mqttConnect](#mqttconnect).
+
+Subscribe to a mqtt topic
+
+This function subscribes to a given topic using the connection established
+earlier through [mqttConnect](#mqttconnect).
 
 <!-- tabs:start -->
+
 #### **Arduino**
+
 ```cpp
 if(modem.mqttSubscribe("waltertopic")) {
     Serial.println("mqtt: subscribed to topic 'waltertopic'");
@@ -84,6 +107,7 @@ if(modem.mqttSubscribe("waltertopic")) {
 ```
 
 #### **ESP-IDF**
+
 ```cpp
 if(modem.mqttSubscribe("waltertopic")) {
     ESP_LOGI("mqtt", "subscribed to topic 'waltertopic'");
@@ -91,12 +115,17 @@ if(modem.mqttSubscribe("waltertopic")) {
     ESP_LOGI("mqtt", "subscribe failed");
 }
 ```
+
 #### **Micropython**
+
 <!-- tabs:end -->
 
 ### params:
+
 <!-- tabs:start -->
+
 #### **Arduino**
+
 | Param         | Description                                                                                           | Default  |
 | ------------- | ----------------------------------------------------------------------------------------------------- | -------- |
 | `topicString` | Topic to publish on                                                                                   | **None** |
@@ -106,6 +135,7 @@ if(modem.mqttSubscribe("waltertopic")) {
 | `args`        | Optional argument to pass to the callback                                                             | **NULL** |
 
 #### **ESP-IDF**
+
 | Param         | Description                                                                                           | Default  |
 | ------------- | ----------------------------------------------------------------------------------------------------- | -------- |
 | `topicString` | Topic to publish on                                                                                   | **None** |
@@ -119,18 +149,23 @@ if(modem.mqttSubscribe("waltertopic")) {
 <!-- tabs:end -->
 
 ### Returns:
+
 `bool`
 True on success, false otherwise.
 
 ---
 
 ### `mqttPublish`
-> Publish something through mqtt.
->
-> This function publishes the passed data on the given mqtt topic using the connection established earlier through [mqttConnect](#mqttconnect).
+
+Publish something through mqtt.
+
+This function publishes the passed data on the given mqtt topic using the
+connection established earlier through [mqttConnect](#mqttconnect).
 
 <!-- tabs:start -->
+
 #### **Arduino**
+
 ```cpp
 static char outgoingMsg[64];
 
@@ -142,6 +177,7 @@ if(modem.mqttPublish("waltertopic", (uint8_t *) outgoingMsg, strlen(outgoingMsg)
 ```
 
 #### **ESP-IDF**
+
 ```cpp
 static char outgoingMsg[64];
 
@@ -157,8 +193,11 @@ if(modem.mqttPublish("waltertopic", (uint8_t *) outgoingMsg, strlen(outgoingMsg)
 <!-- tabs:end -->
 
 ### params:
+
 <!-- tabs:start -->
+
 #### **Arduino**
+
 | Param         | Description                                                                                           | Default  |
 | ------------- | ----------------------------------------------------------------------------------------------------- | -------- |
 | `topicString` | Topic to publish on                                                                                   | **None** |
@@ -168,9 +207,9 @@ if(modem.mqttPublish("waltertopic", (uint8_t *) outgoingMsg, strlen(outgoingMsg)
 | `rsp`         | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored | **NULL** |
 | `cb`          | Optional callback argument. When not NULL, this function returns immediately                          | **NULL** |
 | `args`        | Optional argument to pass to the callback                                                             | **NULL** |
-
 
 #### **ESP-IDF**
+
 | Param         | Description                                                                                           | Default  |
 | ------------- | ----------------------------------------------------------------------------------------------------- | -------- |
 | `topicString` | Topic to publish on                                                                                   | **None** |
@@ -180,25 +219,28 @@ if(modem.mqttPublish("waltertopic", (uint8_t *) outgoingMsg, strlen(outgoingMsg)
 | `rsp`         | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored | **NULL** |
 | `cb`          | Optional callback argument. When not NULL, this function returns immediately                          | **NULL** |
 | `args`        | Optional argument to pass to the callback                                                             | **NULL** |
-
 
 #### **Micropython**
 
 <!-- tabs:end -->
 
 ### Returns:
+
 `bool`
 True on success, false otherwise.
 
 ---
 
 ### `mqttDidRing`
-> Poll if there were incoming mqtt messages
->
-> Poll if the modem has reported any incoming mqtt messages on the topics we are subscribed on.
+
+Poll if there were incoming mqtt messages
+
+Poll if the modem has reported any incoming mqtt messages on the topics we are subscribed on.
 
 <!-- tabs:start -->
+
 #### **Arduino**
+
 ```cpp
 while (modem.mqttDidRing("waltertopic", incomingBuf, sizeof(incomingBuf), &rsp)) {
     Serial.printf("mqtt: incoming: qos=%d msgid=%d len=%d:\r\n",
@@ -212,6 +254,7 @@ while (modem.mqttDidRing("waltertopic", incomingBuf, sizeof(incomingBuf), &rsp))
 ```
 
 #### **ESP-IDF**
+
 ```cpp
 while(modem.mqttDidRing("waltertopic", incomingBuf, sizeof(incomingBuf), &rsp)) {
     ESP_LOGI("mqtt", "incoming: qos=%d msgid=%d len=%d:",
@@ -225,12 +268,15 @@ while(modem.mqttDidRing("waltertopic", incomingBuf, sizeof(incomingBuf), &rsp)) 
 ```
 
 #### **Micropython**
+
 <!-- tabs:end -->
 
 ### params:
 
 <!-- tabs:start -->
+
 #### **Arduino**
+
 | Param           | Description                                                                                           | Default  |
 | --------------- | ----------------------------------------------------------------------------------------------------- | -------- |
 | `topic`         | Topic to poll                                                                                         | **None** |
@@ -239,6 +285,7 @@ while(modem.mqttDidRing("waltertopic", incomingBuf, sizeof(incomingBuf), &rsp)) 
 | `rsp`           | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored | **NULL** |
 
 #### **ESP-IDF**
+
 | Param           | Description                                                                                           | Default  |
 | --------------- | ----------------------------------------------------------------------------------------------------- | -------- |
 | `topic`         | Topic to poll                                                                                         | **None** |
@@ -250,5 +297,6 @@ while(modem.mqttDidRing("waltertopic", incomingBuf, sizeof(incomingBuf), &rsp)) 
 <!-- tabs:end -->
 
 ### Returns:
+
 `bool`
 True on success, false if no message arrived or error or no message expected (eg no ring received).

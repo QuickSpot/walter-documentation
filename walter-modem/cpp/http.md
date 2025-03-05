@@ -1,33 +1,41 @@
-# HTTP
-## methods overview
+## Methods Overview
 
 - [httpConfigProfile](#httpconfigprofile)
 - [httpSend](#httpsend)
 - [httpQuery](#httpquery)
 - [httpDidRing](#httpdidring)
 
-## enums overview
+## Enums Overview
 
 - [WalterModemHttpSendCmd](#waltermodemhttpsendcmd)
 - [WalterModemHttpQueryCmd](#waltermodemhttpquerycmd)
 - [WalterModemHttpPostParam](#waltermodemhttppostparam)
 
-## methods
 ---
+
+## Methods
+
 ### `httpConfigProfile`
-> Configure a HTTP profile.
->
-> This function will configure a HTTP profile with parameters such as server name and auth info. \
-> The profile info is stored persistently in the modem, so it is possible to store connection info once, using an Arduino sketch to prepare all settings, and later rely on this preconfigured profile in the modem without the need to set the parameters again in the actual Arduino sketch used in production.
+
+Configure a HTTP profile.
+
+This function will configure a HTTP profile
+with parameters such as server name and auth info.
+The profile info is stored persistently in the modem, so it is possible
+to store connection info once, using an Arduino sketch to prepare all settings,
+and later rely on this preconfigured profile in the modem without the need to
+set the parameters again in the actual Arduino sketch used in production.
 
 > [!WARNING]
-> you first need call [tlsConfigProfile](). 
+> You first need call tlsConfigProfile.
 
 > [!NOTE]
 > **file uploads/downloads** not supported.
 
 <!-- tabs:start -->
+
 #### **Arduino**
+
 ```cpp
 /**
  * @brief HTTP profile
@@ -45,7 +53,9 @@ if(modem.httpConfigProfile(HTTP_PROFILE, "tls13.akamai.io", 443, TLS_PROFILE)) {
     Serial.print("http: Failed to configure HTTP profile\r\n");
 }
 ```
+
 #### **ESP-IDF**
+
 ```cpp
 /**
  * @brief HTTP profile
@@ -63,12 +73,17 @@ if(modem.httpConfigProfile(HTTP_PROFILE, "tls13.akamai.io", 443, TLS_PROFILE)) {
     ESP_LOGE("http", "Failed to configure HTTP profile");
 }
 ```
+
 #### **Micropython**
+
 <!-- tabs:end -->
 
 ### params:
+
 <!-- tabs:start -->
+
 #### **Arduino**
+
 | Param          | Description                                                                                                           | Default   |
 | -------------- | --------------------------------------------------------------------------------------------------------------------- | --------- |
 | `profileId`    | HTTP profile id (0, 1 or 2)                                                                                           | **None**  |
@@ -83,6 +98,7 @@ if(modem.httpConfigProfile(HTTP_PROFILE, "tls13.akamai.io", 443, TLS_PROFILE)) {
 | `args`         | Optional argument to pass to the callback.                                                                            | **NULL**  |
 
 #### **ESP-IDF**
+
 | Param          | Description                                                                                                           | Default   |
 | -------------- | --------------------------------------------------------------------------------------------------------------------- | --------- |
 | `profileId`    | HTTP profile id (0, 1 or 2)                                                                                           | **None**  |
@@ -101,18 +117,22 @@ if(modem.httpConfigProfile(HTTP_PROFILE, "tls13.akamai.io", 443, TLS_PROFILE)) {
 <!-- tabs:end -->
 
 ### Returns:
+
 `bool`
 True on success, false otherwise.
 
 ---
 
 ### `httpSend`
-> Perform a http **POST** or **PUT** request.
->
-> No need to first open the connection with the buggy httpConnect command unless you need TLS + a private key.
+
+Perform a http **POST** or **PUT** request.
+
+No need to first open the connection with the buggy httpConnect command unless you need TLS + a private key.
 
 <!-- tabs:start -->
+
 #### **Arduino**
+
 ```cpp
 /**
  * @brief The buffer to transmit to the HTTP server.
@@ -130,7 +150,9 @@ if(modem.httpSend(HTTP_PROFILE, "/", dataBuf, 8, WALTER_MODEM_HTTP_SEND_CMD_POST
     Serial.println("http: query failed");
 }
 ```
+
 #### **ESP-IDF**
+
 ```cpp
 /**
  * @brief The buffer to transmit to the HTTP server.
@@ -148,12 +170,17 @@ if(modem.httpSend(HTTP_PROFILE, "/", dataBuf, 8, WALTER_MODEM_HTTP_SEND_CMD_POST
     ESP_LOGE("http", "query failed");
 }
 ```
+
 #### **Micropython**
+
 <!-- tabs:end -->
 
 ### params:
+
 <!-- tabs:start -->
+
 #### **Arduino**
+
 | Param                | Description                                              | Default                                      |
 | -------------------- | -------------------------------------------------------- | -------------------------------------------- |
 | `profileId`          | The profile id (0, 1 or 2) of the HTTP context           | **None**                                     |
@@ -169,6 +196,7 @@ if(modem.httpSend(HTTP_PROFILE, "/", dataBuf, 8, WALTER_MODEM_HTTP_SEND_CMD_POST
 | `args`               | Callback arguments                                       | **NULL**                                     |
 
 #### **ESP-IDF**
+
 | Param                | Description                                              | Default                                      |
 | -------------------- | -------------------------------------------------------- | -------------------------------------------- |
 | `profileId`          | The profile id (0, 1 or 2) of the HTTP context           | **None**                                     |
@@ -184,21 +212,26 @@ if(modem.httpSend(HTTP_PROFILE, "/", dataBuf, 8, WALTER_MODEM_HTTP_SEND_CMD_POST
 | `args`               | Callback arguments                                       | **NULL**                                     |
 
 #### **Micropython**
+
 <!-- tabs:end -->
 
 ### Returns:
+
 `bool`
 True on success, false otherwise.
 
 ---
 
 ### `httpQuery`
-> Perform a http **GET**, **DELETE** or **HEAD** request.
->
-> No need to first open the connection with the buggy httpConnect command unless you need TLS + a private key.
+
+Perform a http **GET**, **DELETE** or **HEAD** request.
+
+No need to first open the connection with the buggy httpConnect command unless you need TLS + a private key.
 
 <!-- tabs:start -->
+
 #### **Arduino**
+
 ```cpp
 static char ctbuf[32];
 
@@ -209,7 +242,9 @@ if(modem.httpQuery(HTTP_PROFILE, "/", WALTER_MODEM_HTTP_QUERY_CMD_GET, ctbuf, si
     ESP.restart();
 }
 ```
+
 #### **ESP-IDF**
+
 ```cpp
 static char ctbuf[32];
 
@@ -223,8 +258,11 @@ if(modem.httpQuery(HTTP_PROFILE, "/", WALTER_MODEM_HTTP_QUERY_CMD_GET, ctbuf, si
 <!-- tabs:end -->
 
 ### params:
+
 <!-- tabs:start -->
+
 #### **Arduino**
+
 | Param                | Description                                              | Default                             |
 | -------------------- | -------------------------------------------------------- | ----------------------------------- |
 | `profileId`          | The profile id (0, 1, or 2) of the HTTP context          | **None**                            |
@@ -237,6 +275,7 @@ if(modem.httpQuery(HTTP_PROFILE, "/", WALTER_MODEM_HTTP_QUERY_CMD_GET, ctbuf, si
 | `args`               | Callback arguments                                       | **NULL**                            |
 
 #### **ESP-IDF**
+
 | Param                | Description                                              | Default                             |
 | -------------------- | -------------------------------------------------------- | ----------------------------------- |
 | `profileId`          | The profile id (0, 1, or 2) of the HTTP context          | **None**                            |
@@ -249,19 +288,24 @@ if(modem.httpQuery(HTTP_PROFILE, "/", WALTER_MODEM_HTTP_QUERY_CMD_GET, ctbuf, si
 | `args`               | Callback arguments                                       | **NULL**                            |
 
 #### **Micropython**
+
 <!-- tabs:end -->
 
 ### Returns:
+
 `bool`
 True on success, false otherwise.
 
 ---
 
 ### `httpDidRing`
-> Fetch http response to earlier http request, if any
+
+Fetch http response to earlier http request, if any
 
 <!-- tabs:start -->
+
 #### **Arduino**
+
 ```cpp
 /**
  * @brief Buffer for incoming HTTP response
@@ -288,7 +332,9 @@ while(modem.httpDidRing(HTTP_PROFILE, incomingBuf, sizeof(incomingBuf), &rsp)) {
     Serial.printf("http: [%s]\r\n", incomingBuf);
 }
 ```
+
 #### **ESP-IDF**
+
 ```cpp
 /**
  * @brief Buffer for incoming HTTP response
@@ -315,12 +361,17 @@ while(modem.httpDidRing(HTTP_PROFILE, incomingBuf, sizeof(incomingBuf), &rsp)) {
     ESP_LOGI("http", "[%s]\r\n", incomingBuf);
 }
 ```
+
 #### **Micropython**
+
 <!-- tabs:end -->
 
 ### params:
+
 <!-- tabs:start -->
+
 #### **Arduino**
+
 | Param           | Description                                                                 | Default  |
 | --------------- | --------------------------------------------------------------------------- | -------- |
 | `profileId`     | Profile for which to get the response                                       | **None** |
@@ -329,6 +380,7 @@ while(modem.httpDidRing(HTTP_PROFILE, incomingBuf, sizeof(incomingBuf), &rsp)) {
 | `rsp`           | Pointer to a modem response structure to save the result of the command in. | **NULL** |
 
 #### **ESP-IDF**
+
 | Param           | Description                                                                 | Default  |
 | --------------- | --------------------------------------------------------------------------- | -------- |
 | `profileId`     | Profile for which to get the response                                       | **None** |
@@ -340,8 +392,10 @@ while(modem.httpDidRing(HTTP_PROFILE, incomingBuf, sizeof(incomingBuf), &rsp)) {
 
 <!-- tabs:end -->
 
-## enums
+## Enums
+
 ### `WalterModemHttpSendCmd`
+
 The possible commands for a HTTP send operation.
 
 > **WALTER_MODEM_HTTP_SEND_CMD_POST** = `0` \
@@ -350,6 +404,7 @@ The possible commands for a HTTP send operation.
 > perform PUT request
 
 ### `WalterModemHttpQueryCmd`
+
 The possible commands for a HTTP query operation.
 
 > **WALTER_MODEM_HTTP_QUERY_CMD_GET** = `0` \
@@ -360,6 +415,7 @@ The possible commands for a HTTP query operation.
 > perform a DELETE request
 
 ### `WalterModemHttpPostParam`
+
 The possible post params for a HTTP send operation.
 
 > **WALTER_MODEM_HTTP_POST_PARAM_URL_ENCODED** = `0` \
