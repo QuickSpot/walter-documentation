@@ -22,7 +22,7 @@ and configuring your environment.
 
 To work with ESP32-based boards, you need to install the ESP32 board manager:
 
-![arduino_board_manager](../img/arduino_board_manager.png)
+![arduino_board_manager](img/arduino_board_manager.png)
 
 ### 3. General IDE Configuration
 

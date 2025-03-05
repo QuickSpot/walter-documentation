@@ -1,6 +1,6 @@
 ## Board overview
 
-![drawing](../img/walter-feels-transparent-01.png)
+![drawing](img/walter-feels-transparent-01.png)
 
 Walter Feels is a reference design of a carrier board for Walter that can also
 be used as the basis of an IoT gateway. This carrier board has the following
