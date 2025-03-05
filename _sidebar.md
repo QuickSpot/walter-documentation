@@ -1,5 +1,5 @@
 * Guides
-  * [Getting Started](/guides/getting_started.md)
+  * [Getting Started](/)
   * [Cellular Connectivity](/guides/cellular_connectivity.md)
 * Hardware
   * [Walter](/hardware/walter.md)
