@@ -20,7 +20,7 @@ via the built-in Arduino Library Manager:
 3. In the search field, type `WalterModem`.
 4. Select the Walter modem library from the list and click **Install**.
 
-![Arduino Library Manager](../../img/arduino_library_manager.png)
+![Arduino Library Manager](../img/arduino_library_manager.png)
 
 ### 2. Opening and Running an Example
 
@@ -32,7 +32,7 @@ Once the library is installed, you can explore the provided examples:
 4. Hover over **Examples**, then choose one from the list.
 5. The selected example will open in a new sketch window.
 
-![Arduino Examples](../../img/arduino_examples.png)
+![Arduino Examples](../img/arduino_examples.png)
 
 ### 3. Board Selection and Configuration
 
@@ -42,9 +42,9 @@ ensure that your board is properly selected and configured:
 1. Click the board selection button in the top left corner of the Arduino IDE.
 2. In the search bar, type `DPTechnics Walter` and select the board.
 
-   ![Board Selection](../../img/board_selection.png)
+   ![Board Selection](../img/board_selection.png)
 
-   ![Board Selection Screen](../../img/board_selection_screen.png)
+   ![Board Selection Screen](../img/board_selection_screen.png)
 
 3. Ensure the partition scheme under **Flash Size** is set to:
    (128Mb APP/12.5MB FATFS), this is required to allow mmodem firmware updates.
