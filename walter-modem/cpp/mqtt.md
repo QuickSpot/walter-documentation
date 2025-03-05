@@ -100,7 +100,7 @@ earlier through [mqttConnect](#mqttconnect).
 
 ```cpp
 if(modem.mqttSubscribe("waltertopic")) {
-    Serial.println("mqtt: subscribed to topic 'waltertopic'");
+    Serial.println("mqtt: subscribed to topic waltertopic");
 } else {
     Serial.println("mqtt: subscribe failed");
 }
@@ -110,7 +110,7 @@ if(modem.mqttSubscribe("waltertopic")) {
 
 ```cpp
 if(modem.mqttSubscribe("waltertopic")) {
-    ESP_LOGI("mqtt", "subscribed to topic 'waltertopic'");
+    ESP_LOGI("mqtt", "subscribed to topic waltertopic");
 } else {
     ESP_LOGI("mqtt", "subscribe failed");
 }
@@ -170,7 +170,7 @@ connection established earlier through [mqttConnect](#mqttconnect).
 static char outgoingMsg[64];
 
 if(modem.mqttPublish("waltertopic", (uint8_t *) outgoingMsg, strlen(outgoingMsg))) {
-  Serial.printf("mqtt: published '%s' on topic 'waltertopic' \r\n", outgoingMsg);
+  Serial.printf("mqtt: published: %s, on topic waltertopic \r\n", outgoingMsg);
 } else {
   Serial.println("mqtt: publish failed");
 }
@@ -182,7 +182,7 @@ if(modem.mqttPublish("waltertopic", (uint8_t *) outgoingMsg, strlen(outgoingMsg)
 static char outgoingMsg[64];
 
 if(modem.mqttPublish("waltertopic", (uint8_t *) outgoingMsg, strlen(outgoingMsg))) {
-  ESP_LOGI("mqtt_test", "published '%s' on topic 'waltertopic'", outgoingMsg);
+  ESP_LOGI("mqtt_test", "published: %s on topic waltertopic", outgoingMsg);
 } else {
   ESP_LOGI("mqtt_test", "MQTT publish failed");
 }
@@ -248,7 +248,7 @@ while (modem.mqttDidRing("waltertopic", incomingBuf, sizeof(incomingBuf), &rsp))
         rsp.data.mqttResponse.messageId,
         rsp.data.mqttResponse.length);
     for (int i = 0; i < rsp.data.mqttResponse.length; i++) {
-        Serial.printf("mqtt: '%c' 0x%02x\r\n", incomingBuf[i], incomingBuf[i]);
+        Serial.printf("mqtt: %c, 0x%02x\r\n", incomingBuf[i], incomingBuf[i]);
     }
 }
 ```
@@ -262,7 +262,7 @@ while(modem.mqttDidRing("waltertopic", incomingBuf, sizeof(incomingBuf), &rsp)) 
         rsp.data.mqttResponse.messageId,
         rsp.data.mqttResponse.length);
     for(int i = 0; i < rsp.data.mqttResponse.length; i++) {
-        ESP_LOGI("mqtt", "'%c' 0x%02x", incomingBuf[i], incomingBuf[i]);
+        ESP_LOGI("mqtt:", "%c, 0x%02x", incomingBuf[i], incomingBuf[i]);
     }
 }
 ```
