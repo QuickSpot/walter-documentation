@@ -1,9 +1,9 @@
-* Hardware
-  * [Walter](/hardware/walter.md)
-  * [WalterFeels](/hardware/walter_feels.md)
 * Guides
   * [Getting Started](/guides/getting_started.md)
   * [Cellular Connectivity](/guides/cellular_connectivity.md)
+* Hardware
+  * [Walter](/hardware/walter.md)
+  * [Walter Feels](/hardware/walter_feels.md)
 * Development Toolchains
   * [Arduino](/developer-toolchains/arduino.md)
   * [ESP IDF](/developer-toolchains/esp-idf.md)
