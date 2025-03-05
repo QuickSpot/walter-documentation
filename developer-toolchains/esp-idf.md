@@ -21,9 +21,9 @@ and configuring the device target.
 3. Select the latest ESP-IDF version and click **Install**.
 4. The extension will automatically install all necessary tools.
 
-![ESP-IDF Setup](../../img/esp-idf-setup.png)
+![ESP-IDF Setup](../img/esp-idf-setup.png)
 
-![ESP-IDF Install](../../img/esp-idf-install.png)
+![ESP-IDF Install](../img/esp-idf-install.png)
 
 ### 2. Creating a New Project
 
