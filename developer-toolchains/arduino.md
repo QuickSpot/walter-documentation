@@ -22,18 +22,13 @@ and configuring your environment.
 
 To work with ESP32-based boards, you need to install the ESP32 board manager:
 
-1. Open the Arduino IDE.
-2. Navigate to **File > Preferences**.
-3. In the "Additional Boards Manager URLs" field, add the ESP32 URL:
-   - `https://espressif.github.io/arduino-esp32/package_esp32_index.json`
-4. Go to **Tools > Board > Boards Manager**.
-5. Search for "ESP32" and click **Install**.
+![arduino_board_manager](../img/arduino_board_manager.png)
 
 ### 3. General IDE Configuration
 
-After installing the board manager,
-configure your IDE with the following settings
-(adjust as needed for your specific board):
+> [!note]
+> The board configuration can be set automatically by pressing the
+> `Get Board Info` button in the `Tools` tab.
 
 - **Board:** ESP32S3 Dev Module
 - **Upload Speed:** 921600
@@ -51,15 +46,3 @@ configure your IDE with the following settings
 - **Erase All Flash Before Sketch Upload:** Enabled
 - **JTAG Adapter:** Integrated USB JTAG
 - **Zigbee Mode:** Disabled
-
-### 4. Locating the Arduino Libraries Directory
-
-Depending on your operating system,
-the Arduino libraries directory is typically found at:
-
-- **Windows:** `%USERPROFILE%\Documents\Arduino\libraries`
-- **Mac OS:** `~/Documents/Arduino/libraries`
-- **Linux:** `~/sketchbook/libraries`
-
-You can now use this directory to add custom libraries,
-including those for specific hardware projects.
