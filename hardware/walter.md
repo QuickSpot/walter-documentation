@@ -1,6 +1,6 @@
 ## Module overview
 
-![drawing](../../img/walter-functionality-numbered-stroke.svg)
+![drawing](../img/walter-functionality-numbered-stroke.svg)
 
 The Walter module has the following components:
 
@@ -53,7 +53,7 @@ supply. The maximum load on the 3.3VDC output is 250mA.
 
 ## Pinout
 
-![drawing](../../img/hardware_pinout.svg)
+![drawing](../img/hardware_pinout.svg)
 
 ## Pin descriptions
 
@@ -150,7 +150,7 @@ following table gives an overview of the internal pin connections:
 
 ## Test pins
 
-![drawing](../../img/walter-testpoints.svg)
+![drawing](../img/walter-testpoints.svg)
 
 Walter contains 22 testpoints on the bottom of the board that serve multiple
 purposes. You can use these pins for debugging, interfacing and/or flashing of

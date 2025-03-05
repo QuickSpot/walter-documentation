@@ -10,7 +10,7 @@
      GNSS reception you should see your Walter appearing on the portal. You can
      recognize your Walter by his MAC address.
 
-![SIM card insertion](../../img/getting_started_walter_sim_insert.jpg)
+![SIM card insertion](../img/getting_started_walter_sim_insert.jpg)
 
 ## Prepare the hardware
 
