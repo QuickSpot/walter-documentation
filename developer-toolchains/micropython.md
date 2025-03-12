@@ -124,7 +124,7 @@ source micropython-env/bin/activate
 
 <!-- tabs:end -->
 
-*Your terminal prompt should change to indicatethat the virtual environment is active.*
+*Your terminal prompt should change to indicate that the virtual environment is active.*
 
 #### ESPTool
 
@@ -137,22 +137,52 @@ install esptool using pip:
 pip install esptool
 ```
 
+#### Mpremote
+
+The MicroPython remote control CLI tool, [mpremote](https://docs.micropython.org/en/latest/reference/mpremote.html),
+provides a set of utilities for remotely interacting with a MicroPython device,
+managing its file system, and automating tasks over a serial connection.
+
+It can be installed using `pip` by running:
+
+```console
+pip install --user mpremote
+```
+
+or via [pipx](https://pypa.github.io/pipx/)
+
+```console
+pipx install mpremote
+```
+
+The simplest way to use it, is by simply typing `mpremote`.
+This will auto detect the first available USB serial device and access the REPL.
+It is highly recommended to read the
+[mpremote documentation](https://docs.micropython.org/en/latest/reference/mpremote.html)
+so you can make full use of it during your micropython development.
+
+> [!TIP]
+> If `mpremote` is not in your system's PATH,
+> you can run it by using `python -m mpremote` instead.\
+> However, it is recommended to add it to your system's PATH
+> (if it did not automatically) should you intend on frequently using this tool.
+
 ### 2. Download MicroPython firmware
 
 Visit the [MicroPython ESP32-S3 download page](https://micropython.org/download/ESP32_GENERIC_S3/)
 and download the latest stable **.bin** firmware release for the ESP32-S3.
 
-#### Identify the correct COM port
+### 3. Identify the correct COM port
 
 <!-- tabs:start -->
 
-##### **Windows**
+#### **Windows**
 
 Connect your Walter to your computer via USB. Identify the COM port by opening
 Device Manager and checking under "Ports (COM & LPT)".
 The port will be labeled something like `COM3` or `COM4`.
 
-##### **Linux: Debian-based**
+#### **Linux: Debian-based**
 
 Connect your ESP32-S3 to your computer via USB and identify the port by running:
 
@@ -160,7 +190,7 @@ Connect your ESP32-S3 to your computer via USB and identify the port by running:
 ls /dev/ttyACM*
 ```
 
-##### **Linux: Fedora**
+#### **Linux: Fedora**
 
 Connect your ESP32-S3 to your computer via USB and identify the port by running:
 
@@ -172,14 +202,17 @@ ls /dev/ttyACM*
 The port will look something like `/dev/ttyACM0`,
 remember the port for the following steps.
 
-### 3. Flash MicroPython onto the ESP32-S3
+Alternatively, you can use `mpremote connect list` to get a list of all COM ports
+and anything connected on them.
+
+### 4. Flash MicroPython onto the ESP32-S3
 
 <!-- tabs:start -->
 
 #### **Windows**
 
 1. **Erase the flash** Run the following command,
-   replacing `<your_port>` with your identifed port from the previous step:
+   replacing `<your_port>` with your identified port from the previous step:
 
    ```shell
    esptool --chip esp32s3 --port <your_port> erase_flash
@@ -196,7 +229,7 @@ remember the port for the following steps.
 #### **Linux: Debian-based**
 
 1. **Erase the flash** Run the following command,
-   replacing `<your_port>` with your identifed port from the previous step:
+   replacing `<your_port>` with your identified port from the previous step:
 
    ```shell
    esptool.py --chip esp32s3 --port <your_port> erase_flash
@@ -213,7 +246,7 @@ remember the port for the following steps.
 #### **Linux: Fedora**
 
 1. **Erase the flash** Run the following command,
-   replacing `<your_port>` with your identifed port from the previous step:
+   replacing `<your_port>` with your identified port from the previous step:
 
    ```shell
    esptool.py --chip esp32s3 --port <your_port> erase_flash
@@ -229,10 +262,25 @@ remember the port for the following steps.
 
 <!-- tabs:end -->
 
-### 4. Access the MicroPython REPL
+### 5. Access the MicroPython REPL
 
 The REPL (Read-Eval-Print Loop) is an interactive prompt
 that allows you to run Python commands directly on the ESP32-S3.
+
+If only 1 device is connected, simply run:
+
+```console
+mpremote
+```
+
+This will auto detect the first available USB serial device and access the REPL.
+Alternatively, specify the device using:
+
+```console
+mpremote connect <device> repl
+```
+
+If you wish not to use mpremote, see below alternative ways to access the REPL.
 
 <!-- tabs:start -->
 
@@ -301,7 +349,7 @@ that allows you to run Python commands directly on the ESP32-S3.
    ```
 <!-- tabs:end -->
 
-### 5. Writing and running your first MicroPython script
+### 6. Writing and running your first MicroPython script
 
 You can write and test simple scripts directly in the REPL,
 such as the following Hello World example:
@@ -320,16 +368,26 @@ such as the following Hello World example:
    ```
 
 2. **Stopping the Script**: To stop the script, press `Ctrl+C`.
-   In order to restart the script, reboot Walter by pressing `Ctrl+D`.
 
-### 6. Uploading scripts via Thonny
+### 7. Uploading scripts
 
 Uploading files to a Walter running MicroPython lets you deploy full scripts
 that are saved to the device's filesystem,
 making them persistent and ready to run even after a reboot.
 Several tools are available, such as [Thonny](https://thonny.org/),
-[ampy](https://github.com/scientifichackers/ampy) and
-[rshell](https://github.com/dhylands/rshell).
+[rshell](https://github.com/dhylands/rshell) and
+[mpremote](https://docs.micropython.org/en/latest/reference/mpremote.html).
+
+We recommend to use `mpremote`, as it is offered by micropython
+and is IDE independent.Read the
+[official mpremote documentation](https://docs.micropython.org/en/latest/reference/mpremote.html)
+to get a detailed overview and idea of what the tool has to offer.
+
+### 8. Thonny
+
+For those who prefer a GUI to upload and communicate with the Micropython device,
+we recommend thonny.
+
 Thonny is an integrated development environment (IDE) designed for Python.
 It also supports MicroPython, making it a popular choice
 for uploading scripts to a MicroPython device.
@@ -369,3 +427,10 @@ sudo dnf install thonny
 
 - Write your MicroPython script in the editor.
 - Click the `Run current script` button to run the script on Walter.
+
+## Additional resources
+
+- [Official MicroPython Documentation](https://docs.micropython.org/en/latest/)
+- [mpremote Documentation](https://docs.micropython.org/en/latest/reference/mpremote.html)
+- [Esptool.py Documentation](https://docs.espressif.com/projects/esptool/en/latest/esp32s3/index.html)
+- [Thonny IDE](https://thonny.org/)
