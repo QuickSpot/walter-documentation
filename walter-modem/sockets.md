@@ -525,6 +525,13 @@ else:
 
 <!-- tabs:end -->
 
+#### Returns
+
+`bool`
+True on success, False otherwise.
+
+---
+
 ## Enums
 
 ### `WalterModemSocketProto`
