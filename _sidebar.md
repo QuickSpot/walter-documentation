@@ -15,6 +15,7 @@
     * [Arduino](/walter-modem/setup/arduino.md)
     * [ESP-IDF](/walter-modem/setup/esp-idf.md)
     * [Micropython](/walter-modem/setup/micropython.md)
+  * [GNSS](/walter-modem/gnss.md)
   * [Sockets](/walter-modem/sockets.md)
   * [HTTP](/walter-modem/http.md)
   * [MQTT](/walter-modem/mqtt.md)
