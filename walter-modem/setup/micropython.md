@@ -3,7 +3,7 @@
 This guide will walk you through insstalling the Walter Modem library
 for Micropython
 
-> [!tip]
+> [!TIP]
 > If you haven't set up your Micropython dev environment yet, go through the
 > [Micropython Toolchain Setup](/developer-toolchains/micropython.md) first.
 

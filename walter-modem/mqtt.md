@@ -60,7 +60,7 @@ else:
 | `library_message_buffer` | Size of the library's internal MQTT message buffer. | **16**     |
 | `rsp`                    | Reference to a modem response instance.             | **None**   |
 
-> [!warning]
+> [!WARNING]
 > The **library_message_bugger** stores metadata for received messages
 > but does not hold their payloads. \
 > The modem itself supports up to 100 messages, however,

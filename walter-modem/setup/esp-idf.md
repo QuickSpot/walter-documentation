@@ -2,7 +2,7 @@
 
 This guide will walk you through installing the Walter Modem library for ESP-IDF.
 
-> [!tip]
+> [!TIP]
 > If you haven't set up the ESP-IDF dev environment yet, go through the
 > [ESP-IDF Toolchain Setup](/developer-toolchains/esp-idf.md) first
 

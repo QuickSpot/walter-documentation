@@ -26,7 +26,7 @@ To work with ESP32-based boards, you need to install the ESP32 board manager:
 
 ### 3. General IDE Configuration
 
-> [!note]
+> [!NOTE]
 > The board configuration can be set automatically by pressing the
 > `Get Board Info` button in the `Tools` tab.
 
