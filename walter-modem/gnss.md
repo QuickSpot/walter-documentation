@@ -228,7 +228,7 @@ gnss_fix = await modem.wait_for_gnss_fix()
 
 #### Returns
 
-ModemGNSSFix
+`ModemGNSSFix`
 
 ---
 
