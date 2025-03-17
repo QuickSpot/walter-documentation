@@ -232,7 +232,7 @@ else:
 
 | Param                | Description                                               | Default                                      |
 | -------------------- | --------------------------------------------------------- | -------------------------------------------- |
-| `profileId`          | The profile id *(0, 1 or 2)* of the HTTP context.           |                                              |
+| `profileId`          | The profile id (0, 1 or 2) of the HTTP context.           |                                              |
 | `uri`                | The URI.                                                  |                                              |
 | `data`               | Data to be sent to the server.                            |                                              |
 | `dataSize`           | Length of the data buffer to be sent to the server.       |                                              |
@@ -248,7 +248,7 @@ else:
 
 | Param                | Description                                               | Default                                      |
 | -------------------- | --------------------------------------------------------- | -------------------------------------------- |
-| `profileId`          | The profile id *(0, 1 or 2)* of the HTTP context.         |                                              |
+| `profileId`          | The profile id (0, 1 or 2) of the HTTP context.         |                                              |
 | `uri`                | The URI.                                                  |                                              |
 | `data`               | Data to be sent to the server.                            |                                              |
 | `dataSize`           | Length of the data buffer to be sent to the server.       |                                              |
@@ -264,7 +264,7 @@ else:
 
 | Param        | Description                                               | Default                                  |
 | ------------ | --------------------------------------------------------- | ---------------------------------------- |
-| `profile_id` | The profile id *(0, 1 or 2)* of the HTTP context.         |                                          |
+| `profile_id` | The profile id (0, 1 or 2) of the HTTP context.         |                                          |
 | `uri`        | The URI.                                                  |                                          |
 | `data`       | Data to be sent to the server.                            |                                          |
 | `send_cmd`   | POST or PUT [command](#waltermodemhttpsendcmd).           | **WalterModemHttpSendCmd.POST**          |
@@ -369,7 +369,7 @@ else:
 
 | Param               | Description                                                     | Default                         |
 | ------------------- | --------------------------------------------------------------- | ------------------------------- |
-| `profile_id`        | The profile id *(0, 1 or 2)* of the HTTP context.               |                                 |
+| `profile_id`        | The profile id (0, 1 or 2) of the HTTP context.               |                                 |
 | `uri`               | The URI.                                                        |                                 |
 | `query_cmd`         | GET, DELETE, or HEAD [command](#waltermodemhttpquerycmd).       | **WalterModemHttpQueryCmd.GET** |
 | `extra_header_line` | Optional additional lines to be placed in the request's header. | **None**                        |
