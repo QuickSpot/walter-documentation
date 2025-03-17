@@ -104,7 +104,7 @@ else:
 
 | Param          | Description                                                                                                           | Default   |
 | -------------- | --------------------------------------------------------------------------------------------------------------------- | --------- |
-| `profileId`    | HTTP profile id (0, 1 or 2)                                                                                           |           |
+| `profileId`    | HTTP profile id (0, 1 or 2).                                                                                          |           |
 | `serverName`   | The server name to connect to.                                                                                        |           |
 | `port`         | The port of the server to connect to.                                                                                 | **80**    |
 | `tlsProfileId` | If not 0, TLS is used with the given profile (1-6).                                                                   | **0**     |
@@ -119,7 +119,7 @@ else:
 
 | Param          | Description                                                                                                           | Default   |
 | -------------- | --------------------------------------------------------------------------------------------------------------------- | --------- |
-| `profileId`    | HTTP profile id (0, 1 or 2)                                                                                           |           |
+| `profileId`    | HTTP profile id (0, 1 or 2).                                                                                          |           |
 | `serverName`   | The server name to connect to.                                                                                        |           |
 | `port`         | The port of the server to connect to.                                                                                 | **80**    |
 | `tlsProfileId` | If not 0, TLS is used with the given profile (1-6).                                                                   | **0**     |
@@ -134,7 +134,7 @@ else:
 
 | Param            | Description                                      | Default   |
 | ---------------- | ------------------------------------------------ | --------- |
-| `profile_id`     | HTTP profile id (0, 1 or 2)                      |           |
+| `profile_id`     | HTTP profile id (0, 1 or 2).                     |           |
 | `server_address` | The server name to connect to.                   |           |
 | `port`           | The port of the server to connect to.            | **80**    |
 | `use_basic_auth` | Set true to use basic auth and send username/pw. | **False** |
@@ -230,46 +230,46 @@ else:
 
 ##### **Arduino**
 
-| Param                | Description                                              | Default                                      |
-| -------------------- | -------------------------------------------------------- | -------------------------------------------- |
-| `profileId`          | The profile id (0, 1 or 2) of the HTTP context           |                                              |
-| `uri`                | The URI                                                  |                                              |
-| `data`               | Data to be sent to the server                            |                                              |
-| `dataSize`           | Length of the data buffer to be sent to the server       |                                              |
-| `httpSendCmd`        | POST or PUT [command](#waltermodemhttpsendcmd)           | **WALTER_MODEM_HTTP_SEND_CMD_POST**          |
-| `httpPostParam`      | [Content type](#waltermodemhttppostparam) (enum value)   | **WALTER_MODEM_HTTP_POST_PARAM_UNSPECIFIED** |
-| `contentTypeBuf`     | Optional user buffer to store content type header in     | **NULL**                                     |
-| `contentTypeBufSize` | Size of the user buffer, including terminating null byte | **0**                                        |
-| `rsp`                | Response object                                          | **NULL**                                     |
-| `cb`                 | Callback                                                 | **NULL**                                     |
-| `args`               | Callback arguments                                       | **NULL**                                     |
+| Param                | Description                                               | Default                                      |
+| -------------------- | --------------------------------------------------------- | -------------------------------------------- |
+| `profileId`          | The profile id *(0, 1 or 2)* of the HTTP context.           |                                              |
+| `uri`                | The URI.                                                  |                                              |
+| `data`               | Data to be sent to the server.                            |                                              |
+| `dataSize`           | Length of the data buffer to be sent to the server.       |                                              |
+| `httpSendCmd`        | POST or PUT [command](#waltermodemhttpsendcmd).           | **WALTER_MODEM_HTTP_SEND_CMD_POST**          |
+| `httpPostParam`      | [Content type](#waltermodemhttppostparam) *(enum value)*. | **WALTER_MODEM_HTTP_POST_PARAM_UNSPECIFIED** |
+| `contentTypeBuf`     | Optional user buffer to store content type header in.     | **NULL**                                     |
+| `contentTypeBufSize` | Size of the user buffer, including terminating null byte. | **0**                                        |
+| `rsp`                | Response object.                                          | **NULL**                                     |
+| `cb`                 | Callback.                                                 | **NULL**                                     |
+| `args`               | Callback arguments.                                       | **NULL**                                     |
 
 ##### **ESP-IDF**
 
-| Param                | Description                                              | Default                                      |
-| -------------------- | -------------------------------------------------------- | -------------------------------------------- |
-| `profileId`          | The profile id (0, 1 or 2) of the HTTP context           |                                              |
-| `uri`                | The URI                                                  |                                              |
-| `data`               | Data to be sent to the server                            |                                              |
-| `dataSize`           | Length of the data buffer to be sent to the server       |                                              |
-| `httpSendCmd`        | POST or PUT [command](#waltermodemhttpsendcmd)           | **WALTER_MODEM_HTTP_SEND_CMD_POST**          |
-| `httpPostParam`      | [Content type](#waltermodemhttppostparam) (enum value)   | **WALTER_MODEM_HTTP_POST_PARAM_UNSPECIFIED** |
-| `contentTypeBuf`     | Optional user buffer to store content type header in     | **NULL**                                     |
-| `contentTypeBufSize` | Size of the user buffer, including terminating null byte | **0**                                        |
-| `rsp`                | Response object                                          | **NULL**                                     |
-| `cb`                 | Callback                                                 | **NULL**                                     |
-| `args`               | Callback arguments                                       | **NULL**                                     |
+| Param                | Description                                               | Default                                      |
+| -------------------- | --------------------------------------------------------- | -------------------------------------------- |
+| `profileId`          | The profile id *(0, 1 or 2)* of the HTTP context.         |                                              |
+| `uri`                | The URI.                                                  |                                              |
+| `data`               | Data to be sent to the server.                            |                                              |
+| `dataSize`           | Length of the data buffer to be sent to the server.       |                                              |
+| `httpSendCmd`        | POST or PUT [command](#waltermodemhttpsendcmd).           | **WALTER_MODEM_HTTP_SEND_CMD_POST**          |
+| `httpPostParam`      | [Content type](#waltermodemhttppostparam) *(enum value)*. | **WALTER_MODEM_HTTP_POST_PARAM_UNSPECIFIED** |
+| `contentTypeBuf`     | Optional user buffer to store content type header in.     | **NULL**                                     |
+| `contentTypeBufSize` | Size of the user buffer, including terminating null byte. | **0**                                        |
+| `rsp`                | Response object.                                          | **NULL**                                     |
+| `cb`                 | Callback.                                                 | **NULL**                                     |
+| `args`               | Callback arguments.                                       | **NULL**                                     |
 
 ##### **Micropython**
 
-| Param        | Description                                            | Default                              |
-| ------------ | ------------------------------------------------------ | ------------------------------------ |
-| `profile_id` | The profile id (0, 1 or 2) of the HTTP context         |                                      |
-| `uri`        | The URI                                                |                                      |
-| `data`       | Data to be sent to the server                          |                                      |
-| `send_cmd`   | POST or PUT [command](#waltermodemhttpsendcmd)         | **WalterModemHttpSendCmd.POST**          |
-| `post_param` | [Content type](#waltermodemhttppostparam) (enum value) | **WalterModemHttpPostParam.UNSPECIFIED** |
-| `rsp`        | Reference to a modem response instance                 | **None** |
+| Param        | Description                                               | Default                                  |
+| ------------ | --------------------------------------------------------- | ---------------------------------------- |
+| `profile_id` | The profile id *(0, 1 or 2)* of the HTTP context.         |                                          |
+| `uri`        | The URI.                                                  |                                          |
+| `data`       | Data to be sent to the server.                            |                                          |
+| `send_cmd`   | POST or PUT [command](#waltermodemhttpsendcmd).           | **WalterModemHttpSendCmd.POST**          |
+| `post_param` | [Content type](#waltermodemhttppostparam) *(enum value)*. | **WalterModemHttpPostParam.UNSPECIFIED** |
+| `rsp`        | Reference to a modem response instance.                   | **None**                                 |
 
 <!-- tabs:end -->
 
@@ -341,39 +341,39 @@ else:
 
 ##### **Arduino**
 
-| Param                | Description                                              | Default                             |
-| -------------------- | -------------------------------------------------------- | ----------------------------------- |
-| `profileId`          | The profile id (0, 1, or 2) of the HTTP context          |                                     |
-| `uri`                | The URI                                                  |                                     |
-| `httpQueryCmd`       | GET, DELETE, or HEAD [command](#waltermodemhttpquerycmd) | **WALTER_MODEM_HTTP_QUERY_CMD_GET** |
-| `contentTypeBuf`     | Optional user buffer to store content type header in     | **NULL**                            |
-| `contentTypeBufSize` | Size of the user buffer, including terminating null byte | **0**                               |
-| `rsp`                | Response object                                          | **NULL**                            |
-| `cb`                 | Callback                                                 | **NULL**                            |
-| `args`               | Callback arguments                                       | **NULL**                            |
+| Param                | Description                                               | Default                             |
+| -------------------- | --------------------------------------------------------- | ----------------------------------- |
+| `profileId`          | The profile id *(0, 1, or 2)* of the HTTP context.        |                                     |
+| `uri`                | The URI.                                                  |                                     |
+| `httpQueryCmd`       | GET, DELETE, or HEAD [command](#waltermodemhttpquerycmd). | **WALTER_MODEM_HTTP_QUERY_CMD_GET** |
+| `contentTypeBuf`     | Optional user buffer to store content type header in.     | **NULL**                            |
+| `contentTypeBufSize` | Size of the user buffer, including terminating null byte. | **0**                               |
+| `rsp`                | Response object.                                          | **NULL**                            |
+| `cb`                 | Callback.                                                 | **NULL**                            |
+| `args`               | Callback arguments.                                       | **NULL**                            |
 
 ##### **ESP-IDF**
 
-| Param                | Description                                              | Default                             |
-| -------------------- | -------------------------------------------------------- | ----------------------------------- |
-| `profileId`          | The profile id (0, 1, or 2) of the HTTP context          |                                     |
-| `uri`                | The URI                                                  |                                     |
-| `httpQueryCmd`       | GET, DELETE, or HEAD [command](#waltermodemhttpquerycmd) | **WALTER_MODEM_HTTP_QUERY_CMD_GET** |
-| `contentTypeBuf`     | Optional user buffer to store content type header in     | **NULL**                            |
-| `contentTypeBufSize` | Size of the user buffer, including terminating null byte | **0**                               |
-| `rsp`                | Response object                                          | **NULL**                            |
-| `cb`                 | Callback                                                 | **NULL**                            |
-| `args`               | Callback arguments                                       | **NULL**                            |
+| Param                | Description                                               | Default                             |
+| -------------------- | --------------------------------------------------------- | ----------------------------------- |
+| `profileId`          | The profile id *(0, 1, or 2)* of the HTTP context.        |                                     |
+| `uri`                | The URI.                                                  |                                     |
+| `httpQueryCmd`       | GET, DELETE, or HEAD [command](#waltermodemhttpquerycmd). | **WALTER_MODEM_HTTP_QUERY_CMD_GET** |
+| `contentTypeBuf`     | Optional user buffer to store content type header in.     | **NULL**                            |
+| `contentTypeBufSize` | Size of the user buffer, including terminating null byte. | **0**                               |
+| `rsp`                | Response object.                                          | **NULL**                            |
+| `cb`                 | Callback.                                                 | **NULL**                            |
+| `args`               | Callback arguments.                                       | **NULL**                            |
 
 ##### **Micropython**
 
-| Param               | Description                                                    | Default                         |
-| ------------------- | -------------------------------------------------------------- | ------------------------------- |
-| `profile_id`        | The profile id (0, 1 or 2) of the HTTP context                 |                                 |
-| `uri`               | The URI                                                        |                                 |
-| `query_cmd`         | GET, DELETE, or HEAD [command](#waltermodemhttpquerycmd)       | **WalterModemHttpQueryCmd.GET** |
-| `extra_header_line` | Optional additional lines to be placed in the request's header | **None**                        |
-| `rsp`               | Reference to a modem response instance                         | **None** |
+| Param               | Description                                                     | Default                         |
+| ------------------- | --------------------------------------------------------------- | ------------------------------- |
+| `profile_id`        | The profile id *(0, 1 or 2)* of the HTTP context.               |                                 |
+| `uri`               | The URI.                                                        |                                 |
+| `query_cmd`         | GET, DELETE, or HEAD [command](#waltermodemhttpquerycmd).       | **WalterModemHttpQueryCmd.GET** |
+| `extra_header_line` | Optional additional lines to be placed in the request's header. | **None**                        |
+| `rsp`               | Reference to a modem response instance.                         | **None**                        |
 
 <!-- tabs:end -->
 
@@ -474,26 +474,26 @@ while await modem.http_did_ring(profile_id=http_profile, rsp=modem_rsp):
 
 | Param           | Description                                                                 | Default  |
 | --------------- | --------------------------------------------------------------------------- | -------- |
-| `profileId`     | Profile for which to get the response                                       |          |
-| `targetBuf`     | User buffer to store response in                                            |          |
-| `targetBufSize` | Size of the user buffer, including space for a terminating null byte        |          |
+| `profileId`     | Profile for which to get the response.                                      |          |
+| `targetBuf`     | User buffer to store response in.                                           |          |
+| `targetBufSize` | Size of the user buffer, including space for a terminating null byte.       |          |
 | `rsp`           | Pointer to a modem response structure to save the result of the command in. | **NULL** |
 
 ##### **ESP-IDF**
 
 | Param           | Description                                                                 | Default  |
 | --------------- | --------------------------------------------------------------------------- | -------- |
-| `profileId`     | Profile for which to get the response                                       |          |
-| `targetBuf`     | User buffer to store response in                                            |          |
-| `targetBufSize` | Size of the user buffer, including space for a terminating null byte        |          |
+| `profileId`     | Profile for which to get the response.                                      |          |
+| `targetBuf`     | User buffer to store response in.                                           |          |
+| `targetBufSize` | Size of the user buffer, including space for a terminating null byte.       |          |
 | `rsp`           | Pointer to a modem response structure to save the result of the command in. | **NULL** |
 
 ##### **Micropython**
 
-| Param        | Description                            | Default  |
-| ------------ | -------------------------------------- | -------- |
-| `profile_id` | Profile for which to get the response  |          |
-| `rsp`        | Reference to a modem response instance | **None** |
+| Param        | Description                             | Default  |
+| ------------ | --------------------------------------- | -------- |
+| `profile_id` | Profile for which to get the response.  |          |
+| `rsp`        | Reference to a modem response instance. | **None** |
 
 <!-- tabs:end -->
 

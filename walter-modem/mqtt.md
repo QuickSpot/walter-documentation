@@ -51,14 +51,14 @@ else:
 
 ##### **Micropython**
 
-| Param                    | Description                                        | Default    |
-| ------------------------ | -------------------------------------------------- | ---------- |
-| `client_id`              | MQTT client ID to use                              | device MAC |
-| `user_name`              | Optional username for authentication               | **""**     |
-| `password`               | Optional password for authentication               | **""**     |
-| `tls_profile_id`         | Optional TLS profile ID to use                     | **None**   |
-| `library_message_buffer` | Size of the library's internal MQTT message buffer | **16**     |
-| `rsp`                    | Reference to a modem response instance             | **None**   |
+| Param                    | Description                                         | Default    |
+| ------------------------ | --------------------------------------------------- | ---------- |
+| `client_id`              | MQTT client ID to use.                              | device MAC |
+| `user_name`              | Optional username for authentication.               | **""**     |
+| `password`               | Optional password for authentication.               | **""**     |
+| `tls_profile_id`         | Optional TLS profile ID to use.                     | **None**   |
+| `library_message_buffer` | Size of the library's internal MQTT message buffer. | **16**     |
+| `rsp`                    | Reference to a modem response instance.             | **None**   |
 
 > [!warning]
 > The **library_message_bugger** stores metadata for received messages
@@ -122,39 +122,39 @@ else:
 
 ##### **Arduino**
 
-| Param          | Description                                                                                           | Default                  |
-| -------------- | ----------------------------------------------------------------------------------------------------- | ------------------------ |
-| `serverName`   | MQTT broker hostname                                                                                  |                          |
-| `port`         | Port to connect to                                                                                    |                          |
-| `clientId`     | Client ID string to be used                                                                           | **"walter-mqtt-client"** |
-| `userName`     | Username                                                                                              | **""**                   |
-| `password`     | Password                                                                                              | **""**                   |
-| `tlsProfileId` | TLS profile ID to be used (default 0 = plaintext)                                                     | **0**                    |
-| `rsp`          | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored | **NULL**                 |
-| `cb`           | Optional callback argument. When not NULL, this function returns immediately                          | **NULL**                 |
-| `args`         | Optional argument to pass to the callback                                                             | **NULL**                 |
+| Param          | Description                                                                                            | Default                  |
+| -------------- | ------------------------------------------------------------------------------------------------------ | ------------------------ |
+| `serverName`   | MQTT broker hostname.                                                                                  |                          |
+| `port`         | Port to connect to.                                                                                    |                          |
+| `clientId`     | Client ID string to be used.                                                                           | **"walter-mqtt-client"** |
+| `userName`     | Username.                                                                                              | **""**                   |
+| `password`     | Password.                                                                                              | **""**                   |
+| `tlsProfileId` | TLS profile ID to be used *(default 0 = plaintext)*.                                                   | **0**                    |
+| `rsp`          | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored. | **NULL**                 |
+| `cb`           | Optional callback argument. When not NULL, this function returns immediately.                          | **NULL**                 |
+| `args`         | Optional argument to pass to the callback.                                                             | **NULL**                 |
 
 ##### **ESP-IDF**
 
-| Param          | Description                                                                                           | Default                  |
-| -------------- | ----------------------------------------------------------------------------------------------------- | ------------------------ |
-| `serverName`   | MQTT broker hostname                                                                                  |                          |
-| `port`         | Port to connect to                                                                                    |                          |
-| `clientId`     | Client ID string to be used                                                                           | **"walter-mqtt-client"** |
-| `userName`     | Username                                                                                              | **""**                   |
-| `password`     | Password                                                                                              | **""**                   |
-| `tlsProfileId` | TLS profile ID to be used (default 0 = plaintext)                                                     | **0**                    |
-| `rsp`          | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored | **NULL**                 |
-| `cb`           | Optional callback argument. When not NULL, this function returns immediately                          | **NULL**                 |
-| `args`         | Optional argument to pass to the callback                                                             | **NULL**                 |
+| Param          | Description                                                                                            | Default                  |
+| -------------- | ------------------------------------------------------------------------------------------------------ | ------------------------ |
+| `serverName`   | MQTT broker hostname.                                                                                  |                          |
+| `port`         | Port to connect to.                                                                                    |                          |
+| `clientId`     | Client ID string to be used.                                                                           | **"walter-mqtt-client"** |
+| `userName`     | Username.                                                                                              | **""**                   |
+| `password`     | Password.                                                                                              | **""**                   |
+| `tlsProfileId` | TLS profile ID to be used *(default 0 = plaintext)*.                                                   | **0**                    |
+| `rsp`          | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored. | **NULL**                 |
+| `cb`           | Optional callback argument. When not NULL, this function returns immediately.                          | **NULL**                 |
+| `args`         | Optional argument to pass to the callback.                                                             | **NULL**                 |
 
 ##### **Micropython**
 
-| Param         | Description                           | Default |
-| ------------- | ------------------------------------- | ------- |
-| `server_name` | MQTT broker hostname                  |         |
-| `port`        | Port to connect to                    |         |
-| `keep_alive`  | Maximum keepalive time *(in seconds)* | 60      |
+| Param         | Description                            | Default |
+| ------------- | -------------------------------------- | ------- |
+| `server_name` | MQTT broker hostname.                  |         |
+| `port`        | Port to connect to.                    |         |
+| `keep_alive`  | Maximum keepalive time *(in seconds)*. | 60      |
 
 <!-- tabs:end -->
 
@@ -215,31 +215,31 @@ else:
 
 ##### **Arduino**
 
-| Param         | Description                                                                                           | Default  |
-| ------------- | ----------------------------------------------------------------------------------------------------- | -------- |
-| `topicString` | Topic to publish on                                                                                   |          |
-| `qos`         | QoS: 0 = at most once, 1 = at least once, 2 = exactly once received                                   | **1**    |
-| `rsp`         | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored | **NULL** |
-| `cb`          | Optional callback argument. When not NULL, this function returns immediately                          | **NULL** |
-| `args`        | Optional argument to pass to the callback                                                             | **NULL** |
+| Param         | Description                                                                                            | Default  |
+| ------------- | ------------------------------------------------------------------------------------------------------ | -------- |
+| `topicString` | Topic to publish on.                                                                                   |          |
+| `qos`         | QoS: 0 = at most once, 1 = at least once, 2 = exactly once received.                                   | **1**    |
+| `rsp`         | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored. | **NULL** |
+| `cb`          | Optional callback argument. When not NULL, this function returns immediately.                          | **NULL** |
+| `args`        | Optional argument to pass to the callback.                                                             | **NULL** |
 
 ##### **ESP-IDF**
 
-| Param         | Description                                                                                           | Default  |
-| ------------- | ----------------------------------------------------------------------------------------------------- | -------- |
-| `topicString` | Topic to publish on                                                                                   |          |
-| `qos`         | QoS: 0 = at most once, 1 = at least once, 2 = exactly once received                                   | **1**    |
-| `rsp`         | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored | **NULL** |
-| `cb`          | Optional callback argument. When not NULL, this function returns immediately                          | **NULL** |
-| `args`        | Optional argument to pass to the callback                                                             | **NULL** |
+| Param         | Description                                                                                            | Default  |
+| ------------- | ------------------------------------------------------------------------------------------------------ | -------- |
+| `topicString` | Topic to publish on.                                                                                   |          |
+| `qos`         | QoS: 0 = at most once, 1 = at least once, 2 = exactly once received.                                   | **1**    |
+| `rsp`         | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored. | **NULL** |
+| `cb`          | Optional callback argument. When not NULL, this function returns immediately.                          | **NULL** |
+| `args`        | Optional argument to pass to the callback.                                                             | **NULL** |
 
 ##### **Micropython**
 
-| Param   | Description                                                         | Default  |
-| ------- | ------------------------------------------------------------------- | -------- |
-| `topic` | Topic to subscribe to                                               |          |
-| `qos`   | QoS: 0 = at most once, 1 = at least once, 2 = exactly once received | **1**    |
-| `rsp`   | Reference to a modem response instance                              | **None** |
+| Param   | Description                                                          | Default  |
+| ------- | -------------------------------------------------------------------- | -------- |
+| `topic` | Topic to subscribe to.                                               |          |
+| `qos`   | QoS: 0 = at most once, 1 = at least once, 2 = exactly once received. | **1**    |
+| `rsp`   | Reference to a modem response instance.                              | **None** |
 
 <!-- tabs:end -->
 
@@ -305,35 +305,35 @@ else:
 
 ##### **Arduino**
 
-| Param         | Description                                                                                           | Default  |
-| ------------- | ----------------------------------------------------------------------------------------------------- | -------- |
-| `topicString` | Topic to publish on                                                                                   |          |
-| `data`        | Data to be published                                                                                  |          |
-| `dataSize`    | Size of the data block                                                                                |          |
-| `qos`         | QoS: 0 = at most once, 1 = at least once, 2 = exactly once received                                   | **1**    |
-| `rsp`         | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored | **NULL** |
-| `cb`          | Optional callback argument. When not NULL, this function returns immediately                          | **NULL** |
-| `args`        | Optional argument to pass to the callback                                                             | **NULL** |
+| Param         | Description                                                                                            | Default  |
+| ------------- | ------------------------------------------------------------------------------------------------------ | -------- |
+| `topicString` | Topic to publish on.                                                                                   |          |
+| `data`        | Data to be published.                                                                                  |          |
+| `dataSize`    | Size of the data block.                                                                                |          |
+| `qos`         | QoS: 0 = at most once, 1 = at least once, 2 = exactly once received.                                   | **1**    |
+| `rsp`         | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored. | **NULL** |
+| `cb`          | Optional callback argument. When not NULL, this function returns immediately.                          | **NULL** |
+| `args`        | Optional argument to pass to the callback.                                                             | **NULL** |
 
 ##### **ESP-IDF**
 
-| Param         | Description                                                                                           | Default  |
-| ------------- | ----------------------------------------------------------------------------------------------------- | -------- |
-| `topicString` | Topic to publish on                                                                                   |          |
-| `data`        | Data to be published                                                                                  |          |
-| `dataSize`    | Size of the data block                                                                                |          |
-| `qos`         | QoS: 0 = at most once, 1 = at least once, 2 = exactly once received                                   | **1**    |
-| `rsp`         | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored | **NULL** |
-| `cb`          | Optional callback argument. When not NULL, this function returns immediately                          | **NULL** |
-| `args`        | Optional argument to pass to the callback                                                             | **NULL** |
+| Param         | Description                                                                                            | Default  |
+| ------------- | ------------------------------------------------------------------------------------------------------ | -------- |
+| `topicString` | Topic to publish on.                                                                                   |          |
+| `data`        | Data to be published.                                                                                  |          |
+| `dataSize`    | Size of the data block.                                                                                |          |
+| `qos`         | QoS: 0 = at most once, 1 = at least once, 2 = exactly once received.                                   | **1**    |
+| `rsp`         | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored. | **NULL** |
+| `cb`          | Optional callback argument. When not NULL, this function returns immediately.                          | **NULL** |
+| `args`        | Optional argument to pass to the callback.                                                             | **NULL** |
 
 ##### **Micropython**
 
-| Param   | Description                                                         | Default  |
-| ------- | ------------------------------------------------------------------- | -------- |
-| `topic` | Topic to publish on                                                 |          |
-| `qos`   | QoS: 0 = at most once, 1 = at least once, 2 = exactly once received | **1**    |
-| `rsp`   | Reference to a modem response instance                              | **None** |
+| Param   | Description                                                          | Default  |
+| ------- | -------------------------------------------------------------------- | -------- |
+| `topic` | Topic to publish on.                                                 |          |
+| `qos`   | QoS: 0 = at most once, 1 = at least once, 2 = exactly once received. | **1**    |
+| `rsp`   | Reference to a modem response instance.                              | **None** |
 
 <!-- tabs:end -->
 
@@ -410,29 +410,29 @@ else:
 
 ##### **Arduino**
 
-| Param           | Description                                                                                           | Default  |
-| --------------- | ----------------------------------------------------------------------------------------------------- | -------- |
-| `topic`         | Topic to poll                                                                                         |          |
-| `targetBuf`     | Target buffer to write incoming MQTT data in                                                          |          |
-| `targetBufSize` | Size of the target buffer                                                                             |          |
-| `rsp`           | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored | **NULL** |
+| Param           | Description                                                                                            | Default  |
+| --------------- | ------------------------------------------------------------------------------------------------------ | -------- |
+| `topic`         | Topic to poll.                                                                                         |          |
+| `targetBuf`     | Target buffer to write incoming MQTT data in;                                                          |          |
+| `targetBufSize` | Size of the target buffer.                                                                             |          |
+| `rsp`           | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored. | **NULL** |
 
 ##### **ESP-IDF**
 
-| Param           | Description                                                                                           | Default  |
-| --------------- | ----------------------------------------------------------------------------------------------------- | -------- |
-| `topic`         | Topic to poll                                                                                         |          |
-| `targetBuf`     | Target buffer to write incoming MQTT data in                                                          |          |
-| `targetBufSize` | Size of the target buffer                                                                             |          |
-| `rsp`           | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored | **NULL** |
+| Param           | Description                                                                                            | Default  |
+| --------------- | ------------------------------------------------------------------------------------------------------ | -------- |
+| `topic`         | Topic to poll.                                                                                         |          |
+| `targetBuf`     | Target buffer to write incoming MQTT data in;                                                          |          |
+| `targetBufSize` | Size of the target buffer.                                                                             |          |
+| `rsp`           | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored. | **NULL** |
 
 ##### **Micropython**
 
-| Param      | Description                                                | Default  |
-| ---------- | ---------------------------------------------------------- | -------- |
-| `msg_list` | Refence to a list where the received messages will be put  |          |
-| `topic`    | The exact topic to filter on, leave as None for all topics | **None** |
-| `rsp`      | Reference to a modem response instance                     | **None** |
+| Param      | Description                                                 | Default  |
+| ---------- | ----------------------------------------------------------- | -------- |
+| `msg_list` | Refence to a list where the received messages will be put.  |          |
+| `topic`    | The exact topic to filter on, leave as None for all topics. | **None** |
+| `rsp`      | Reference to a modem response instance.                     | **None** |
 
 <!-- tabs:end -->
 
