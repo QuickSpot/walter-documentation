@@ -16,6 +16,7 @@
     * [ESP-IDF](/walter-modem/setup/esp-idf.md)
     * [Micropython](/walter-modem/setup/micropython.md)
   * [Common](/walter-modem/common.md)
+  * [SIM & Network](/walter-modem/sim_and_network.md)
   * [PDP Context Management](/walter-modem/pdp_ctx_management.md)
   * [GNSS](/walter-modem/gnss.md)
   * [Sockets](/walter-modem/sockets.md)
