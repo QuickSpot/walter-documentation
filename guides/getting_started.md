@@ -34,7 +34,7 @@ modem. Walter recommends the following antennas:
 To power up Walter you can use a standard USB-C cable and connect Walter to your
 PC or a power bank. You can also power Walter via the header pins (Vin and GND).
 
-> [!warning]
+> [!WARNING]
 > The USB-C power and Vin pin are internally connected. If you are
 > powering Walter through the headers pins it is best to use an USB-C cable of
 > which the VCC wire has been cut.

@@ -4,7 +4,7 @@ This guide will walk you through installing the Walter Modem library,
 selecting the right board settings,
 and running example sketches to get your modem up and running.
 
-> [!tip]
+> [!TIP]
 > If you haven't set up the Arduino IDE yet,
 > go through [Arduino Setup Guide](/developer-toolchains/arduino.md) first.
 
