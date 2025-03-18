@@ -3,8 +3,8 @@
 - [reset](#reset)
 - [checkComm](#checkcomm)
 - [getClock](#getclock)
-- [configCmeErrorReports](#configcmeerrorreports)
-- [configCeregReports](#configceregreports)
+- [configCMEErrorReports](#configcmeerrorreports)
+- [configCEREGReports](#configceregreports)
 - [getOpState](#getopstate)
 - [setOpState](#setopstate)
 
@@ -160,7 +160,7 @@ True on success, False otherwise.
 
 ---
 
-### `configCmeErrorReports`
+### `configCMEErrorReports`
 
 Configures the CME error report type.
 By default, errors are enabled and numeric.
@@ -209,7 +209,7 @@ True on success, False otherwise.
 
 ---
 
-### `configCeregReports`
+### `configCEREGReports`
 
 Configures the CEREG status report type.
 By default, reports are enabled with minimal operational info.

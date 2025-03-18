@@ -1,11 +1,11 @@
 ## Methods Overview
 
 - [getNetworkRegState](#getnetworkregstate)
-- [getRssi](#getrssi)
+- [getRSSI](#getrssi)
 - [getSignalQuality](#getsignalquality)
 - [getCellInformation](#getcellinformation)
-- [getRat](#getrat)
-- [setRat](#setrat)
+- [getRAT](#getrat)
+- [setRAT](#setrat)
 - [getRadioBands](#getradiobands)
 - [getSimState](#getsimstate)
 - [unlockSim](#unlocksim)
@@ -55,7 +55,7 @@ The current modem registration state
 
 ---
 
-### `getRssi`
+### `getRSSI`
 
 Retrieves the RSSI information.
 
@@ -207,7 +207,7 @@ True on success, False otherwise.
 
 ---
 
-### `getRat`
+### `getRAT`
 
 Retrieves the Radio Access Technology (RAT) for the modem.
 
@@ -255,7 +255,7 @@ True on success, False otherwise.
 
 ---
 
-### `setRat`
+### `setRAT`
 
 Sets the Radio Access Technology (RAT) for the modem.
 
