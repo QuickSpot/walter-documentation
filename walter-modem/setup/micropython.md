@@ -17,8 +17,28 @@ There are multiple ways to install the WalterModem library for Micropython.
 
 ### **MIP (Recommended)**
 
-> [!INFO]
-> Waiting for PR #7 to be merged before this part of the docs can be written
+[MIP](https://docs.micropython.org/en/latest/reference/packages.html) is similar in concept to Python's `pip` tool.
+It allows you to install packages from
+[micropython-lib](https://docs.micropython.org/en/latest/reference/glossary.html#term-micropython-lib)
+and from third-party sites *(including Github & Gitlab)*.
+
+You can use `mpremote`, the officially-supported tool for interacting
+with a MicroPython device, to install the Modem Library MIP packagae to your device.
+
+You can simply run:
+
+```shell
+mpremote mip install github:QuickSpot/walter-micropython
+```
+
+If needed, you can specify the device as such:
+
+```shell
+mpremote connect <device> mip install github:QuickSpot/walter-micropython
+```
+
+> [!TIP]
+> \<device\> may look like: /dev/ttyACM0 (on Linux) or eg. "COM3" (on Windows)
 
 ### **Util Script**
 
@@ -41,6 +61,32 @@ of the modem library itself or should there be any issues with
 > `chmod +x <path_to_script>`
 
 ### **Manual Copy (mpremote)**
+
+You can use mpremote to manually copy the WalterModem libary to your device.
+
+1. Clone the [Micropython WalterModem](https://github.com/QuickSpot/walter-micropython.git)
+2. Change Directory into the repository
+3. Make the lib directory on the MicroPython device:
+
+   ```shell
+   mpremote mkdir lib
+   ```
+
+4. Copy the modem library to the lib folder
+   on the MicroPython device, to install it.
+
+   ```shell
+   mpremote cp -r walter_modem :lib/
+   ```
+
+   If needed you can specify the device as such:
+
+   ```shell
+   mpremote connect <device> cp -r walter_modem :lib/
+   ```
+
+   > [!TIP]
+   > \<device\> may look like: /dev/ttyACM0 (on Linux) or eg. "COM3" (on Windows)
 
 ### **Manual Copy (Thonny)**
 
