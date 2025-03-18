@@ -13,6 +13,12 @@
 
 ## Enums Overview
 
+- [WalterModemNetworkRegState](#waltermodemnetworkregstate)
+- [WalterModemSQNMONIReportsType](#waltermodemsqnmonireportstype)
+- [WalterModemRat](#waltermodemrat)
+- [WalterModemNetworkSelMode](#waltermodemnetworkselmode)
+- [WalterModemOperatorFormat](#waltermodemoperatorformat)
+
 ---
 
 ## Methods
