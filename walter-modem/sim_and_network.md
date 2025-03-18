@@ -44,7 +44,7 @@ if modem.get_network_reg_state() in (
 
 #### Returns
 
-`WalterModemNetworkRegState` \
+[`WalterModemNetworkRegState`](#waltermodemnetworkregstate) \
 The current modem registration state
 
 ---
@@ -117,7 +117,8 @@ including operator, cell ID, RSSI, and RSRP.
 modem_rsp = ModemRsp()
 
 if await modem.get_signal_quality(rps=modem_rsp):
-    print(modem_rsp.signal_quality.rsrp)
+    print(f'rsrp: {modem_rsp.signal_quality.rsrp}')
+    print(f'rsrq: {modem_rsp.signal_quality.rsrq}')
 else:
     print('Failed to get signal quality')
 
@@ -186,10 +187,10 @@ else:
 
 ##### **Micropython**
 
-| Param          | Description                              | Default                                        |
-| -------------- | ---------------------------------------- | ---------------------------------------------- |
-| `reports_type` | The type of cell information to retreive | **WalterModemSQNMONIReportsType.SERVING_CELL** |
-| `rsp`          | Reference to a modem response instance.  | **None**                                       |
+| Param          | Description                                                                | Default                                        |
+| -------------- | -------------------------------------------------------------------------- | ---------------------------------------------- |
+| `reports_type` | The [type of cell information](#waltermodemsqnmonireportstype) to retreive | **WalterModemSQNMONIReportsType.SERVING_CELL** |
+| `rsp`          | Reference to a modem response instance.                                    | **None**                                       |
 
 <!-- tabs:end -->
 
@@ -281,7 +282,7 @@ if not await modem.set_rat(WalterModemRat.LTEM):
 
 | Param | Description                             | Default  |
 | ----- | --------------------------------------- | -------- |
-| `rat` | The new RAT                             |          |
+| `rat` | The new [RAT](#waltermodemrat)          |          |
 | `rsp` | Reference to a modem response instance. | **None** |
 
 <!-- tabs:end -->
@@ -477,12 +478,12 @@ if not await modem.set_network_selection_mode(WalterModemNetworkSelMode.AUTOMATI
 
 ##### **Micropython**
 
-| Param             | Description                                                         | Default                                         |
-| ----------------- | ------------------------------------------------------------------- | ----------------------------------------------- |
-| `mode`            | The network selection mode.                                         | **WalterModemNetworkSelMode.AUTOMATIC**         |
-| `operator_name`   | The network operator name in case manual selection has been chosen. | **""**                                          |
-| `operator_format` | The format in which the network operator name is passed.            | **WalterModemOperatorFormat.LONG_ALPHANUMERIC** |
-| `rsp`             | Reference to a modem response instance.                             | **None**                                        |
+| Param             | Description                                                                            | Default                                         |
+| ----------------- | -------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| `mode`            | The [network selection mode](#setnetworkselectionmode).                                | **WalterModemNetworkSelMode.AUTOMATIC**         |
+| `operator_name`   | The network operator name in case manual selection has been chosen.                    | **""**                                          |
+| `operator_format` | The [format](#waltermodemoperatorformat) in which the network operator name is passed. | **WalterModemOperatorFormat.LONG_ALPHANUMERIC** |
+| `rsp`             | Reference to a modem response instance.                                                | **None**                                        |
 
 <!-- tabs:end -->
 
@@ -492,3 +493,122 @@ if not await modem.set_network_selection_mode(WalterModemNetworkSelMode.AUTOMATI
 True on success, False otherwise.
 
 ---
+
+## Enums
+
+### `WalterModemNetworkRegState`
+
+Modem network registration states.
+
+<!-- tabs:start -->
+
+#### **Arduino**
+
+#### **ESP-IDF**
+
+#### **Micropython**
+
+> **NOT_SEARCHING** = `0` \
+> **REGISTERED_HOME** = `1` \
+> **SEARCHING** = `2` \
+> **DENIED** = `3` \
+> **UNKNOWN** = `4` \
+> **REGISTERED_ROAMING** = `5` \
+> **REGISTERED_SMS_ONLY_HOME** = `6` \
+> **REGISTERED_SMS_ONLY_ROAMING** = `7` \
+> **ATTACHED_EMERGENCY_ONLY** = `8` \
+> **REGISTERED_CSFB_NOT_PREFERRED_HOME** = `9` \
+> **REGISTERED_CSFB_NOT_PREFERRED_ROAMING** = `10` \
+> **REGISTERED_TEMP_CONN_LOSS** = `80` \
+
+<!-- tabs:end -->
+
+### `WalterModemSQNMONIReportsType`
+
+SQNMONI cell information reporting scopes.
+
+<!-- tabs:start -->
+
+#### **Arduino**
+
+#### **ESP-IDF**
+
+#### **Micropython**
+
+> **SERVING_CELL** = `0` \
+> Reports only the serving cell. \
+> **INTRA_FREQUENCY_CELLS** = `1` \
+> Reports cells on the same frequency. \
+> **INTER_FREQUENCY_CELLS** = `2` \
+> Reports cells on different frequencies. \
+> **ALL_CELLS** = `7` \
+> Reports all available cells. \
+> **SERVING_CELL_WITH_CINR** = `9` \
+> Reports the serving cell with CINR (Carrier-to-Interference-plus-Noise Ratio).
+
+<!-- tabs:end -->
+
+### `WalterModemRat`
+
+Types of 3GPP access technologies supported by Walter.
+
+<!-- tabs:start -->
+
+#### **Arduino**
+
+#### **ESP-IDF**
+
+#### **Micropython**
+
+> **LTEM** = `0` \  
+> LTE-M (Long-Term Evolution for Machines). \
+> **NBIOT** = `1` \
+> NB-IoT (Narrowband Internet of Things). \
+> **AUTO** = `2` \
+> Automatic selection of access technology.
+
+<!-- tabs:end -->
+
+### `WalterModemNetworkSelMode`
+
+Support network selection modes.
+
+<!-- tabs:start -->
+
+#### **Arduino**
+
+#### **ESP-IDF**
+
+#### **Micropython**
+
+> **AUTOMATIC** = `0` \
+> Automatically selects a network. \
+> **MANUAL** = `1` \
+> Manually selects a network. \
+> **UNREGISTER** = `2` \
+> Disconnects from the network. \
+> **MANUAL_AUTO_FALLBACK** = `4` \
+> Manual selection with automatic fallback.
+
+<!-- tabs:end -->
+
+### `WalterModemOperatorFormat`
+
+Supported netowrk operator formats.
+
+<!-- tabs:start -->
+
+#### **Arduino**
+
+#### **ESP-IDF**
+
+#### **Micropython**
+
+> **LONG_ALPHANUMERIC** = `0` \
+> Full operator name (e.g., "Vodafone UK"). \
+> **SHORT_ALPHANUMERIC** = `1` \
+> Short operator name (e.g., "Vodafone"). \
+> **NUMERIC** = `2` \
+> Numeric operator code (e.g., "23415").
+
+<!-- tabs:end -->
