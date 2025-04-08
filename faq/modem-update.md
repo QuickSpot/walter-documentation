@@ -18,6 +18,10 @@ use the below update method starting from other firmware versions.
 > [!WARNING]
 > The upgrade **resets hardware configurations** such as UART speed and wake source settings. Ensure that you follow > the instructions below to preserve or restore these settings.
 
+> [!note]
+> The update can take a long time. Depending on the network connection it can take between 10 and 30 minutes 
+> to complete, please do not power-cycle the modem. 
+
 Follow these steps to perform the FOTA upgrade:
 1. **Avoid a power cut** during the upgrade process (the modem can recover from it, but uninterrupted power is recommended).
 2. **Create a factory restore point**:
