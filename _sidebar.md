@@ -30,3 +30,4 @@
   * [Power Management](/faq/power-management.md)
   * [Software Development](/faq/software-development.md)
   * [Troubleshooting](/faq/troubleshooting.md)
+  * [Modem update](/faq/modem-update.md)
