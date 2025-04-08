@@ -20,15 +20,10 @@ use the below update method starting from other firmware versions.
 
 Follow these steps to perform the FOTA upgrade:
 1. **Avoid a power cut** during the upgrade process (the modem can recover from it, but uninterrupted power is recommended).
-2. **Ensure a factory restore point exists**:
-   - During manufacturing, this should have been created with:  
-     ```bash
-     AT+SQNFACTORYSAVE="tag"
-     ```
-   - If not, follow these steps **before the upgrade**:
+2. **Create a factory restore point**:
      ```bash
      AT+CFUN=5
-     AT+SQNFACTORYSAVE="tag"
+     AT+SQNFACTORYSAVE="quickspot"
      ```
 3. **Enable security configuration**:  
    ```bash
@@ -45,6 +40,6 @@ Follow these steps to perform the FOTA upgrade:
    AT+SQNSUPGRADE="https://quickspot.io/firmware/GP02RBAQ-DM_LR8.2.0.3-60186_to_LR8.2.1.0-61488_Bootrom.dup",1,10,1,1
    ```
 6. **Factory reset the HW config**:
-     ```bash
-     AT+SQNSFACTORYRESET
-     ```
+   ```bash
+   AT+SQNSFACTORYRESET
+   ```
