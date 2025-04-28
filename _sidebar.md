@@ -11,18 +11,24 @@
   * [Toit](/developer-toolchains/toit.md)
   * [Zephyr](/developer-toolchains/zephyr.md)
 * Walter Modem library
-  * Setup
-    * [Arduino](/walter-modem/setup/arduino.md)
-    * [ESP-IDF](/walter-modem/setup/esp-idf.md)
-    * [Micropython](/walter-modem/setup/micropython.md)
-  * [Common](/walter-modem/common.md)
-  * [SIM & Network](/walter-modem/sim_and_network.md)
-  * [TLS & Certificates](/walter-modem/tls_and_certificates.md)
-  * [PDP Context Management](/walter-modem/pdp_ctx_management.md)
-  * [GNSS](/walter-modem/gnss.md)
-  * [Sockets](/walter-modem/sockets.md)
-  * [HTTP](/walter-modem/http.md)
-  * [MQTT](/walter-modem/mqtt.md)
+  * Arduino & ESP-IDF
+    * Setup
+      * [Arduino](/walter-modem/arduino_esp-idf/setup/arduino.md)
+      * [ESP-IDF](/walter-modem/arduino_esp-idf/setup/esp-idf.md)
+    * [Sockets](/walter-modem/arduino_esp-idf/sockets.md)
+    * [HTTP](/walter-modem/arduino_esp-idf/http.md)
+    * [MQTT](/walter-modem/arduino_esp-idf/mqtt.md)
+  * Micropothon
+    * [Setup](/walter-modem/micropython/setup.md)
+    * [Common](/walter-modem/micropython/common.md)
+    * [SIM & Network](/walter-modem/micropython/sim_and_network.md)
+    * [PDP Context Management](/walter-modem/micropython/pdp_ctx_management.md)
+    * [Sleep](/walter-modem/micropython/sleep.md)
+    * [GNSS](/walter-modem/micropython/gnss.md)
+    * [Sockets](/walter-modem/micropython/sockets.md)
+    * [HTTP](/walter-modem/micropython/http.md)
+    * [MQTT](/walter-modem/micropython/mqtt.md)
+    * [TLS & Certtificates](/walter-modem/micropython/tls_and_certificates.md)
 * Frequently Asked Questionss
   * [Communication](/faq/communication.md)
   * [GNNS / GPS](/faq/gnss-gps.md)

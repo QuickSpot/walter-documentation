@@ -70,14 +70,6 @@ validation levels, and TLS version.
 
 #### Example
 
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
-
 ```py
 if not await modem.tls_config_profile(
     profile_id=1,
@@ -87,17 +79,7 @@ if not await modem.tls_config_profile(
     print('Failed to configure TLS profile')
 ```
 
-<!-- tabs:end -->
-
 #### Params
-
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
 
 | Param                   | Description                                            | Default  |
 | ----------------------- | ------------------------------------------------------ | -------- |
@@ -108,8 +90,6 @@ if not await modem.tls_config_profile(
 | `client_certificate_id` | Client TLS certificate index (0-19)                    | **None** |
 | `client_private_key`    | Client TLS private key index (0-19)                    | **None** |
 | `rsp`                   | Reference to a modem response instance.                | **None** |
-
-<!-- tabs:end -->
 
 #### Returns
 
@@ -124,14 +104,6 @@ True on success, False otherwise.
 
 The TLS version to use.
 
-<!-- tabs:start -->
-
-#### **Arduino**
-
-#### **ESP-IDF**
-
-#### **Micropython**
-
 > **TLS_VERSION_10** = `0` \
 > TLS 1.0, outdated and insecure. \
 > **TLS_VERSION_11** = `1` \
@@ -143,19 +115,9 @@ The TLS version to use.
 > **TLS_VERSION_RESET** = `255` \
 > Resets to default TLS version.
 
-<!-- tabs:end -->
-
 ### `WalterModemTlsValidation`
 
 The TLS validation policy.
-
-<!-- tabs:start -->
-
-#### **Arduino**
-
-#### **ESP-IDF**
-
-#### **Micropython**
 
 > **NONE** = `0` \
 > No TLS validation. \
@@ -165,5 +127,3 @@ The TLS validation policy.
 > Validates the server URL. \
 > **URL_AND_CA** = `5` \
 > Validates both the URL and CA certificate.
-
-<!-- tabs:end -->
