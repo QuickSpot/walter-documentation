@@ -1,6 +1,6 @@
 ## Introduction
 
-This guide will walk you through insstalling the Walter Modem library
+This guide will walk you through installing the WalterModem library
 for Micropython
 
 > [!TIP]
@@ -11,13 +11,12 @@ for Micropython
 
 There are multiple ways to install the WalterModem library for Micropython.
 
-<!--- TODO: Make sure there is sufficient explanation about the options --->
-
 <!--- tabs:start --->
 
 ### **MIP (Recommended)**
 
-[MIP](https://docs.micropython.org/en/latest/reference/packages.html) is similar in concept to Python's `pip` tool.
+[MIP](https://docs.micropython.org/en/latest/reference/packages.html)
+is similar in concept to Python's `pip` tool.
 It allows you to install packages from
 [micropython-lib](https://docs.micropython.org/en/latest/reference/glossary.html#term-micropython-lib)
 and from third-party sites *(including Github & Gitlab)*.
@@ -25,7 +24,7 @@ and from third-party sites *(including Github & Gitlab)*.
 You can use `mpremote`, the officially-supported tool for interacting
 with a MicroPython device, to install the Modem Library MIP packagae to your device.
 
-You can simply run:
+Simply run:
 
 ```shell
 mpremote mip install github:QuickSpot/walter-micropython
@@ -45,7 +44,8 @@ mpremote connect <device> mip install github:QuickSpot/walter-micropython
 The [Micropython WalterModem](https://github.com/QuickSpot/walter-micropython.git)
 repository contains a quick install utility script,
 it will copy all library files to the correct place on the board.
-The script can be found under `util/install_walter_modem` and is available for
+
+The script can be found under `util/install_walter_modem/` and is available for
 Linux *(.sh)* and Windows *(.ps1)*.
 
 The purpose of this utility is for convenience during development
@@ -127,14 +127,13 @@ You can find some example applications for Walter in the `examples` folder.
 ## Library structure
 
 - `core.py`: The core functionality of the library.
-- `modem.py`: The actual modem class you end up importing. It houses generic
-  methods to interact with the modem and inherits from the mixins the other
-  methods.
-- `mixins`: A folder containing the protocol specifc methods to interact
-  with the library, such as http, mqtt, sockets, ...
+- `modem.py`: The actual modem class you end up importing. It ties everything
+  together, inheriting the mixins.
+- `mixins`: A folder containing the protocol/purpose specifc methods to interact
+  with the library, such as common, sleep, http, mqtt, sockets, ...
 - `enums.py`: Where all the enums used in the library are defined.
 - `structs.py`: Where all the "structs" used in the library are defined.
-- `util.py`: Where the libraries internal utility functions are defined.
+- `util.py`: Internal library utility functions.
 - `queue.py`: A third-party `Queue` implementation
   that is missing in `uasyncio`, MicroPython's `asyncio` implementation.
   The code is cherry-picked [from this great repo by Peter Hinch](https://github.com/peterhinch/micropython-async).

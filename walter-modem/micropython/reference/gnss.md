@@ -1,10 +1,10 @@
 ## Methods Overview
 
-- [configGnss](#configgnss)
-- [getGnnsAssistanceStatus](#getgnssassistancestatus)
-- [updateGnssAssistance](#updategnssassistance)
-- [performGnssAction](#performgnssaction)
-- [waitForGnssFix](#waitforgnssfix)
+- [config_gnss](#config_gnss)
+- [get_gnss_assistance_status](#get_gnss_assistance_status)
+- [update_gnss_assistance](#update_gnss_assistance)
+- [perform_gnss_action](#perform_gnss_action)
+- [wait_for_gnss_fix](#wait_for_gnss_fix)
 
 ## Enums Overview
 
@@ -12,10 +12,10 @@
 
 ## Methods
 
-### `configGnss`
+### `config_gnss`
 
 Configures Walter's GNSS receiver with persistent settings that
-may need to be reset after a modem firmware upgrade.
+may need to be reset after a modem firmware upgrade.\
 Can also adjust sensitivity mode between fixes.
 
 > [!TIP]
@@ -35,7 +35,7 @@ if not await modem.config_gnss():
 | `sens_mode` | The [sensitivity mode](#waltermodemgnsssensmode).  | **WalterModemGNSSSensMode.HIGH**              |
 | `acq_mode`  | The [acquisition mode](#waltermodemgnssacqmode).   | **WalterModemGNSSAcqMode.COLD_WARM_START**    |
 | `loc_mode`  | The [GNSS location mode](#waltermodemgnsslocmode). | **WalterModemGNSSLocMode.ON_DEVICE_LOCATION** |
-| `rsp`       | Reference to a modem response instance             | **None**                                      |
+| `rsp`       | Reference to a modem response instance.            | **None**                                      |
 
 #### Returns
 
@@ -44,7 +44,7 @@ True on success, False otherwise.
 
 ---
 
-### `getGnssAssistanceStatus`
+### `get_gnss_assistance_status`
 
 Retrieves the status of the assistance data
 currently loaded in the GNSS subsystem.
@@ -58,9 +58,9 @@ if not await modem.get_gnss_assistance_status(rsp=modem_rsp):
 
 #### Params
 
-| Param | Description                            | Default  |
-| ----- | -------------------------------------- | -------- |
-| `rsp` | Reference to a modem response instance | **None** |
+| Param | Description                             | Default  |
+| ----- | --------------------------------------- | -------- |
+| `rsp` | Reference to a modem response instance. | **None** |
 
 #### Returns
 
@@ -69,12 +69,13 @@ True on success, False otherwise.
 
 ---
 
-### `updateGnssAssistance`
+### `update_gnss_assistance`
 
 Connects to the cloud to download and update the GNSS subsystem
 with the requested assistance data.
 
-Real-time ephemeris is the most efficient type.
+> [!TIP]
+> Real-time ephemeris is the most efficient type.
 
 #### Example
 
@@ -88,7 +89,7 @@ if not await modem.update_gnss_assistance():
 | Param  | Description                                                                   | Default                                              |
 | ------ | ----------------------------------------------------------------------------- | ---------------------------------------------------- |
 | `type` | The [type of GNSS assistance data](#waltermodemgnssassistancetype) to update. | **WalterModemGNSSAssistanceType.REALTIME_EPHEMERIS** |
-| `rsp`  | Reference to a modem response instance                                        | **None**                                             |
+| `rsp`  | Reference to a modem response instance.                                       | **None**                                             |
 
 #### Returns
 
@@ -97,7 +98,7 @@ True on success, False otherwise.
 
 ---
 
-### `performGnssAction`
+### `perform_gnss_action`
 
 Programs the GNSS subsystem to perform a specified action.
 
@@ -126,7 +127,7 @@ True on success, False otherwise.
 
 ---
 
-### `waitForGnssFix`
+### `wait_for_gnss_fix`
 
 Waits for a gnss fix before then returning it.
 

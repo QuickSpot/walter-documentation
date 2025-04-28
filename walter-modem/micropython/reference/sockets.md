@@ -1,10 +1,9 @@
 ## Methods Overview
 
-- [createSocket](#createsocket)
-- [configSocket](#configsocket)
-- [connectSocket](#connectsocket)
-- [socketSend](#socketsend)
-- [closeSocket](#closesocket)
+- [create_socket](#create_socket)
+- [connect_socket](#connect_socket)
+- [socket_send](#socket_send)
+- [close_socket](#close_socket)
 
 ## Enums Overview
 
@@ -15,16 +14,12 @@
 
 ## Methods
 
-### `createSocket`
+### `create_socket`
 
-Create a new socket in a certain PDP context.
-
-This function will create a new socket.
-After socket creation one can set additional socket settings
-and use the socket for communication.
+Creates a new socket in a specified PDP context
 
 > [!NOTE]
-> id's are from **1-6**.
+> Id's range from **1-6**.
 
 #### Example
 
@@ -41,7 +36,7 @@ if await modem.create_socket(rsp=modem_rsp):
 
 | Param              | Description                                                             | Default  |
 | ------------------ | ----------------------------------------------------------------------- | -------- |
-| `pdp_context_id`   | The PDP context id or -1 to re-use the last one.                        | **-1**   |
+| `pdp_context_id`   | The PDP context id.                                                     | **1**    |
 | `mtu`              | The maximum transmission unit used by the socket.                       | **300**  |
 | `exchange_timeout` | The maximum number of seconds this socket can be inactive.              | **90**   |
 | `conn_timeout`     | The maximum number of seconds this socket is allowed to try to connect. | **60**   |
@@ -55,40 +50,10 @@ True on success, False otherwise.
 
 ---
 
-### `configSocket`
+### `connect_socket`
 
-This step is required for the library
-to correctly configure the modem to use this socket.
-
-#### Example
-
-```py
-if await modem.config_socket():
-    print('Successfully configured the socket')
-else:
-    print('Could not configure the socket')
-```
-
-#### Params
-
-| Param       | Description                                                       | Default  |
-| ----------- | ----------------------------------------------------------------- | -------- |
-| `socket_id` | The id of the socket to connect or **-1 to re-use the last one.** | **-1**   |
-| `rsp`       | Reference to a modem response instance.                           | **None** |
-
-#### Returns
-
-`bool`
-True on success, False otherwise.
-
----
-
-### `connectSocket`
-
-Connect a socket after which data can be exchanged.
-
-This function will connect a socket to a remote host.
-When the connection was successful data can be exchanged.
+Connects a socket to a remote host,
+allowing data exchange once the connection is successful.
 
 #### Example
 
@@ -116,7 +81,7 @@ else:
 | `remote_host`       | The remote IPv4/IPv6 or hostname to connect to.                        |                                         |
 | `remote_port`       | The remote port to connect on.                                         |                                         |
 | `local_port`        | The local port in case of an UDP socket.                               |                                         |
-| `socket_id`         | The id of the socket to connect or **-1 to re-use the last one**       | **-1**                                  |
+| `socket_id`         | The id of the socket to connect.                                       | **1**                                   |
 | `protocol`          | The [protocol](#waltermodemsocketproto) to use, UDP by default.        | **ModemSocketProto.UDP**                |
 | `accept_any_remote` | How to [accept remote](#waltermodemsocketacceptanyremote) UDP packets. | **ModemSocketAcceptAnyRemote.DISABLED** |
 | `rsp`               | Reference to a modem response instance.                                | **None**                                |
@@ -128,18 +93,9 @@ True on success, False otherwise.
 
 ---
 
-### `socketSend`
+### `socket_send`
 
 Send data over a socket.
-
-This function will send data over a socket.
-
-> [!WARNING]
-> The data buffer **cannot be freed** until the send response is received
-> (sync or async).
-
-> [!NOTE]
-> The maximum size of the data buffer is **1500 bytes**.
 
 #### Example
 
@@ -164,12 +120,12 @@ async def loop():
 
 #### params
 
-| Param       | Description                                                     | Default              |
-| ----------- | --------------------------------------------------------------- | -------------------- |
-| `data`      | The data to send.                                               |                      |
-| `socket_id` | The id of the socket to close or **-1 to re-use the last one.** | **-1**               |
-| `rai`       | The release assistance information.                             | **ModemRai.NO_INFO** |
-| `rsp`       | Reference to a modem instance.                                  | **None**             |
+| Param       | Description                         | Default              |
+| ----------- | ----------------------------------- | -------------------- |
+| `data`      | The data to send.                   |                      |
+| `socket_id` | The id of the socket to send over.  | **1**                |
+| `rai`       | The release assistance information. | **ModemRai.NO_INFO** |
+| `rsp`       | Reference to a modem instance.      | **None**             |
 
 #### Returns
 
@@ -178,7 +134,7 @@ True on success, False otherwise.
 
 ---
 
-### `closeSocket()`
+### `close_socket`
 
 Close a socket connection.
 
@@ -196,10 +152,10 @@ else:
 
 #### Params
 
-| Param       | Description                                                     | Default              |
-| ----------- | --------------------------------------------------------------- | -------------------- |
-| `socket_id` | The id of the socket to close or **-1 to re-use the last one.** | **-1**               |
-| `rsp`       | Reference to a modem instance.                                  | **None**             |
+| Param       | Description                    | Default  |
+| ----------- | ------------------------------ | -------- |
+| `socket_id` | The id of the socket to close. | **1**    |
+| `rsp`       | Reference to a modem instance. | **None** |
 
 #### Returns
 

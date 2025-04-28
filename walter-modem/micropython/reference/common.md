@@ -1,12 +1,10 @@
 ## Methods Overview
 
 - [reset](#reset)
-- [checkComm](#checkcomm)
-- [getClock](#getclock)
-- [configCMEErrorReports](#configcmeerrorreports)
-- [configCEREGReports](#configceregreports)
-- [getOpState](#getopstate)
-- [setOpState](#setopstate)
+- [check_comm](#check_comm)
+- [get_clock](#get_clock)
+- [config_cme_error_reports](#config_cme_error_reports)
+- [config_cereg_reports](#config_cereg_reports)
 
 ## Enums Overview
 
@@ -24,7 +22,7 @@ Physically reset the modem and wait for it to start.
 All connections will be lost when this function is called.
 
 > [!NOTE]
->The function will fail when the modem doesn't start after the reset.
+> The function will fail when the modem doesn't start after the reset.
 
 #### Example
 
@@ -46,7 +44,28 @@ True on success, False otherwise.
 
 ---
 
-### `checkComm`
+### `soft_reset`
+
+Perform a soft reset on the modem, wait for it to complete.
+
+> [!NOTE]
+> The method will fail when the modem doesn't reset.
+
+#### Example
+
+```py
+if not await modem.soft_reset():
+    print('Failed to soft reset modem')
+```
+
+#### Returns
+
+`bool`
+True on success, False otherwise.
+
+---
+
+### `check_comm`
 
 Sends the 'AT' command to check if the modem responds with 'OK',
 verifying communication between the ESP32S3 and the modem.
@@ -71,7 +90,7 @@ True on success, False otherwise.
 
 ---
 
-### `getClock`
+### `get_clock`
 
 Retrieves the current time and date from the modem.
 
@@ -100,7 +119,7 @@ True on success, False otherwise.
 
 ---
 
-### `configCMEErrorReports`
+### `config_cme_error_reports`
 
 Configures the CME error report type.
 By default, errors are enabled and numeric.
@@ -129,7 +148,7 @@ True on success, False otherwise.
 
 ---
 
-### `configCEREGReports`
+### `config_cereg_reports`
 
 Configures the CEREG status report type.
 By default, reports are enabled with minimal operational info.
@@ -150,60 +169,6 @@ if not await modem.config_cereg_reports(reports_type=WalterModemCEREGReportsType
 | -------------- | -------------------------------------------------------------- | --------------------------------------- |
 | `reports_type` | The [CEREG status reports type](#waltermodemceregreportstype). | **WalterModemCEREGReportsType.ENABLED** |
 | `rsp`          | Reference to a modem response instance.                        | **None**                                |
-
-#### Returns
-
-`bool`
-True on success, False otherwise.
-
----
-
-### `getOpState`
-
-Retrieves the modem's current operational state.
-
-#### Example
-
-```py
-modem_rsp = ModemRsp()
-
-if await modem.get_op_state(rsp=modem_rsp):
-    print(WalterModemOpState.get_value_name(modem_rsp.op_state))
-else:
-    print('Failed to get modem op state')
-
-```
-
-#### Params
-
-| Param | Description                             | Default  |
-| ----- | --------------------------------------- | -------- |
-| `rsp` | Reference to a modem response instance. | **None** |
-
-#### Returns
-
-`bool`
-True on success, False otherwise.
-
----
-
-### `setOpState`
-
-Sets the operational state of the modem.
-
-#### Example
-
-```py
-if not await modem.set_op_state(op_state=WalterModemOpState.FULL):
-    print('Failed to set modem op state')
-```
-
-#### Params
-
-| Param      | Description                                                    | Default  |
-| ---------- | -------------------------------------------------------------- | -------- |
-| `op_state` | The new [operational state](#waltermodemopstate) of the modem. |          |
-| `rsp`      | Reference to a modem response instance.                        | **None** |
 
 #### Returns
 

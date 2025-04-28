@@ -1,7 +1,7 @@
 ## Methods Overview
 
-- [tlsProvisionKeys](#tlsprovisionkeys)
-- [tlsConfigProfile](#tlsconfigprofile)
+- [tls_config_profile](#tlsconfigprofile)
+- [tls_write_credential](#tls_write_credential)
 
 ## Enums Overview
 
@@ -12,59 +12,14 @@
 
 ## Methods
 
-### `tlsProvisionKeys`
-
-Uploads a key or certificate to the modem NVRAM.
-
-> [!NOTE]
-> This method has been refactored to `tlsWriteCredential` on Arduino & ESP-IDF.\
-> `tlsProvisionKeys` is only available on micropython.
-
-#### Example
-
-```py
-# fill in your own ca cert or import the text file instead,
-# add client cert and client key if needed.
-ca_cert = """-----BEGIN CERTIFICATE-----
-(...)
------END CERTIFICATE-----"""
-
-# only using ca cert here, however, you can set cert & priv_key too if needed
-if not await modem.tls_provision_keys(
-    walter_certificate=None,
-    walter_private_key=None,
-    ca_certificate=ca_cert
-):
-    print("Could not upload certificate.")
-    return False
-
-print ('Certificates uploaded')
-```
-
-#### Params
-
-| Param                | Description                                 | Default  |
-| -------------------- | ------------------------------------------- | -------- |
-| `walter_certificate` | The client certificate *(multiline string)* |          |
-| `walter_private_key` | The private key *(multiline string)*        |          |
-| `ca_certificate`     | The CA certificate *(multiline string)*     |          |
-| `rsp`                | Reference to a modem response instance.     | **None** |
-
-#### Returns
-
-`bool`
-True on success, False otherwise.
-
----
-
-### `tlsConfigProfile`
+### `tls_config_profile`
 
 Configures TLS profiles in the modem,
 including optional client authentication certificates,
 validation levels, and TLS version.
 
 > [!NOTE]
-> This should be done in an initializer sketch,
+> This should be done in an initialiser sketch,
 > allowing later HTTP, MQTT, CoAP, or socket sessions to use the
 > preconfigured profile IDs
 
@@ -93,8 +48,50 @@ if not await modem.tls_config_profile(
 
 #### Returns
 
-`bool`
-True on success, False otherwise.
+`bool` True on success, False otherwise.
+
+---
+
+### `tls_write_credential`
+
+Upload a key or certificate to the modem NVRAM.
+
+> [!NOTE]
+> It is recommended to save credentials in index 10-19 to avoid overwriting 
+> preinstalled certificates and (if applicable) BlueCherry cloud platform credentials.
+
+### Example
+
+```py
+await modem.tls_write_credential(
+    is_private_key=False,
+    slot_idx=SLOT_IDX,
+    credential=CERT
+)
+```
+
+### Params
+
+| Param            | Description                                              | Default |
+| ---------------- | -------------------------------------------------------- | ------- |
+| `is_private_key` | True if it's a private key, False if it's a certificate. |         |
+| `slot_idx`       | Slot index within the modem NVRAM keystore.              |         |
+| `credential`     | NULL-terminated string containing the PEM key/cert data. |         |
+| `rsp`            | Reference to a modem response instance.                  |         |
+
+### Returns
+
+`bool` True on success, False otherwise
+
+---
+
+### `tls_provision_keys`
+
+> [!WARNING]
+> **DEPRECATED:** This method will be removed in the near future.\
+
+It is still present for backwards compatibility.
+Use [`tls_write_credential`](#tls_write_credential) instead.
 
 ---
 

@@ -2,17 +2,18 @@
 
 ## Methods Overview
 
-- [mqqtConfig](#mqttconfig)
-- [mqttConnect](#mqttconnect)
-- [mqttSubscribe](#mqttsubscribe)
-- [mqttPublish](#mqttpublish)
-- [mqttDidRing](#mqttdidring)
+- [mqtt_config](#mqtt_config)
+- [mqtt_connect](#mqtt_connect)
+- [mqtt_disconnect](#mqtt_disconnect)
+- [mqtt_subscribe](#mqtt_subscribe)
+- [mqtt_publish](#mqtt_publish)
+- [mqtt_did_ring](#mqtt_did_ring)
 
 ---
 
 ## Methods
 
-### `mqttConfig`
+### `mqtt_config`
 
 Configure the MQTT client without connecting.
 
@@ -55,9 +56,11 @@ else:
 `bool`
 True on success, False otherwise.
 
-### `mqttConnect`
+---
 
-Initialize MQTT and establish a connection.
+### `mqtt_connect`
+
+Initialise MQTT and establish a connection.
 
 #### Example
 
@@ -73,11 +76,12 @@ else:
 
 #### Params
 
-| Param         | Description                            | Default |
-| ------------- | -------------------------------------- | ------- |
-| `server_name` | MQTT broker hostname.                  |         |
-| `port`        | Port to connect to.                    |         |
-| `keep_alive`  | Maximum keepalive time *(in seconds)*. | 60      |
+| Param         | Description                             | Default  |
+| ------------- | --------------------------------------- | -------- |
+| `server_name` | MQTT broker hostname.                   |          |
+| `port`        | Port to connect to.                     |          |
+| `keep_alive`  | Maximum keepalive time *(in seconds)*.  | 60       |
+| `rsp`         | Reference to a modem response instance. | **None** |
 
 #### Returns
 
@@ -86,12 +90,35 @@ True on success, False otherwise.
 
 ---
 
-### `mqttSubscribe`
+### `mqtt_disconnect`
 
-Subscribe to a MQTT topic
+Disconnect from an MQTT broker.
+
+#### Example
+
+```py
+await modem.mqtt_disconnect()
+```
+
+#### Params
+
+| Param | Description                             | Default  |
+| ----- | --------------------------------------- | -------- |
+| `rsp` | Reference to a modem response instance. | **None** |
+
+#### Returns
+
+`bool`
+True on success, False otherwise.
+
+---
+
+### `mqtt_subscribe`
+
+Subscribe to a MQTT topic.
 
 This function subscribes to a given topic using the connection established
-earlier through [mqttConnect](#mqttconnect).
+earlier through [`mqtt_connect`](#mqtt_connect).
 
 #### Example
 
@@ -106,11 +133,11 @@ else:
 
 #### Params
 
-| Param   | Description                                                          | Default  |
-| ------- | -------------------------------------------------------------------- | -------- |
-| `topic` | Topic to subscribe to.                                               |          |
-| `qos`   | QoS: 0 = at most once, 1 = at least once, 2 = exactly once received. | **1**    |
-| `rsp`   | Reference to a modem response instance.                              | **None** |
+| Param   | Description                                                              | Default  |
+| ------- | ------------------------------------------------------------------------ | -------- |
+| `topic` | Topic to subscribe to.                                                   |          |
+| `qos`   | Quality of Service (0: at least once, 1: at least once, 2: exactly once) | **1**    |
+| `rsp`   | Reference to a modem response instance.                                  | **None** |
 
 #### Returns
 
@@ -119,12 +146,12 @@ True on success, False otherwise.
 
 ---
 
-### `mqttPublish`
+### `mqtt_publish`
 
-Publish something through mqtt.
+Publish something through MQTT.
 
 This function publishes the passed data on the given mqtt topic using the
-connection established earlier through [mqttConnect](#mqttconnect).
+connection established earlier through [`mqtt_connect`](#mqttconnect).
 
 #### Example
 
@@ -143,6 +170,7 @@ else:
 | Param   | Description                                                          | Default  |
 | ------- | -------------------------------------------------------------------- | -------- |
 | `topic` | Topic to publish on.                                                 |          |
+| `data`  | The data to publish                                                  |          |
 | `qos`   | QoS: 0 = at most once, 1 = at least once, 2 = exactly once received. | **1**    |
 | `rsp`   | Reference to a modem response instance.                              | **None** |
 
@@ -153,16 +181,15 @@ True on success, False otherwise.
 
 ---
 
-### `mqttDidRing`
+### `mqtt_did_ring`
 
-Poll if there were incoming MQTT messages
+Poll if the modem has reported any incoming MQTT messages received on subscribed
+topics.
 
-Poll if the modem has reported any incoming MQTT messages
-on the topics we are subscribed on.
-
-> [!NOTE]
-> No more than 1 message with QoS 0 is stored in the buffer,
-> every new message with QoS 0 overwrites the previous.
+> [!WARNING]
+> No more than 1 message with QoS 0 are stored in the buffer,
+> every new message with QoS 0 overwrites the previous\
+> (this only applies to messages with QoS 0)
 
 #### Example
 

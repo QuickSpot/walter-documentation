@@ -1,15 +1,17 @@
 ## Methods Overview
 
-- [getNetworkRegState](#getnetworkregstate)
-- [getRSSI](#getrssi)
-- [getSignalQuality](#getsignalquality)
-- [getCellInformation](#getcellinformation)
-- [getRAT](#getrat)
-- [setRAT](#setrat)
-- [getRadioBands](#getradiobands)
-- [getSimState](#getsimstate)
-- [unlockSim](#unlocksim)
-- [setNetworkSelectionMode](#setnetworkselectionmode)
+- [get_op_state](#get_op_state)
+- [set_op_state](#set_op_state)
+- [get_network_reg_state](#get_network_reg_state)
+- [get_rssi](#get_rssi)
+- [get_signal_quality](#get_signal_quality)
+- [get_cell_information](#get_cell_information)
+- [get_rat](#get_rat)
+- [set_rat](#set_rat)
+- [get_radio_bands](#get_radio_bands)
+- [get_sim_state](#get_sim_state)
+- [unlock_sim](#unlock_sim)
+- [set_network_selection_mode](#set_network_selection_mode)
 
 ## Enums Overview
 
@@ -23,7 +25,61 @@
 
 ## Methods
 
-### `getNetworkRegState`
+### `get_op_state`
+
+Retrieves the modem's current operational state.
+
+#### Example
+
+```py
+modem_rsp = ModemRsp()
+
+if await modem.get_op_state(rsp=modem_rsp):
+    print(WalterModemOpState.get_value_name(modem_rsp.op_state))
+else:
+    print('Failed to get modem op state')
+
+```
+
+#### Params
+
+| Param | Description                             | Default  |
+| ----- | --------------------------------------- | -------- |
+| `rsp` | Reference to a modem response instance. | **None** |
+
+#### Returns
+
+`bool`
+True on success, False otherwise.
+
+---
+
+### `set_op_state`
+
+Sets the operational state of the modem.
+
+#### Example
+
+```py
+if not await modem.set_op_state(op_state=WalterModemOpState.FULL):
+    print('Failed to set modem op state')
+```
+
+#### Params
+
+| Param      | Description                                                    | Default  |
+| ---------- | -------------------------------------------------------------- | -------- |
+| `op_state` | The new [operational state](#waltermodemopstate) of the modem. |          |
+| `rsp`      | Reference to a modem response instance.                        | **None** |
+
+#### Returns
+
+`bool`
+True on success, False otherwise.
+
+---
+
+### `get_network_reg_state`
 
 Get the network registration state.
 This is buffered by the library and thus instantly available.
@@ -45,7 +101,7 @@ The current modem registration state
 
 ---
 
-### `getRSSI`
+### `get_rssi`
 
 Retrieves the RSSI information.
 
@@ -54,7 +110,7 @@ Retrieves the RSSI information.
 ```py
 modem_rsp = ModemRsp()
 
-if await modem.get_rssi(rps=modem_rsp):
+if await modem.get_rssi(rsp=modem_rsp):
     print(modem_rsp.rssi)
 else:
     print('Failed to get modem RSSI')
@@ -74,7 +130,7 @@ True on success, False otherwise.
 
 ---
 
-### `getSignalQuality`
+### `get_signal_quality`
 
 Retrieves information about the serving and neighbouring cells,
 including operator, cell ID, RSSI, and RSRP.
@@ -84,7 +140,7 @@ including operator, cell ID, RSSI, and RSRP.
 ```py
 modem_rsp = ModemRsp()
 
-if await modem.get_signal_quality(rps=modem_rsp):
+if await modem.get_signal_quality(rsp=modem_rsp):
     print(f'rsrp: {modem_rsp.signal_quality.rsrp}')
     print(f'rsrq: {modem_rsp.signal_quality.rsrq}')
 else:
@@ -105,7 +161,7 @@ True on success, False otherwise.
 
 ---
 
-### `getCellInformation`
+### `get_cell_information`
 
 Retrieves the modem's identity details, including IMEI, IMEISV, and SVN.
 
@@ -114,7 +170,7 @@ Retrieves the modem's identity details, including IMEI, IMEISV, and SVN.
 ```py
 modem_rsp = ModemRsp()
 
-if await modem.get_cell_information(rps=modem_rsp):
+if await modem.get_cell_information(rsp=modem_rsp):
     print(f'net name: {modem_rsp.cell_information.net_name}')
     print(f'cid: {modem_rsp.cell_information.cid}')
     print(f'band: {modem_rsp.cell_information.band}')
@@ -137,7 +193,7 @@ True on success, False otherwise.
 
 ---
 
-### `getRAT`
+### `get_rat`
 
 Retrieves the Radio Access Technology (RAT) for the modem.
 
@@ -146,7 +202,7 @@ Retrieves the Radio Access Technology (RAT) for the modem.
 ```py
 modem_rsp = ModemRsp()
 
-if await modem.get_rat(rps=modem_rsp):
+if await modem.get_rat(rsp=modem_rsp):
     print(modem_rsp.rat)
 else:
     print('Failed to get modem RAT')
@@ -165,7 +221,7 @@ True on success, False otherwise.
 
 ---
 
-### `setRAT`
+### `set_rat`
 
 Sets the Radio Access Technology (RAT) for the modem.
 
@@ -190,7 +246,7 @@ True on success, False otherwise.
 
 ---
 
-### `getRadioBands`
+### `get_radio_bands`
 
 Retrieves the radio bands the modem is configured to use for network connection.
 
@@ -199,7 +255,7 @@ Retrieves the radio bands the modem is configured to use for network connection.
 ```py
 modem_rsp = ModemRsp()
 
-if await modem.get_radio_bands(rps=modem_rsp):
+if await modem.get_radio_bands(rsp=modem_rsp):
     for band_sel in modem_rsp.band_sel_cfg_list:
         print(f'net_operator: {band_sel.net_operator} (rat: {band_sel.rat})')
 
@@ -224,7 +280,7 @@ True on success, False otherwise.
 
 ---
 
-### `getSimState`
+### `get_sim_state`
 
 Retrieves the state of the SIM card.
 
@@ -233,7 +289,7 @@ Retrieves the state of the SIM card.
 ```py
 modem_rsp = ModemRsp()
 
-if await modem.get_sim_state(rps=modem_rsp):
+if await modem.get_sim_state(rsp=modem_rsp):
     print(WalterModemSimState.get_value_name(modem_rsp.sim_state))
 else:
     print('Failed to get SIM state')
@@ -252,7 +308,7 @@ True on success, False otherwise.
 
 ---
 
-### `unlockSim`
+### `unlock_sim`
 
 Sets the SIM card's PIN code.
 
@@ -280,7 +336,7 @@ True on success, False otherwise.
 
 ---
 
-### `setNetworkSelectionMode`
+### `set_network_selection_mode`
 
 Sets the network selection mode for Walter.
 
@@ -348,12 +404,10 @@ SQNMONI cell information reporting scopes.
 
 Types of 3GPP access technologies supported by Walter.
 
-> **LTEM** = `0` \  
+> **LTEM** = `1` \  
 > LTE-M (Long-Term Evolution for Machines). \
-> **NBIOT** = `1` \
+> **NBIOT** = `2` \
 > NB-IoT (Narrowband Internet of Things). \
-> **AUTO** = `2` \
-> Automatic selection of access technology.
 
 ### `WalterModemNetworkSelMode`
 
