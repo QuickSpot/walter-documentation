@@ -76,24 +76,6 @@ if(modem.httpConfigProfile(HTTP_PROFILE, "tls13.akamai.io", 443, TLS_PROFILE)) {
 }
 ```
 
-##### **Micropython**
-
-```py
-HTTP_PROFILE = 1
-TLS_PROFILE = 1
-
-if await modem.http_config_profile(
-    profile_id=HTTP_PROFILE,
-    server_address="tls13.akamai.io",
-    port=443,
-    tls_profile_id=TLS_PROFILE
-):
-    print('Successfully configured the HTTP profile')
-else:
-    print('Failed to configure HTTP profile')
-
-```
-
 <!-- tabs:end -->
 
 #### Params
@@ -129,19 +111,6 @@ else:
 | `rsp`          | Pointer to a modem response structure to save the result of the command in. When NULL is given the result is ignored. | **NULL**  |
 | `cb`           | Optional callback argument, when not NULL this function will return immediately.                                      | **NULL**  |
 | `args`         | Optional argument to pass to the callback.                                                                            | **NULL**  |
-
-##### **Micropython**
-
-| Param            | Description                                      | Default   |
-| ---------------- | ------------------------------------------------ | --------- |
-| `profile_id`     | HTTP profile id (0, 1 or 2).                     |           |
-| `server_address` | The server name to connect to.                   |           |
-| `port`           | The port of the server to connect to.            | **80**    |
-| `use_basic_auth` | Set true to use basic auth and send username/pw. | **False** |
-| `auth_user`      | Username.                                        | **""**    |
-| `auth_pass`      | Password.                                        | **""**    |
-| `tls_profile_id` | If not 0, TLS is used with the given profile.    | **None**  |
-| `rsp`            | Reference to a modem response instance.          | **None**  |
 
 <!-- tabs:end -->
 
@@ -203,25 +172,6 @@ if(modem.httpSend(HTTP_PROFILE, "/", dataBuf, 8, WALTER_MODEM_HTTP_SEND_CMD_POST
 }
 ```
 
-##### **Micropython**
-
-```py
-modem_rsp = ModemRsp()
-data_buf = bytearray(8)
-
-if await modem.http_send(
-    profile_id=HTTP_PROFILE,
-    uri='/',
-    data=data_buf,
-    send_cmd=WalterModemHttpSendCmd.POST,
-    post_param=WalterModemHttpPostParam.OCTET_STREAM,
-    rsp=modem_rsp
-):
-    print('HTTP query performed')
-else:
-    print('HTTP query failed')
-```
-
 <!-- tabs:end -->
 
 #### Params
@@ -261,15 +211,6 @@ else:
 | `args`               | Callback arguments.                                       | **NULL**                                     |
 
 ##### **Micropython**
-
-| Param        | Description                                               | Default                                  |
-| ------------ | --------------------------------------------------------- | ---------------------------------------- |
-| `profile_id` | The profile id (0, 1 or 2) of the HTTP context.         |                                          |
-| `uri`        | The URI.                                                  |                                          |
-| `data`       | Data to be sent to the server.                            |                                          |
-| `send_cmd`   | POST or PUT [command](#waltermodemhttpsendcmd).           | **WalterModemHttpSendCmd.POST**          |
-| `post_param` | [Content type](#waltermodemhttppostparam) *(enum value)*. | **WalterModemHttpPostParam.UNSPECIFIED** |
-| `rsp`        | Reference to a modem response instance.                   | **None**                                 |
 
 <!-- tabs:end -->
 
@@ -317,22 +258,6 @@ if(modem.httpQuery(HTTP_PROFILE, "/", WALTER_MODEM_HTTP_QUERY_CMD_GET, ctbuf, si
 }
 ```
 
-##### **Micropython**
-
-```py
-modem_rsp = ModemRsp()
-
-if await modem.http_query(
-    profile_id=HTTP_PROFILE,
-    uri='/',
-    query_cmd=WalterModemHttpQueryCmd.GET,
-    rsp=modem_rsp
-):
-    print('HTTP query performed')
-else:
-    print('HTTP query failed')
-```
-
 <!-- tabs:end -->
 
 #### Params
@@ -364,16 +289,6 @@ else:
 | `rsp`                | Response object.                                          | **NULL**                            |
 | `cb`                 | Callback.                                                 | **NULL**                            |
 | `args`               | Callback arguments.                                       | **NULL**                            |
-
-##### **Micropython**
-
-| Param               | Description                                                     | Default                         |
-| ------------------- | --------------------------------------------------------------- | ------------------------------- |
-| `profile_id`        | The profile id (0, 1 or 2) of the HTTP context.               |                                 |
-| `uri`               | The URI.                                                        |                                 |
-| `query_cmd`         | GET, DELETE, or HEAD [command](#waltermodemhttpquerycmd).       | **WalterModemHttpQueryCmd.GET** |
-| `extra_header_line` | Optional additional lines to be placed in the request's header. | **None**                        |
-| `rsp`               | Reference to a modem response instance.                         | **None**                        |
 
 <!-- tabs:end -->
 
@@ -450,23 +365,6 @@ while(modem.httpDidRing(HTTP_PROFILE, incomingBuf, sizeof(incomingBuf), &rsp)) {
 }
 ```
 
-##### **Micropython**
-
-```py
-modem_rsp = ModemRsp()
-
-while not await modem.http_did_ring(profile_id=HTTP_PROFILE, rsp=modem_rsp):
-    if modem_rsp.result not in (WalterModemState.OK, WalterModemState.AWAITING_RING):
-        print(f"Error: {modem_rsp.result}")
-        break
-    await asyncio.sleep(1)
-
-if modem_rsp.http_response is not None
-    print(f'HTTP status code: {modem_rsp.http_response.http_status}')
-    print(f'HTTP content type: {modem_rsp.http_response.content_type}')
-    print(f'HTTP: {modem_rsp.http_response.data}')
-```
-
 <!-- tabs:end -->
 
 #### Params
@@ -490,13 +388,6 @@ if modem_rsp.http_response is not None
 | `targetBuf`     | User buffer to store response in.                                           |          |
 | `targetBufSize` | Size of the user buffer, including space for a terminating null byte.       |          |
 | `rsp`           | Pointer to a modem response structure to save the result of the command in. | **NULL** |
-
-##### **Micropython**
-
-| Param        | Description                             | Default  |
-| ------------ | --------------------------------------- | -------- |
-| `profile_id` | Profile for which to get the response.  |          |
-| `rsp`        | Reference to a modem response instance. | **None** |
 
 <!-- tabs:end -->
 
@@ -529,13 +420,6 @@ The possible commands for a HTTP send operation.
 > **WALTER_MODEM_HTTP_SEND_CMD_PUT** = `1` \
 > Perform PUT request
 
-#### **Micropython**
-
-> **POST** = `0` \
-> Perform a POST request \
-> **PUT** = `1` \
-> Perform PUT request
-
 <!-- tabs:end -->
 
 ### `WalterModemHttpQueryCmd`
@@ -560,15 +444,6 @@ The possible commands for a HTTP query operation.
 > **WALTER_MODEM_HTTP_QUERY_CMD_HEAD** = `1` \
 > Perform a HEAD request \
 > **WALTER_MODEM_HTTP_QUERY_CMD_DELETE** = `2` \
-> Perform a DELETE request
-
-#### **Micropython**
-
-> **GET** = `0` \
-> Perform a GET request \
-> **HEAD** = `1` \
-> Perform a HEAD request \
-> **DELETE** = `2` \
 > Perform a DELETE request
 
 <!-- tabs:end -->
@@ -607,21 +482,6 @@ The possible post params for a HTTP send operation.
 > **WALTER_MODEM_HTTP_POST_PARAM_JSON** = `4` \
 > Param is JSON \
 > **WALTER_MODEM_HTTP_POST_PARAM_UNSPECIFIED** = `99` \
-> Param is unspecified
-
-#### **Micropython**
-
-> **URL_ENCODED** = `0` \
-> Param type is encoded in the url \
-> **TEXT_PLAIN** = `1` \
-> Param is plain text \
-> **OCTET_STREAM** = `2` \
-> Param is an octet/byte stream \
-> **FORM_DATA** = `3` \
-> Param is form data \
-> **JSON** = `4` \
-> Param is JSON \
-> **UNSPECIFIED** = `99` \
 > Param is unspecified
 
 <!-- tabs:end -->

@@ -25,14 +25,6 @@
 
 #### Example
 
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
-
 ```py
 CELL_APN = ''
 APN_USERNAME = None
@@ -50,17 +42,7 @@ if not await modem.create_PDP_context(
 print('Successfully created PDP Context')
 ```
 
-<!-- tabs:end -->
-
 #### Params
-
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
 
 | Param                        | Description                                                                    | Default                                       |
 | ---------------------------- | ------------------------------------------------------------------------------ | --------------------------------------------- |
@@ -83,8 +65,6 @@ print('Successfully created PDP Context')
 | `use_NAS_on_IPMTU_discovery` | Set for NAS based no-IP MTU discovery.                                         | **False**                                     |
 | `rsp`                        | Reference to a modem response instance.                                        | **None**                                      |
 
-<!-- tabs:end -->
-
 #### Returns
 
 `bool`
@@ -101,14 +81,6 @@ Authenticates a PDP context if its APN requires authentication.
 
 #### Example
 
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
-
 ```py
 if await modem.authenticate_PDP_context():
     print('PDP context authenticated')
@@ -116,24 +88,12 @@ else:
     print('Failed to authenticate PDP context')
 ```
 
-<!-- tabs:end -->
-
 #### Params
-
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
 
 | param        | description                                          | default  |
 | ------------ | ---------------------------------------------------- | -------- |
 | `context_id` | The PDP context id or **-1 to re-use the last one.** | **-1**   |
 | `rsp`        | Reference to a modem response instance.              | **None** |
-
-<!-- tabs:end -->
 
 #### Returns
 
@@ -148,38 +108,18 @@ Activates or deactivates a given PDP context.
 
 #### Example
 
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
-
 ```py
 if not await modem.set_PDP_context_active(active=False):
     print('Failed to deactivate last used pdp context')
 ```
 
-<!-- tabs:end -->
-
 #### Params
-
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
 
 | Param        | Description                                            | Default  |
 | ------------ | ------------------------------------------------------ | -------- |
 | `active`     | True to activate the PDP context, False to deactivate. | **True** |
 | `context_id` | The PDP context id or **-1 to re-use the last one.**   | **-1**   |
 | `rsp`        | Reference to a modem response instance.                | **None** |
-
-<!-- tabs:end -->
 
 #### Returns
 
@@ -195,37 +135,17 @@ for packet domain service.
 
 #### Example
 
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
-
 ```py
 if not await modem.attach_PDP_context(attach=True):
     print('Failed to attach PDP context')
 ```
 
-<!-- tabs:end -->
-
 #### Params
-
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
 
 | Param    | Description                             | Default  |
 | -------- | --------------------------------------- | -------- |
 | `attach` | True to attach, False to detach.        | **True** |
 | `rsp`    | Reference to a modem response instance. | **None** |
-
-<!-- tabs:end -->
 
 #### Returns
 
@@ -240,14 +160,6 @@ Retrieves the list of PDP addresses for the specified PDP context ID.
 
 #### Example
 
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
-
 ```py
 PDP_CONTEXT_ID = 1
 
@@ -255,24 +167,12 @@ if not await modem.get_PDP_address(context_id=PDP_CONTEXT_ID):
     print('Failed to get PDP addresses')
 ```
 
-<!-- tabs:end -->
-
 #### Params
-
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
 
 | Param        | Description                                          | Default  |
 | ------------ | ---------------------------------------------------- | -------- |
 | `context_id` | The PDP context id or **-1 to re-use the last one.** | **-1**   |
 | `rsp`        | Reference to a modem response instance               | **None** |
-
-<!-- tabs:end -->
 
 #### Returns
 
@@ -287,14 +187,6 @@ True on success, False otherwise.
 
 PDP context authentication protocols.
 
-<!-- tabs:start -->
-
-#### **Arduino**
-
-#### **ESP-IDF**
-
-#### **Micropython**
-
 > **NONE** = `0` \
 > No authentication required. \
 > **PAP** = `1` \
@@ -303,19 +195,9 @@ PDP context authentication protocols.
 > **CHAP** = `2` \
 > Uses challenge-response for safer authentication.
 
-<!-- tabs:end -->
-
 ### `WalterModemPDPType`
 
 Supported packet data protocol types.
-
-<!-- tabs:start -->
-
-#### **Arduino**
-
-#### **ESP-IDF**
-
-#### **Micropython**
 
 > **X25** = `0` \
 > Packet-switched data protocol used in legacy networks. \
@@ -332,19 +214,9 @@ Supported packet data protocol types.
 > **NON_IP** = `6` \
 > For non-IP data transmission.
 
-<!-- tabs:end -->
-
 ### `WalterModemPDPHeaderCompression`
 
 Supported packet data protocol header compression mechanisms.
-
-<!-- tabs:start -->
-
-#### **Arduino**
-
-#### **ESP-IDF**
-
-#### **Micropython**
 
 > **OFF** = `0` \
 > No header compression. \
@@ -359,19 +231,9 @@ Supported packet data protocol header compression mechanisms.
 > **UNSPEC** = `99` \
 > Unspecified compression method.
 
-<!-- tabs:end -->
-
 ### `WalterModemPDPDataCompression`
 
 Supported packet data protocol data compression mechanisms.
-
-<!-- tabs:start -->
-
-#### **Arduino**
-
-#### **ESP-IDF**
-
-#### **Micropython**
 
 > **OFF** = `0` \
 > No data compression. \
@@ -384,38 +246,18 @@ Supported packet data protocol data compression mechanisms.
 > **UNSPEC** = `99` \
 > Unspecified compression method.  
 
-<!-- tabs:end -->
-
 ### `WalterModemPDPIPv4AddrAllocMethod`
 
 Supported packet data protocol IPv4 address allocation methods.
-
-<!-- tabs:start -->
-
-#### **Arduino**
-
-#### **ESP-IDF**
-
-#### **Micropython**
 
 > **NAS** = `0` \
 > Address allocation by the Network Access Server. \
 > **DHCP** = `1` \
 > Dynamic Host Configuration Protocol for address allocation.  
 
-<!-- tabs:end -->
-
 ### `WalterModemPDPRequestType`
 
 Supported packet data protocol request types.
-
-<!-- tabs:start -->
-
-#### **Arduino**
-
-#### **ESP-IDF**
-
-#### **Micropython**
 
 > **NEW_OR_HANDOVER** = `0` \
 > Request for a new connection or handover. \
@@ -428,38 +270,18 @@ Supported packet data protocol request types.
 > **EMERGENCY_HANDOVER** = `4` \
 > Emergency handover request.  
 
-<!-- tabs:end -->
-
 ### `WalterModemPDPPCSCFDiscoveryMethod`
 
 Supported types of P-CSCF discovery in a packet data context.
-
-<!-- tabs:start -->
-
-#### **Arduino**
-
-#### **ESP-IDF**
-
-#### **Micropython**
 
 > **AUTO** = `0` \
 > Automatic P-CSCF discovery. \
 > **NAS** = `1` \
 > P-CSCF discovery by the Network Access Server.  
 
-<!-- tabs:end -->
-
 ### `WalterModemPDPContextState`
 
 PDP context states.
-
-<!-- tabs:start -->
-
-#### **Arduino**
-
-#### **ESP-IDF**
-
-#### **Micropython**
 
 > **FREE** = `0` \
 > Free and available. \
@@ -471,5 +293,3 @@ PDP context states.
 > Is active and in use. \
 > **ATTACHED** = `4` \
 > Is attached.
-
-<!-- tabs:end -->

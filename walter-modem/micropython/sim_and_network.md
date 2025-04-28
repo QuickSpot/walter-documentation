@@ -30,14 +30,6 @@ This is buffered by the library and thus instantly available.
 
 #### Example
 
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
-
 ```py
 if modem.get_network_reg_state() in (
     WalterModemNetworkRegState.REGISTERED_HOME,
@@ -45,8 +37,6 @@ if modem.get_network_reg_state() in (
 ):
     # ...
 ```
-
-<!-- tabs:end -->
 
 #### Returns
 
@@ -61,14 +51,6 @@ Retrieves the RSSI information.
 
 #### Example
 
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
-
 ```py
 modem_rsp = ModemRsp()
 
@@ -79,23 +61,11 @@ else:
 
 ```
 
-<!-- tabs:end -->
-
 #### Params
-
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
 
 | Param | Description                             | Default  |
 | ----- | --------------------------------------- | -------- |
 | `rsp` | Reference to a modem response instance. | **None** |
-
-<!-- tabs:end -->
 
 #### Returns
 
@@ -111,14 +81,6 @@ including operator, cell ID, RSSI, and RSRP.
 
 #### Example
 
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
-
 ```py
 modem_rsp = ModemRsp()
 
@@ -130,23 +92,11 @@ else:
 
 ```
 
-<!-- tabs:end -->
-
 #### Params
-
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
 
 | Param | Description                             | Default  |
 | ----- | --------------------------------------- | -------- |
 | `rsp` | Reference to a modem response instance. | **None** |
-
-<!-- tabs:end -->
 
 #### Returns
 
@@ -161,14 +111,6 @@ Retrieves the modem's identity details, including IMEI, IMEISV, and SVN.
 
 #### Example
 
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
-
 ```py
 modem_rsp = ModemRsp()
 
@@ -181,24 +123,12 @@ else:
     print('Failed to get cell information')
 ```
 
-<!-- tabs:end -->
-
 #### Params
-
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
 
 | Param          | Description                                                                | Default                                        |
 | -------------- | -------------------------------------------------------------------------- | ---------------------------------------------- |
 | `reports_type` | The [type of cell information](#waltermodemsqnmonireportstype) to retreive | **WalterModemSQNMONIReportsType.SERVING_CELL** |
 | `rsp`          | Reference to a modem response instance.                                    | **None**                                       |
-
-<!-- tabs:end -->
 
 #### Returns
 
@@ -213,14 +143,6 @@ Retrieves the Radio Access Technology (RAT) for the modem.
 
 #### Example
 
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
-
 ```py
 modem_rsp = ModemRsp()
 
@@ -230,23 +152,11 @@ else:
     print('Failed to get modem RAT')
 ```
 
-<!-- tabs:end -->
-
 #### Params
-
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
 
 | Param | Description                             | Default  |
 | ----- | --------------------------------------- | -------- |
 | `rsp` | Reference to a modem response instance. | **None** |
-
-<!-- tabs:end -->
 
 #### Returns
 
@@ -261,37 +171,17 @@ Sets the Radio Access Technology (RAT) for the modem.
 
 #### Example
 
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
-
 ```py
 if not await modem.set_rat(WalterModemRat.LTEM):
     print('Failed to set RAT to LTEM')
 ```
 
-<!-- tabs:end -->
-
 #### Params
-
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
 
 | Param | Description                             | Default  |
 | ----- | --------------------------------------- | -------- |
 | `rat` | The new [RAT](#waltermodemrat)          |          |
 | `rsp` | Reference to a modem response instance. | **None** |
-
-<!-- tabs:end -->
 
 #### Returns
 
@@ -305,14 +195,6 @@ True on success, False otherwise.
 Retrieves the radio bands the modem is configured to use for network connection.
 
 #### Example
-
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
 
 ```py
 modem_rsp = ModemRsp()
@@ -329,23 +211,11 @@ else:
     print('Failed to get radio bands')
 ```
 
-<!-- tabs:end -->
-
 #### Params
-
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
 
 | Param | Description                             | Default  |
 | ----- | --------------------------------------- | -------- |
 | `rsp` | Reference to a modem response instance. | **None** |
-
-<!-- tabs:end -->
 
 #### Returns
 
@@ -360,14 +230,6 @@ Retrieves the state of the SIM card.
 
 #### Example
 
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
-
 ```py
 modem_rsp = ModemRsp()
 
@@ -377,23 +239,11 @@ else:
     print('Failed to get SIM state')
 ```
 
-<!-- tabs:end -->
-
 #### Params
-
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
 
 | Param | Description                             | Default  |
 | ----- | --------------------------------------- | -------- |
 | `rsp` | Reference to a modem response instance. | **None** |
-
-<!-- tabs:end -->
 
 #### Returns
 
@@ -411,37 +261,17 @@ Sets the SIM card's PIN code.
 
 #### Example
 
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
-
 ```py
 if not await modem.unlock_sim():
     print('Failed to unlock SIM')
 ```
 
-<!-- tabs:end -->
-
 #### Params
-
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
 
 | Param | Description                                      | Default  |
 | ----- | ------------------------------------------------ | -------- |
 | `pin` | The PIN code of the SIM card or NULL for no pin. | **None** |
 | `rsp` | Reference to a modem response instance.          | **None** |
-
-<!-- tabs:end -->
 
 #### Returns
 
@@ -459,30 +289,12 @@ Sets the network selection mode for Walter.
 
 #### Example
 
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
-
 ```py
 if not await modem.set_network_selection_mode(WalterModemNetworkSelMode.AUTOMATIC):
     print('Failed to set network selection mode to automatic')
 ```
 
-<!-- tabs:end -->
-
 #### Params
-
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
 
 | Param             | Description                                                                            | Default                                         |
 | ----------------- | -------------------------------------------------------------------------------------- | ----------------------------------------------- |
@@ -490,8 +302,6 @@ if not await modem.set_network_selection_mode(WalterModemNetworkSelMode.AUTOMATI
 | `operator_name`   | The network operator name in case manual selection has been chosen.                    | **""**                                          |
 | `operator_format` | The [format](#waltermodemoperatorformat) in which the network operator name is passed. | **WalterModemOperatorFormat.LONG_ALPHANUMERIC** |
 | `rsp`             | Reference to a modem response instance.                                                | **None**                                        |
-
-<!-- tabs:end -->
 
 #### Returns
 
@@ -506,14 +316,6 @@ True on success, False otherwise.
 
 Modem network registration states.
 
-<!-- tabs:start -->
-
-#### **Arduino**
-
-#### **ESP-IDF**
-
-#### **Micropython**
-
 > **NOT_SEARCHING** = `0` \
 > **REGISTERED_HOME** = `1` \
 > **SEARCHING** = `2` \
@@ -527,19 +329,9 @@ Modem network registration states.
 > **REGISTERED_CSFB_NOT_PREFERRED_ROAMING** = `10` \
 > **REGISTERED_TEMP_CONN_LOSS** = `80` \
 
-<!-- tabs:end -->
-
 ### `WalterModemSQNMONIReportsType`
 
 SQNMONI cell information reporting scopes.
-
-<!-- tabs:start -->
-
-#### **Arduino**
-
-#### **ESP-IDF**
-
-#### **Micropython**
 
 > **SERVING_CELL** = `0` \
 > Reports only the serving cell. \
@@ -552,19 +344,9 @@ SQNMONI cell information reporting scopes.
 > **SERVING_CELL_WITH_CINR** = `9` \
 > Reports the serving cell with CINR (Carrier-to-Interference-plus-Noise Ratio).
 
-<!-- tabs:end -->
-
 ### `WalterModemRat`
 
 Types of 3GPP access technologies supported by Walter.
-
-<!-- tabs:start -->
-
-#### **Arduino**
-
-#### **ESP-IDF**
-
-#### **Micropython**
 
 > **LTEM** = `0` \  
 > LTE-M (Long-Term Evolution for Machines). \
@@ -573,19 +355,9 @@ Types of 3GPP access technologies supported by Walter.
 > **AUTO** = `2` \
 > Automatic selection of access technology.
 
-<!-- tabs:end -->
-
 ### `WalterModemNetworkSelMode`
 
 Support network selection modes.
-
-<!-- tabs:start -->
-
-#### **Arduino**
-
-#### **ESP-IDF**
-
-#### **Micropython**
 
 > **AUTOMATIC** = `0` \
 > Automatically selects a network. \
@@ -596,19 +368,9 @@ Support network selection modes.
 > **MANUAL_AUTO_FALLBACK** = `4` \
 > Manual selection with automatic fallback.
 
-<!-- tabs:end -->
-
 ### `WalterModemOperatorFormat`
 
 Supported netowrk operator formats.
-
-<!-- tabs:start -->
-
-#### **Arduino**
-
-#### **ESP-IDF**
-
-#### **Micropython**
 
 > **LONG_ALPHANUMERIC** = `0` \
 > Full operator name (e.g., "Vodafone UK"). \
@@ -616,5 +378,3 @@ Supported netowrk operator formats.
 > Short operator name (e.g., "Vodafone"). \
 > **NUMERIC** = `2` \
 > Numeric operator code (e.g., "23415").
-
-<!-- tabs:end -->

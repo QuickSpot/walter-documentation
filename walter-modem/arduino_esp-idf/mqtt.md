@@ -11,69 +11,6 @@
 
 ## Methods
 
-### `mqttConfig`
-
-Configure the MQTT client without connecting.
-
-#### Example
-
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
-
-```py
-MQTT_USERNAME = ''
-MQTT_PASSWORD = ''
-TLS_PROFILE_ID = 1
-
-if await modem.mqtt_config(
-    user_name=MQTT_USERNAME,
-    password=MQTT_PASSWORD,
-    tls_profile_id=TLS_PROFILE_ID
-):
-    print('Successfully configured MQTT')
-else:
-    print('Could not configure MQTT')
-```
-<!-- tabs:end -->
-
-#### Params
-
-<!-- tabs:start -->
-
-##### **Arduino**
-
-##### **ESP-IDF**
-
-##### **Micropython**
-
-| Param                    | Description                                         | Default    |
-| ------------------------ | --------------------------------------------------- | ---------- |
-| `client_id`              | MQTT client ID to use.                              | device MAC |
-| `user_name`              | Optional username for authentication.               | **""**     |
-| `password`               | Optional password for authentication.               | **""**     |
-| `tls_profile_id`         | Optional TLS profile ID to use.                     | **None**   |
-| `library_message_buffer` | Size of the library's internal MQTT message buffer. | **16**     |
-| `rsp`                    | Reference to a modem response instance.             | **None**   |
-
-> [!WARNING]
-> The **library_message_bugger** stores metadata for received messages
-> but does not hold their payloads. \
-> The modem itself supports up to 100 messages, however,
-> significantly increasing this buffer may consume excessive memory
-> and is not recommended
-
-<!-- tabs:end -->
-
-#### Returns
-
-`bool`
-True on success, False otherwise.
-
 ### `mqttConnect`
 
 Initialize MQTT and establish a connection.
@@ -102,18 +39,6 @@ if(modem.mqttConnect("test.mosquitto.org", 8883, macString, "user", "pass", 1)) 
 }
 ```
 
-##### **Micropython**
-
-```py
-if await modem.mqtt_connect(
-    server_name='test.mosquitto.org',
-    port=1883
-):
-    print('MQTT connection successfull')
-else:
-    print('MQTT connection failed')
-```
-
 <!-- tabs:end -->
 
 #### Params
@@ -147,14 +72,6 @@ else:
 | `rsp`          | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored. | **NULL**                 |
 | `cb`           | Optional callback argument. When not NULL, this function returns immediately.                          | **NULL**                 |
 | `args`         | Optional argument to pass to the callback.                                                             | **NULL**                 |
-
-##### **Micropython**
-
-| Param         | Description                            | Default |
-| ------------- | -------------------------------------- | ------- |
-| `server_name` | MQTT broker hostname.                  |         |
-| `port`        | Port to connect to.                    |         |
-| `keep_alive`  | Maximum keepalive time *(in seconds)*. | 60      |
 
 <!-- tabs:end -->
 
@@ -196,17 +113,6 @@ if(modem.mqttSubscribe("waltertopic")) {
 }
 ```
 
-##### **Micropython**
-
-```py
-if await modem.mqtt_subscribe(
-
-):
-    print('subscribed to topic waltertopic')
-else:
-    print('subscribe failed')
-```
-
 <!-- tabs:end -->
 
 #### Params
@@ -232,14 +138,6 @@ else:
 | `rsp`         | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored. | **NULL** |
 | `cb`          | Optional callback argument. When not NULL, this function returns immediately.                          | **NULL** |
 | `args`        | Optional argument to pass to the callback.                                                             | **NULL** |
-
-##### **Micropython**
-
-| Param   | Description                                                          | Default  |
-| ------- | -------------------------------------------------------------------- | -------- |
-| `topic` | Topic to subscribe to.                                               |          |
-| `qos`   | QoS: 0 = at most once, 1 = at least once, 2 = exactly once received. | **1**    |
-| `rsp`   | Reference to a modem response instance.                              | **None** |
 
 <!-- tabs:end -->
 
@@ -285,18 +183,6 @@ if(modem.mqttPublish("waltertopic", (uint8_t *) outgoingMsg, strlen(outgoingMsg)
 }
 ```
 
-##### **Micropython**
-
-```py
-if await modem.mqtt_publish(
-    topic=topic,
-    data='Hello from Walter'
-):
-    print('Message Published')
-else:
-    print('Failed to publish message')
-```
-
 <!-- tabs:end -->
 
 #### Params
@@ -326,14 +212,6 @@ else:
 | `rsp`         | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored. | **NULL** |
 | `cb`          | Optional callback argument. When not NULL, this function returns immediately.                          | **NULL** |
 | `args`        | Optional argument to pass to the callback.                                                             | **NULL** |
-
-##### **Micropython**
-
-| Param   | Description                                                          | Default  |
-| ------- | -------------------------------------------------------------------- | -------- |
-| `topic` | Topic to publish on.                                                 |          |
-| `qos`   | QoS: 0 = at most once, 1 = at least once, 2 = exactly once received. | **1**    |
-| `rsp`   | Reference to a modem response instance.                              | **None** |
 
 <!-- tabs:end -->
 
@@ -387,21 +265,6 @@ while(modem.mqttDidRing("waltertopic", incomingBuf, sizeof(incomingBuf), &rsp)) 
 }
 ```
 
-##### **Micropython**
-
-```py
-modem_rsp = ModemRsp()
-mqtt_messages = []
-
-if await modem.mqtt_did_ring(msg_list=mqtt_messages, rsp=modem_rsp):
-    print(f'New MQTT message (topic: {modem_rsp.mqtt_response.topic}, qos: {modem_rsp.mqtt_response.qos})')
-    print(mqtt_messages.pop())
-else:
-    if modem_rsp.result != WalterModemState.NO_DATA:
-        print('Fault with mqtt_did_ring: '
-              f'{WalterModemState.get_value_name(modem_rsp.result)}')
-```
-
 <!-- tabs:end -->
 
 #### Params
@@ -425,14 +288,6 @@ else:
 | `targetBuf`     | Target buffer to write incoming MQTT data in;                                                          |          |
 | `targetBufSize` | Size of the target buffer.                                                                             |          |
 | `rsp`           | Pointer to a modem response structure to save the result of the command in. When NULL, result ignored. | **NULL** |
-
-##### **Micropython**
-
-| Param      | Description                                                 | Default  |
-| ---------- | ----------------------------------------------------------- | -------- |
-| `msg_list` | Refence to a list where the received messages will be put.  |          |
-| `topic`    | The exact topic to filter on, leave as None for all topics. | **None** |
-| `rsp`      | Reference to a modem response instance.                     | **None** |
 
 <!-- tabs:end -->
 
