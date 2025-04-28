@@ -1,10 +1,10 @@
 ## Methods Overview
 
-- [createPDPContext](#createpdpcontext)
-- [authenticatePDPContext](#authenticatepdpcontext)
-- [setPDPContextActive](#setpdpcontextactive)
-- [attachPDPContext](#attachpdpcontext)
-- [getPDPAddress](#getpdpaddress)
+- [create_PDP_context](#create_pdp_context)
+- [set_PDP_auth_params](#set_pdp_auth_params)
+- [set_PDP_context_active](#set_pdp_context_active)
+- [set_network_attachment_state](#set_network_attachment_state)
+- [get_PDP_address](#get_pdp_address)
 
 ## Enums Overview
 
@@ -21,7 +21,9 @@
 
 ## Methods
 
-### `createPDPContext`
+### `create_PDP_context`
+
+Creates a new packet data protocol (PDP).
 
 #### Example
 
@@ -34,8 +36,6 @@ modem_rsp = ModemRsp()
 
 if not await modem.create_PDP_context(
     apn=CELL_APN,
-    auth_user=APN_USERNAME,
-    auth_pass=APN_PASSWORD,
     rsp=modem_rsp
 ):
     print('Failed to create PDP Context')
@@ -46,11 +46,9 @@ print('Successfully created PDP Context')
 
 | Param                        | Description                                                                    | Default                                       |
 | ---------------------------- | ------------------------------------------------------------------------------ | --------------------------------------------- |
+| `context_id`                 | The PDP Context ID                                                             | **1**                                         |
 | `apn`                        | The access point name.                                                         | **""**                                        |
-| `auth_proto`                 | The used [authentication protocol](#waltermodempdpauthprotocol).               | **WalterModemPDPAuthProtocol.NONE**           |
-| `auth_user`                  | Optional user to use for authentication.                                       | **None**                                      |
-| `auth_pass`                  | Optional password to use for authentication.                                   | **None**                                      |
-| `type`                       | The [type of PDP context](#waltermodempdptype) to create.                      | **WalterModemPDPType.IP**                     |
+| `pdp_type`                   | The [type of PDP context](#waltermodempdptype) to create.                      | **WalterModemPDPType.IP**                     |
 | `pdp_address`                | Optional PDP address.                                                          | **None**                                      |
 | `header_comp`                | The [type of header compression](#waltermodempdpheadercompression) to use.     | **WalterModemPDPHeaderCompression.OFF**       |
 | `data_comp`                  | The [type of data compression](#waltermodempdpdatacompression) to use.         | **WalterModemPDPDataCompression.OFF**         |
@@ -72,17 +70,19 @@ True on success, False otherwise.
 
 ---
 
-### `authenticatePDPContext`
+### `set_PDP_auth_params`
 
-Authenticates a PDP context if its APN requires authentication.
-
-> [!NOTE]
-> Has no effect if **NONE** is selected as the authentication method.
+Specify authentication parameters for the PDP.
 
 #### Example
 
 ```py
-if await modem.authenticate_PDP_context():
+if await modem.set_PDP_auth_params(
+    context_id=PDP_CTX_ID,
+    protocol=AUTH_PROTO,
+    user_id=AUTH_USER,
+    password=AUTH_PASS
+):
     print('PDP context authenticated')
 else:
     print('Failed to authenticate PDP context')
@@ -90,10 +90,13 @@ else:
 
 #### Params
 
-| param        | description                                          | default  |
-| ------------ | ---------------------------------------------------- | -------- |
-| `context_id` | The PDP context id or **-1 to re-use the last one.** | **-1**   |
-| `rsp`        | Reference to a modem response instance.              | **None** |
+| param        | description                                                      | default                             |
+| ------------ | ---------------------------------------------------------------- | ----------------------------------- |
+| `context_id` | The PDP context.                                                 | **1**                               |
+| `protocol`   | The used [authentication protocol](#waltermodempdpauthprotocol). | **WalterModemPDPAuthProtocol.NONE** |
+| `user_id`    | Optional user to use for authentication.                         | **None**                            |
+| `password`   | Optional password to use for authentication.                     | **None**                            |
+| `rsp`        | Reference to a modem response instance.                          | **None**                            |
 
 #### Returns
 
@@ -102,7 +105,7 @@ True on success, False otherwise.
 
 ---
 
-### `setPDPContextActive`
+### `set_PDP_context_active`
 
 Activates or deactivates a given PDP context.
 
@@ -118,7 +121,7 @@ if not await modem.set_PDP_context_active(active=False):
 | Param        | Description                                            | Default  |
 | ------------ | ------------------------------------------------------ | -------- |
 | `active`     | True to activate the PDP context, False to deactivate. | **True** |
-| `context_id` | The PDP context id or **-1 to re-use the last one.**   | **-1**   |
+| `context_id` | The PDP context id.                                    | **1**    |
 | `rsp`        | Reference to a modem response instance.                | **None** |
 
 #### Returns
@@ -128,7 +131,7 @@ True on success, False otherwise.
 
 ---
 
-### `attachPDPContext`
+### `set_network_attachment_state`
 
 Attaches to or detaches from the currently active PDP context
 for packet domain service.
@@ -136,7 +139,7 @@ for packet domain service.
 #### Example
 
 ```py
-if not await modem.attach_PDP_context(attach=True):
+if not await modem.set_network_attachment_state(attach=True):
     print('Failed to attach PDP context')
 ```
 
@@ -154,7 +157,7 @@ True on success, False otherwise.
 
 ---
 
-### `getPDPAddress`
+### `get_PDP_address`
 
 Retrieves the list of PDP addresses for the specified PDP context ID.
 
@@ -169,10 +172,10 @@ if not await modem.get_PDP_address(context_id=PDP_CONTEXT_ID):
 
 #### Params
 
-| Param        | Description                                          | Default  |
-| ------------ | ---------------------------------------------------- | -------- |
-| `context_id` | The PDP context id or **-1 to re-use the last one.** | **-1**   |
-| `rsp`        | Reference to a modem response instance               | **None** |
+| Param        | Description                            | Default  |
+| ------------ | -------------------------------------- | -------- |
+| `context_id` | The PDP context id.                    | **1**    |
+| `rsp`        | Reference to a modem response instance | **None** |
 
 #### Returns
 

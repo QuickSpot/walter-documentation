@@ -1,9 +1,9 @@
 ## Methods Overview
 
-- [httpConfigProfile](#httpconfigprofile)
-- [httpSend](#httpsend)
-- [httpQuery](#httpquery)
-- [httpDidRing](#httpdidring)
+- [http_config_profile](#http_config_profile)
+- [http_send](#http_send)
+- [http_query](#http_query)
+- [http_did_ring](#http_did_ring)
 
 ## Enums Overview
 
@@ -15,22 +15,21 @@
 
 ## Methods
 
-### `httpConfigProfile`
+### `http_config_profile`
 
 Configure a HTTP profile.
 
-This function will configure a HTTP profile
-with parameters such as server name and auth info.
-The profile info is stored persistently in the modem, so it is possible
-to store connection info once, using an Arduino sketch to prepare all settings,
+This function will configure an HTTP profile
+with parameters such as the server name and auth info.
+
+The profile information is stored persistently in the modem, it thus is possible
+to store connection information once to prepare all settings,
 and later rely on this preconfigured profile in the modem without the need to
-set the parameters again in the actual Arduino sketch used in production.
+set the parameters again in the actual code used in production.
 
-> [!WARNING]
-> You first need call tlsConfigProfile.
-
-> [!NOTE]
-> **File uploads/downloads** not supported.
+> [!TIP]
+> You first need to call
+> [`tls_config_profile`](/walter-modem/micropython/reference/tls_and_certificates.md#tls_config_profile)
 
 #### Example
 
@@ -53,7 +52,7 @@ else:
 
 | Param            | Description                                      | Default   |
 | ---------------- | ------------------------------------------------ | --------- |
-| `profile_id`     | HTTP profile id (0, 1 or 2).                     |           |
+| `profile_id`     | HTTP profile id **(0, 1 or 2)**.                 |           |
 | `server_address` | The server name to connect to.                   |           |
 | `port`           | The port of the server to connect to.            | **80**    |
 | `use_basic_auth` | Set true to use basic auth and send username/pw. | **False** |
@@ -69,11 +68,12 @@ True on success, False otherwise.
 
 ---
 
-### `httpSend`
+### `http_send`
 
 Perform a http **POST** or **PUT** request.
 
-No need to first open the connection with the buggy httpConnect command
+> [!NOTE]
+> No need to first open the connection with the buggy httpConnect command
 unless you need TLS + a private key.
 
 #### Example
@@ -98,7 +98,7 @@ else:
 
 | Param        | Description                                               | Default                                  |
 | ------------ | --------------------------------------------------------- | ---------------------------------------- |
-| `profile_id` | The profile id (0, 1 or 2) of the HTTP context.         |                                          |
+| `profile_id` | The profile id **(0, 1 or 2)** of the HTTP context.       |                                          |
 | `uri`        | The URI.                                                  |                                          |
 | `data`       | Data to be sent to the server.                            |                                          |
 | `send_cmd`   | POST or PUT [command](#waltermodemhttpsendcmd).           | **WalterModemHttpSendCmd.POST**          |
@@ -112,11 +112,12 @@ True on success, False otherwise.
 
 ---
 
-### `httpQuery`
+### `http_query`
 
 Perform a http **GET**, **DELETE** or **HEAD** request.
 
-No need to first open the connection with the buggy httpConnect command
+> [!NOTE]
+> No need to first open the connection with the buggy httpConnect command
 unless you need TLS + a private key.
 
 #### Example
@@ -152,9 +153,9 @@ True on success, False otherwise.
 
 ---
 
-### `httpDidRing`
+### `http_did_ring`
 
-Fetch http response to earlier http request, if any
+Fetch http response to earlier http request, if any.
 
 #### Example
 
