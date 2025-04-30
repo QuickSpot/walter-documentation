@@ -52,17 +52,6 @@ if(modem.createSocket(&rsp)) {
 }
 ```
 
-##### **Micropython**
-
-```py
-modem_rsp = ModemRsp()
-socket_id: int
-
-if await modem.create_socket(rsp=modem_rsp):
-    print('socket created successfully')
-    socket_id = modem_rsp.socket_id
-```
-
 <!-- tabs:end -->
 
 #### Params
@@ -94,17 +83,6 @@ if await modem.create_socket(rsp=modem_rsp):
 | `exchangeTimeout` | The maximum number of seconds this socket can be inactive.                                                            | **90**      |
 | `connTimeout`     | The maximum number of seconds this socket is allowed to try to connect.                                               | **60**      |
 | `sendDelayMs`     | The number of milliseconds send delay.                                                                                | **5000**    |
-
-##### **Micropython**
-
-| Param              | Description                                                             | Default  |
-| ------------------ | ----------------------------------------------------------------------- | -------- |
-| `pdp_context_id`   | The PDP context id or -1 to re-use the last one.                        | **-1**   |
-| `mtu`              | The maximum transmission unit used by the socket.                       | **300**  |
-| `exchange_timeout` | The maximum number of seconds this socket can be inactive.              | **90**   |
-| `conn_timeout`     | The maximum number of seconds this socket is allowed to try to connect. | **60**   |
-| `send_delay_ms`    | The number of milliseconds send delay.                                  | **5000** |
-| `rsp`              | Reference to a modem response instance.                                 | **None** |
 
 <!-- tabs:end -->
 
@@ -144,15 +122,6 @@ if(modem.configSocket()) {
 }
 ```
 
-##### **Micropython**
-
-```py
-if await modem.config_socket():
-    print('Successfully configured the socket')
-else:
-    print('Could not configure the socket')
-```
-
 <!-- tabs:end -->
 
 #### Params
@@ -176,13 +145,6 @@ else:
 | `cb`       | Optional callback argument, when not NULL this function will return immediately. | **NULL** |
 | `args`     | Optional argument to pass to the callback.                                       | **NULL** |
 | `socketId` | The id of the socket to connect or **-1 to re-use the last one.**                | **-1**   |
-
-##### **Micropython**
-
-| Param       | Description                                                       | Default  |
-| ----------- | ----------------------------------------------------------------- | -------- |
-| `socket_id` | The id of the socket to connect or **-1 to re-use the last one.** | **-1**   |
-| `rsp`       | Reference to a modem response instance.                           | **None** |
 
 <!-- tabs:end -->
 
@@ -245,25 +207,6 @@ if(modem.connectSocket(SERV_ADDR, SERV_PORT, SERV_PORT)) {
 }
 ```
 
-##### **Micropython**
-
-```py
-SERV_ADDR = '64.255.64.140'
-"""The address of the server to upload the data to"""
-
-SERV_PORT = 1999
-"""The port on which the server is listening"""
-
-if await modem.connect_socket(
-    remote_host=SERV_ADDR,
-    remote_port=SERV_PORT,
-    local_port=SERV_PORT
-):
-    print(f'Connected to server {SERV_ADDR}:{SERV_PORT}')
-else:
-    print('Could not connect socket')
-```
-
 <!-- tabs:end -->
 
 #### Params
@@ -297,18 +240,6 @@ else:
 | `protocol`        | The [protocol](#waltermodemsocketproto) to use, UDP by default.                  | **WALTER_MODEM_SOCKET_PROTO_UDP**           |
 | `acceptAnyRemote` | How to [accept remote](#waltermodemsocketacceptanyremote) UDP packets.           | **WALTER_MODEM_ACCEPT_ANY_REMOTE_DISABLED** |
 | `socketId`        | The id of the socket to connect or **-1 to re-use the last one**.                | **-1**                                      |
-
-##### **Micropython**
-
-| Param               | Description                                                            | Default                                 |
-| ------------------- | ---------------------------------------------------------------------- | --------------------------------------- |
-| `remote_host`       | The remote IPv4/IPv6 or hostname to connect to.                        |                                         |
-| `remote_port`       | The remote port to connect on.                                         |                                         |
-| `local_port`        | The local port in case of an UDP socket.                               |                                         |
-| `socket_id`         | The id of the socket to connect or **-1 to re-use the last one**       | **-1**                                  |
-| `protocol`          | The [protocol](#waltermodemsocketproto) to use, UDP by default.        | **ModemSocketProto.UDP**                |
-| `accept_any_remote` | How to [accept remote](#waltermodemsocketacceptanyremote) UDP packets. | **ModemSocketAcceptAnyRemote.DISABLED** |
-| `rsp`               | Reference to a modem response instance.                                | **None**                                |
 
 <!-- tabs:end -->
 
@@ -383,27 +314,6 @@ if(modem.socketSend(dataBuf, 8)) {
 }
 ```
 
-##### **Micropython**
-
-```py
-async def loop():
-    global counter
-    global socket_id
-    data_buffer: bytearray = bytearray(network.WLAN().config('mac'))
-    data_buffer.append(counter >> 8)
-    data_buffer.append(counter & 0xff)
-
-    print('Attempting to transmit data')
-    if not await modem.socket_send(data=data_buffer, socket_id=socket_id):
-        print('Failed to transmit data')
-        return False
-    
-    print(f'Transmitted counter value: {counter}')
-    counter += 1
-
-    await asyncio.sleep(10)
-```
-
 <!-- tabs:end -->
 
 #### params
@@ -433,15 +343,6 @@ async def loop():
 | `args`     | Optional argument to pass to the callback.                                       | **NULL**                     |
 | `rai`      | The release assistance information.                                              | **WALTER_MODEM_RAI_NO_INFO** |
 | `socketId` | The id of the socket to close or **-1 to re-use the last one.**                  | **-1**                       |
-
-##### **Micropython**
-
-| Param       | Description                                                     | Default              |
-| ----------- | --------------------------------------------------------------- | -------------------- |
-| `data`      | The data to send.                                               |                      |
-| `socket_id` | The id of the socket to close or **-1 to re-use the last one.** | **-1**               |
-| `rai`       | The release assistance information.                             | **ModemRai.NO_INFO** |
-| `rsp`       | Reference to a modem instance.                                  | **None**             |
 
 <!-- tabs:end -->
 
@@ -483,15 +384,6 @@ if(modem.closeSocket()) {
 }
 ```
 
-##### **Micropython**
-
-```py
-if await modem.close_socket():
-    print('Successfully closed the socket')
-else:
-    print('Could not close the socket')
-```
-
 <!-- tabs:end -->
 
 #### Params
@@ -515,13 +407,6 @@ else:
 | `cb`       | Optional callback argument, when not NULL this function will return immediately. | **NULL** |
 | `args`     | Optional argument to pass to the callback.                                       | **NULL** |
 | `socketId` | The id of the socket to close or **-1 to re-use the last one.**                  | **-1**   |
-
-##### **Micropython**
-
-| Param       | Description                                                     | Default              |
-| ----------- | --------------------------------------------------------------- | -------------------- |
-| `socket_id` | The id of the socket to close or **-1 to re-use the last one.** | **-1**               |
-| `rsp`       | Reference to a modem instance.                                  | **None**             |
 
 <!-- tabs:end -->
 
@@ -554,13 +439,6 @@ The protocol that us used by the socket.
 > **WALTER_MODEM_SOCKET_PROTO_UDP** = `1` \
 > Use the UDP protocol for the socket
 
-#### **Micropython**
-
-> **TCP** = `0` \
-> Use the TCP protocol for the socket \
-> **UDP** = `1` \
-> Use the UDP protocol for the socket
-
 <!-- tabs:end -->
 
 ### `WalterModemSocketAcceptAnyRemote`
@@ -586,15 +464,6 @@ besides the IP-address and remote port it is configured for.
 > **WALTER_MODEM_ACCEPT_ANY_REMOTE_RX_ONLY** = `1`\
 > Only acccept read \
 > **WALTER_MODEM_ACCEPT_ANY_REMOTE_RX_AND_TX** = `2` \
-> Accept read write from remote
-
-#### **Micropython**
-
-> **DISABLED** = `0`\
-> Do not accepty any remote data \
-> **REMOTE_RX_ONLY** = `1`\
-> Only acccept read \
-> **REMOTE_RX_AND_TX** = `2` \
 > Accept read write from remote
 
 <!-- tabs:end -->
