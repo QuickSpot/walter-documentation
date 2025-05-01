@@ -84,7 +84,7 @@ TLS_PROFILE = 1
 
 if await modem.http_config_profile(
     profile_id=HTTP_PROFILE,
-    server_address="tls13.akamai.io,
+    server_address="tls13.akamai.io",
     port=443,
     tls_profile_id=TLS_PROFILE
 ):
