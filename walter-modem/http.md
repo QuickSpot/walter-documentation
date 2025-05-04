@@ -454,11 +454,14 @@ while(modem.httpDidRing(HTTP_PROFILE, incomingBuf, sizeof(incomingBuf), &rsp)) {
 
 ```py
 modem_rsp = ModemRsp()
-http_receive_attempts_left = 0
 
-while await modem.http_did_ring(profile_id=http_profile, rsp=modem_rsp):
-    http_receive_attempts_left = 0
+while not await modem.http_did_ring(profile_id=HTTP_PROFILE, rsp=modem_rsp):
+    if modem_rsp.result not in (WalterModemState.OK, WalterModemState.AWAITING_RING):
+        print(f"Error: {modem_rsp.result}")
+        break
+    await asyncio.sleep(1)
 
+if modem_rsp.http_response is not None
     print(f'HTTP status code: {modem_rsp.http_response.http_status}')
     print(f'HTTP content type: {modem_rsp.http_response.content_type}')
     print(f'HTTP: {modem_rsp.http_response.data}')
