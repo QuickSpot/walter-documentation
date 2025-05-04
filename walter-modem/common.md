@@ -128,7 +128,7 @@ Retrieves the current time and date from the modem.
 ```py
 modem_rsp = ModemRsp()
 
-if await modem.get_clock(rps=modem_rsp):
+if await modem.get_clock(rsp=modem_rsp):
     print(modem_rsp.clock)
 else:
     print('Failed to get modem clock')
@@ -275,7 +275,7 @@ Retrieves the modem's current operational state.
 ```py
 modem_rsp = ModemRsp()
 
-if await modem.get_op_state(rps=modem_rsp):
+if await modem.get_op_state(rsp=modem_rsp):
     print(WalterModemOpState.get_value_name(modem_rsp.op_state))
 else:
     print('Failed to get modem op state')
