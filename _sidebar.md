@@ -23,6 +23,14 @@
   * [Sockets](/walter-modem/sockets.md)
   * [HTTP](/walter-modem/http.md)
   * [MQTT](/walter-modem/mqtt.md)
+* IoT Platforms
+  * [BlueCherry](/iot-platforms/bluecherry.md)
+  * [Blynk](/iot-platforms/blynk.md)
+  * [Datacake](/iot-platforms/datacake.md)
+  * [Golioth](/iot-platforms/golioth.md)
+  * [IoT Exchange](/iot-platforms/iotexchange.md)
+  * [TagoIO](/iot-platforms/qubitro.md)
+  * [Qubitro](/iot-platforms/tagoio.md)
 * Frequently Asked Questionss
   * [Communication](/faq/communication.md)
   * [GNNS / GPS](/faq/gnss-gps.md)
