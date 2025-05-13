@@ -155,7 +155,7 @@ from walter_modem.structs import (
   # ...
 )
 
-modem = walter.Modem()
+modem = Modem()
 
 async def main():
     # ...
