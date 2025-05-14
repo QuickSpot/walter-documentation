@@ -27,13 +27,18 @@ with a MicroPython device, to install the Modem Library MIP packagae to your dev
 Simply run:
 
 ```shell
-mpremote mip install github:QuickSpot/walter-micropython
+mpremote mip install github:QuickSpot/walter-micropython@verison-tag
 ```
+
+> [!NOTE]
+> Replace `version-tag` with the tag of the release you wish to use,
+> or don't specify any to install the latest from upstream.\
+> See: [Walter-Micropython Releases](https://github.com/QUickSpot/walter-micropython/releases)
 
 If needed, you can specify the device as such:
 
 ```shell
-mpremote connect <device> mip install github:QuickSpot/walter-micropython
+mpremote connect <device> mip install github:QuickSpot/walter-micropython@version-tag
 ```
 
 > [!TIP]
