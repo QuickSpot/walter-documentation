@@ -377,7 +377,34 @@ The possible statuses of a BlueCherry communication cycle.
 
 #### **Arduino**
 
+> **WALTER_MODEM_BLUECHERRY_STATUS_NOT_PROVISIONED** = `0`\
+> Not provisioned.  \
+> **WALTER_MODEM_BLUECHERRY_STATUS_IDLE** = `1`\
+> Idle state.  \
+> **WALTER_MODEM_BLUECHERRY_STATUS_AWAITING_RESPONSE** = `2`\
+> Waiting for response.  \
+> **WALTER_MODEM_BLUECHERRY_STATUS_RESPONSE_READY** = `3`\
+> Response is ready.  \
+> **WALTER_MODEM_BLUECHERRY_STATUS_PENDING_MESSAGES** = `4`\
+> Outgoing messages pending.  \
+> **WALTER_MODEM_BLUECHERRY_STATUS_TIMED_OUT** = `5`\
+> Operation timed out.  \
+
+
 #### **ESP-IDF**
+
+> **WALTER_MODEM_BLUECHERRY_STATUS_NOT_PROVISIONED** = `0`\
+> Not provisioned.  \
+> **WALTER_MODEM_BLUECHERRY_STATUS_IDLE** = `1`\
+> Idle state.  \
+> **WALTER_MODEM_BLUECHERRY_STATUS_AWAITING_RESPONSE** = `2`\
+> Waiting for response.  \
+> **WALTER_MODEM_BLUECHERRY_STATUS_RESPONSE_READY** = `3`\
+> Response is ready.  \
+> **WALTER_MODEM_BLUECHERRY_STATUS_PENDING_MESSAGES** = `4`\
+> Outgoing messages pending.  \
+> **WALTER_MODEM_BLUECHERRY_STATUS_TIMED_OUT** = `5`\
+> Operation timed out.  \
 
 <!-- tabs:end -->
 
@@ -389,6 +416,40 @@ The possible types of BlueCherry events.
 
 #### **Arduino**
 
+> **WALTER_MODEM_BLUECHERRY_EVENT_TYPE_OTA_INITIALIZE** = `1`\
+> Start OTA update.  \
+> **WALTER_MODEM_BLUECHERRY_EVENT_TYPE_OTA_CHUNK** = `2`\
+> OTA data chunk.  \
+> **WALTER_MODEM_BLUECHERRY_EVENT_TYPE_OTA_FINISH** = `3`\
+> End OTA update.  \
+> **WALTER_MODEM_BLUECHERRY_EVENT_TYPE_OTA_ERROR** = `4`\
+> OTA error.  \
+> **WALTER_MODEM_BLUECHERRY_EVENT_TYPE_MOTA_INITIALIZE** = `5`\
+> Start MOTA update.  \
+> **WALTER_MODEM_BLUECHERRY_EVENT_TYPE_MOTA_CHUNK** = `6`\
+> MOTA data chunk.  \
+> **WALTER_MODEM_BLUECHERRY_EVENT_TYPE_MOTA_FINISH** = `7`\
+> End MOTA update.  \
+> **WALTER_MODEM_BLUECHERRY_EVENT_TYPE_MOTA_ERROR** = `8`\
+> MOTA error.  \
+
 #### **ESP-IDF**
+
+> **WALTER_MODEM_BLUECHERRY_EVENT_TYPE_OTA_INITIALIZE** = `1`\
+> Start OTA update.  \
+> **WALTER_MODEM_BLUECHERRY_EVENT_TYPE_OTA_CHUNK** = `2`\
+> OTA data chunk.  \
+> **WALTER_MODEM_BLUECHERRY_EVENT_TYPE_OTA_FINISH** = `3`\
+> End OTA update.  \
+> **WALTER_MODEM_BLUECHERRY_EVENT_TYPE_OTA_ERROR** = `4`\
+> OTA error.  \
+> **WALTER_MODEM_BLUECHERRY_EVENT_TYPE_MOTA_INITIALIZE** = `5`\
+> Start MOTA update.  \
+> **WALTER_MODEM_BLUECHERRY_EVENT_TYPE_MOTA_CHUNK** = `6`\
+> MOTA data chunk.  \
+> **WALTER_MODEM_BLUECHERRY_EVENT_TYPE_MOTA_FINISH** = `7`\
+> End MOTA update.  \
+> **WALTER_MODEM_BLUECHERRY_EVENT_TYPE_MOTA_ERROR** = `8`\
+> MOTA error.  \
 
 <!-- tabs:end -->
