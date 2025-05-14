@@ -24,6 +24,9 @@ Upload Walter's certificate and private key and the BlueCherry cloud server CA c
 > [!NOTE]
 > The key parameters are NULL terminated strings containing the PEM data with each line terminated by CRLF (\r\n).
 
+> [!WARNING]
+> profile `0`,`5`,`6` are reserved for BlueCherry
+
 ### `blueCherryIsProvisioned`
 
 Check if Walter is provisioned for BlueCherry IoT connectivity.
