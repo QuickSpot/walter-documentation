@@ -64,7 +64,30 @@ if (!modem.coapCreateContext(MODEM_COAP_PROFILE, "coap.me", 5683)) {
 
 ##### **Arduino**
 
+| Param          | Description                                                      | Default  |
+| -------------- | ---------------------------------------------------------------- | -------- |
+| `profileId`    | CoAP profile ID (0 is used by BlueCherry).                       |          |
+| `serverName`   | The server name to connect to.                                   |          |
+| `port`         | The port of the server to connect to.                            |          |
+| `tlsProfileId` | If not 0, DTLS is used with the given profile (1–6).             | **0**    |
+| `localPort`    | The local port to use (0 = random).                              | **-1**   |
+| `rsp`          | Optional modem response structure to save the result in.         | **NULL** |
+| `cb`           | Optional callback function, if set this function will not block. | **NULL** |
+| `args`         | Optional argument to pass to the callback.                       | **NULL** |
+
+
 #### **ESP-IDF**
+
+| Param          | Description                                                      | Default  |
+| -------------- | ---------------------------------------------------------------- | -------- |
+| `profileId`    | CoAP profile ID (0 is used by BlueCherry).                       |          |
+| `serverName`   | The server name to connect to.                                   |          |
+| `port`         | The port of the server to connect to.                            |          |
+| `tlsProfileId` | If not 0, DTLS is used with the given profile (1–6).             | **0**    |
+| `localPort`    | The local port to use (0 = random).                              | **-1**   |
+| `rsp`          | Optional modem response structure to save the result in.         | **NULL** |
+| `cb`           | Optional callback function, if set this function will not block. | **NULL** |
+| `args`         | Optional argument to pass to the callback.                       | **NULL** |
 
 <!-- tabs:end -->
 
@@ -112,7 +135,22 @@ if (!modem.coapClose(MODEM_COAP_PROFILE)) {
 
 ##### **Arduino**
 
+| Param       | Description                                                      | Default  |
+| ----------- | ---------------------------------------------------------------- | -------- |
+| `profileId` | CoAP profile ID (0 is used by BlueCherry).                       |          |
+| `rsp`       | Optional modem response structure to save the result in.         | **NULL** |
+| `cb`        | Optional callback function, if set this function will not block. | **NULL** |
+| `args`      | Optional argument to pass to the callback.                       | **NULL** |
+
+
 #### **ESP-IDF**
+
+| Param       | Description                                                      | Default  |
+| ----------- | ---------------------------------------------------------------- | -------- |
+| `profileId` | CoAP profile ID (0 is used by BlueCherry).                       |          |
+| `rsp`       | Optional modem response structure to save the result in.         | **NULL** |
+| `cb`        | Optional callback function, if set this function will not block. | **NULL** |
+| `args`      | Optional argument to pass to the callback.                       | **NULL** |
 
 <!-- tabs:end -->
 
@@ -154,7 +192,17 @@ if (!modem.coapGetContextStatus(MODEM_COAP_PROFILE)) {
 
 ##### **Arduino**
 
+| Param       | Description                                | Default |
+| ----------- | ------------------------------------------ | ------- |
+| `profileId` | The profile ID (0, 1 or 2) of the context. | —       |
+
+
 #### **ESP-IDF**
+
+| Param       | Description                                | Default |
+| ----------- | ------------------------------------------ | ------- |
+| `profileId` | The profile ID (0, 1 or 2) of the context. | —       |
+
 
 <!-- tabs:end -->
 
@@ -200,7 +248,25 @@ if (!modem.coapSetHeader(MODEM_COAP_PROFILE, counter)) {
 
 ##### **Arduino**
 
+| Param       | Description                                                                       | Default        |
+| ----------- | --------------------------------------------------------------------------------- | -------------- |
+| `profileId` | CoAP profile id (1 or 2 - 0 is used by BlueCherry)                                |                |
+| `messageId` | The message id of the next message to send.                                       | **1**          |
+| `token`     | The token of the next message to send as a string of 16 hex digits (max 8 bytes). | **"NO_TOKEN"** |
+| `rsp`       | Optional modem response structure to save the result in.                          | **NULL**       |
+| `cb`        | Optional callback function, if set this function will not block.                  | **NULL**       |
+| `args`      | Optional argument to pass to the callback.                                        | **NULL**       |
+
 #### **ESP-IDF**
+
+| Param       | Description                                                                       | Default        |
+| ----------- | --------------------------------------------------------------------------------- | -------------- |
+| `profileId` | CoAP profile id (1 or 2 - 0 is used by BlueCherry)                                |                |
+| `messageId` | The message id of the next message to send.                                       | **1**          |
+| `token`     | The token of the next message to send as a string of 16 hex digits (max 8 bytes). | **"NO_TOKEN"** |
+| `rsp`       | Optional modem response structure to save the result in.                          | **NULL**       |
+| `cb`        | Optional callback function, if set this function will not block.                  | **NULL**       |
+| `args`      | Optional argument to pass to the callback.                                        | **NULL**       |
 
 <!-- tabs:end -->
 
@@ -242,7 +308,27 @@ if (!modem.coapSetOptions(MODEM_COAP_PROFILE,WALTER_MODEM_COAP_OPT_DELETE, WALTE
 
 ##### **Arduino**
 
+| Param       | Description                                                                                        | Default  |
+| ----------- | -------------------------------------------------------------------------------------------------- | -------- |
+| `profileId` | CoAP profile id (1 or 2)                                                                           |          |
+| `action`    | The action code of the option.                                                                     |          |
+| `code`      | The code of the options.                                                                           |          |
+| `values`    | Optional values array, as a comma-delimited string of up to 6 strings or recognized option values. | **NULL** |
+| `rsp`       | Optional modem response structure to save the result in.                                           | **NULL** |
+| `cb`        | Optional callback function, if set this function will not block.                                   | **NULL** |
+| `args`      | Optional argument to pass to the callback.                                                         | **NULL** |
+
 #### **ESP-IDF**
+
+| Param       | Description                                                                                        | Default  |
+| ----------- | -------------------------------------------------------------------------------------------------- | -------- |
+| `profileId` | CoAP profile id (1 or 2)                                                                           |          |
+| `action`    | The action code of the option.                                                                     |          |
+| `code`      | The code of the options.                                                                           |          |
+| `values`    | Optional values array, as a comma-delimited string of up to 6 strings or recognized option values. | **NULL** |
+| `rsp`       | Optional modem response structure to save the result in.                                           | **NULL** |
+| `cb`        | Optional callback function, if set this function will not block.                                   | **NULL** |
+| `args`      | Optional argument to pass to the callback.                                                         | **NULL** |
 
 <!-- tabs:end -->
 
@@ -297,7 +383,29 @@ if (!modem.coapSendData(
 
 ##### **Arduino**
 
+| Param       | Description                                                              | Default  |
+| ----------- | ------------------------------------------------------------------------ | -------- |
+| `profileId` | CoAP profile id (1 or 2; 0 should not be used and is used by BlueCherry) |          |
+| `type`      | The type of message (NON, CON, ACK, RST).                                |          |
+| `methodRsp` | The method or response code.                                             |          |
+| `length`    | The length of the payload.                                               |          |
+| `payload`   | The payload to send, max 1024 bytes.                                     |          |
+| `rsp`       | Optional modem response structure to save the result in.                 | **NULL** |
+| `cb`        | Optional callback function, if set this function will not block.         | **NULL** |
+| `args`      | Optional argument to pass to the callback.                               | **NULL** |
+
 #### **ESP-IDF**
+
+| Param       | Description                                                              | Default  |
+| ----------- | ------------------------------------------------------------------------ | -------- |
+| `profileId` | CoAP profile id (1 or 2; 0 should not be used and is used by BlueCherry) |          |
+| `type`      | The type of message (NON, CON, ACK, RST).                                |          |
+| `methodRsp` | The method or response code.                                             |          |
+| `length`    | The length of the payload.                                               |          |
+| `payload`   | The payload to send, max 1024 bytes.                                     |          |
+| `rsp`       | Optional modem response structure to save the result in.                 | **NULL** |
+| `cb`        | Optional callback function, if set this function will not block.         | **NULL** |
+| `args`      | Optional argument to pass to the callback.                               | **NULL** |
 
 <!-- tabs:end -->
 
@@ -333,7 +441,21 @@ while (modem.coapDidRing(MODEM_COAP_PROFILE, incomingBuf, sizeof(incomingBuf), &
 
 ##### **Arduino**
 
+| Param           | Description                                                        | Default  |
+| --------------- | ------------------------------------------------------------------ | -------- |
+| `profileId`     | Profile for which to get incoming data (1 or 2)                    |          |
+| `targetBuf`     | User buffer to store response in.                                  |          |
+| `targetBufSize` | Size of the user buffer, including space for a terminating 0-byte. |          |
+| `rsp`           | Optional modem response structure to save the result in.           | **NULL** |
+
 #### **ESP-IDF**
+
+| Param           | Description                                                        | Default  |
+| --------------- | ------------------------------------------------------------------ | -------- |
+| `profileId`     | Profile for which to get incoming data (1 or 2)                    |          |
+| `targetBuf`     | User buffer to store response in.                                  |          |
+| `targetBufSize` | Size of the user buffer, including space for a terminating 0-byte. |          |
+| `rsp`           | Optional modem response structure to save the result in.           | **NULL** |
 
 <!-- tabs:end -->
 
