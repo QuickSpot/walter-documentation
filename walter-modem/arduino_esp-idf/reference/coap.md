@@ -58,6 +58,16 @@ if (!modem.coapCreateContext(MODEM_COAP_PROFILE, "coap.me", 5683)) {
 
 <!-- tabs:end -->
 
+#### Params
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+#### **ESP-IDF**
+
+<!-- tabs:end -->
+
 
 ### `coapClose`
 
@@ -96,6 +106,16 @@ if (!modem.coapClose(MODEM_COAP_PROFILE)) {
 
 <!-- tabs:end -->
 
+#### Params
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+#### **ESP-IDF**
+
+<!-- tabs:end -->
+
 ### `coapGetContextStatus`
 
 Get the connection status of a CoAP context.
@@ -125,6 +145,16 @@ if (!modem.coapGetContextStatus(MODEM_COAP_PROFILE)) {
     ESP_LOGI(TAG, "CoAP profile is connected to the remote server");
 }
 ```
+
+<!-- tabs:end -->
+
+#### Params
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+#### **ESP-IDF**
 
 <!-- tabs:end -->
 
@@ -164,6 +194,16 @@ if (!modem.coapSetHeader(MODEM_COAP_PROFILE, counter)) {
 
 <!-- tabs:end -->
 
+#### Params
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+#### **ESP-IDF**
+
+<!-- tabs:end -->
+
 ### `coapSetOptions`
 
 Set the options for the next CoAP message.
@@ -193,6 +233,16 @@ if (!modem.coapSetOptions(MODEM_COAP_PROFILE,WALTER_MODEM_COAP_OPT_DELETE, WALTE
     ESP_LOGI(TAG, "Set COAP options succesfully");
 }
 ```
+
+<!-- tabs:end -->
+
+#### Params
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+#### **ESP-IDF**
 
 <!-- tabs:end -->
 
@@ -241,6 +291,16 @@ if (!modem.coapSendData(
 
 <!-- tabs:end -->
 
+#### Params
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+#### **ESP-IDF**
+
+<!-- tabs:end -->
+
 ### `coapDidRing`
 
 Fetch incoming CoAP messages, if any.
@@ -264,6 +324,16 @@ while (modem.coapDidRing(MODEM_COAP_PROFILE, incomingBuf, sizeof(incomingBuf), &
     ESP_LOGI(TAG, "incoming ring!");
 }
 ```
+
+<!-- tabs:end -->
+
+#### Params
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+#### **ESP-IDF**
 
 <!-- tabs:end -->
 
