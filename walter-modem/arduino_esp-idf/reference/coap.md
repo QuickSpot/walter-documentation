@@ -27,6 +27,9 @@ Create a CoAP context.
 This function will create a CoAP context if it was not open yet.
 This needs to be done before you can set headers or options or send or receive data.
 
+> [!WARNING]
+> profile **1** is reserved for BlueCherry and will not be ussable when it is enabled
+
 ### `coapClose`
 
 Close a CoAP context.
