@@ -43,6 +43,16 @@ Upload Walter's certificate and private key and the BlueCherry cloud server CA c
 
 <!-- tabs:end -->
 
+#### Params
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+#### **ESP-IDF**
+
+<!-- tabs:end -->
+
 ### `blueCherryIsProvisioned`
 
 Check if Walter is provisioned for BlueCherry IoT connectivity.
@@ -68,6 +78,16 @@ This function checks if the necessary certificates and private key are present i
 
 <!-- tabs:end -->
 
+#### Params
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+#### **ESP-IDF**
+
+<!-- tabs:end -->
+
 ### `blueCherryInit`
 
 Initialize BlueCherry `MQTT <-> CoAP` bridge.
@@ -90,6 +110,16 @@ This function will set the TLS profile id and initialize the accumulated outgoin
 
 <!-- tabs:end -->
 
+#### Params
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+#### **ESP-IDF**
+
+<!-- tabs:end -->
+
 ### `blueCherryPublish`
 
 Enqueue a MQTT publish message.
@@ -109,6 +139,16 @@ This function will add the message to the accumulated outgoing datagram, which w
 
 ```cpp
 ```
+
+<!-- tabs:end -->
+
+#### Params
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+#### **ESP-IDF**
 
 <!-- tabs:end -->
 
@@ -142,6 +182,16 @@ and ask the server for an acknowledgement and for the new incoming MQTT messages
 
 <!-- tabs:end -->
 
+#### Params
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+#### **ESP-IDF**
+
+<!-- tabs:end -->
+
 ### `blueCherryDidRing`
 
 Poll BlueCherry for a received response.
@@ -170,6 +220,16 @@ Poll BlueCherry for a received response.
 
 <!-- tabs:end -->
 
+#### Params
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+#### **ESP-IDF**
+
+<!-- tabs:end -->
+
 ### `blueCherryClose`
 
 Close the BlueCherry platform CoAP connection.
@@ -190,6 +250,16 @@ Close the BlueCherry platform CoAP connection.
 
 ```cpp
 ```
+
+<!-- tabs:end -->
+
+#### Params
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+#### **ESP-IDF**
 
 <!-- tabs:end -->
 
