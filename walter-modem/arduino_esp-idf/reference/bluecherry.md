@@ -61,7 +61,26 @@ if (!modem.blueCherryProvision(BlueCherryZTP::getCert(), BlueCherryZTP::getPrivK
 
 ##### **Arduino**
 
+| Param               | Description                                                      | Default  |
+| ------------------- | ---------------------------------------------------------------- | -------- |
+| `walterCertificate` | Walter X.509 certificate as PEM string                           |          |
+| `walterPrivateKey`  | Walter private key as PEM string                                 |          |
+| `caCertificate`     | BlueCherry CA certificate                                        |          |
+| `rsp`               | Optional modem response structure to save the result in.         | **NULL** |
+| `cb`                | Optional callback function, if set this function will not block. | **NULL** |
+| `args`              | Optional argument to pass to the callback.                       | **NULL** |
+
+
 #### **ESP-IDF**
+
+| Param               | Description                                                      | Default  |
+| ------------------- | ---------------------------------------------------------------- | -------- |
+| `walterCertificate` | Walter X.509 certificate as PEM string                           |          |
+| `walterPrivateKey`  | Walter private key as PEM string                                 |          |
+| `caCertificate`     | BlueCherry CA certificate                                        |          |
+| `rsp`               | Optional modem response structure to save the result in.         | **NULL** |
+| `cb`                | Optional callback function, if set this function will not block. | **NULL** |
+| `args`              | Optional argument to pass to the callback.                       | **NULL** |
 
 <!-- tabs:end -->
 
@@ -99,17 +118,6 @@ if (!modem.blueCherryIsProvisioned()) {
     ESP_LOGE(TAG, "provisioned!");
 }
 ```
-
-<!-- tabs:end -->
-
-#### Params
-
-<!-- tabs:start -->
-
-##### **Arduino**
-
-
-#### **ESP-IDF**
 
 <!-- tabs:end -->
 
@@ -153,7 +161,21 @@ if (!modem.blueCherryInit(BC_TLS_PROFILE, otaBuffer, &rsp)) {
 
 ##### **Arduino**
 
+| Param          | Description                                                           | Default  |
+| -------------- | --------------------------------------------------------------------- | -------- |
+| `tlsProfileId` | DTLS is used with the given profile (1-6).                            |          |
+| `otaBuffer`    | A user-supplied buffer for OTA updates to flash, aligned to 4K bytes. | **NULL** |
+| `rsp`          | Optional modem response structure to save the result in.              | **NULL** |
+| `ackTimeout`   | Timeout for ACK of outgoing BlueCherry CoAP messages, in seconds.     | **60**   |
+
 #### **ESP-IDF**
+
+| Param          | Description                                                           | Default  |
+| -------------- | --------------------------------------------------------------------- | -------- |
+| `tlsProfileId` | DTLS is used with the given profile (1-6).                            |          |
+| `otaBuffer`    | A user-supplied buffer for OTA updates to flash, aligned to 4K bytes. | **NULL** |
+| `rsp`          | Optional modem response structure to save the result in.              | **NULL** |
+| `ackTimeout`   | Timeout for ACK of outgoing BlueCherry CoAP messages, in seconds.     | **60**   |
 
 <!-- tabs:end -->
 
@@ -197,7 +219,19 @@ if (modem.getCellInformation(WALTER_MODEM_SQNMONI_REPORTS_SERVING_CELL, &rsp)) {
 
 ##### **Arduino**
 
+| Param   | Description                                          | Default |
+| ------- | ---------------------------------------------------- | ------- |
+| `topic` | The topic of the message, passed as the topic index. |         |
+| `len`   | The length of the data.                              |         |
+| `data`  | The data to send.                                    |         |
+
 #### **ESP-IDF**
+
+| Param   | Description                                          | Default |
+| ------- | ---------------------------------------------------- | ------- |
+| `topic` | The topic of the message, passed as the topic index. |         |
+| `len`   | The length of the data.                              |         |
+| `data`  | The data to send.                                    |         |
 
 <!-- tabs:end -->
 
@@ -263,7 +297,16 @@ do {
 
 ##### **Arduino**
 
+| Param | Description                                              | Default  |
+| ----- | -------------------------------------------------------- | -------- |
+| `rsp` | Optional modem response structure to save the result in. |          |
+
+
 #### **ESP-IDF**
+
+| Param | Description                                              | Default |
+| ----- | -------------------------------------------------------- | ------- |
+| `rsp` | Optional modem response structure to save the result in. |         |
 
 <!-- tabs:end -->
 
@@ -308,7 +351,19 @@ if (!modem.blueCherryClose()) {
 
 ##### **Arduino**
 
+| Param  | Description                                                      | Default  |
+| ------ | ---------------------------------------------------------------- | -------- |
+| `rsp`  | Optional modem response structure to save the result in.         | **NULL** |
+| `cb`   | Optional callback function, if set this function will not block. | **NULL** |
+| `args` | Optional argument to pass to the callback.                       | **NULL** |
+
 #### **ESP-IDF**
+
+| Param  | Description                                                      | Default  |
+| ------ | ---------------------------------------------------------------- | -------- |
+| `rsp`  | Optional modem response structure to save the result in.         | **NULL** |
+| `cb`   | Optional callback function, if set this function will not block. | **NULL** |
+| `args` | Optional argument to pass to the callback.                       | **NULL** |
 
 <!-- tabs:end -->
 
