@@ -37,11 +37,23 @@ This needs to be done before you can set headers or options or send or receive d
 ##### **Arduino**
 
 ```cpp
+if (!modem.coapCreateContext(MODEM_COAP_PROFILE, "coap.me", 5683)) {
+    Serial.println("CoAP: Could not create COAP context.");
+    return;
+} else {
+    Serial.println("CoAP: Successfully created or refreshed COAP context.");
+}
 ```
 
 ##### **ESP-IDF**
 
 ```cpp
+if (!modem.coapCreateContext(MODEM_COAP_PROFILE, "coap.me", 5683)) {
+    ESP_LOGE(TAG, "Could not create COAP context.");
+    return;
+} else {
+    ESP_LOGI(TAG, "Successfully created or refreshed COAP context.");
+}
 ```
 
 <!-- tabs:end -->
@@ -63,11 +75,23 @@ This function will close a CoAP context previously opened with coapCreateContext
 ##### **Arduino**
 
 ```cpp
+if (!modem.coapClose(MODEM_COAP_PROFILE)) {
+    Serial.println("CoAP: Could not close CoAP profile");
+    return;
+} else {
+    Serial.println("CoAP: Successfully closed CoAP profile");
+}
 ```
 
 ##### **ESP-IDF**
 
 ```cpp
+if (!modem.coapClose(MODEM_COAP_PROFILE)) {
+    ESP_LOGE(TAG, "Could not close CoAP profile");
+    return;
+} else {
+    ESP_LOGI(TAG, "Successfully closed CoAP profile");
+}
 ```
 
 <!-- tabs:end -->
@@ -83,11 +107,23 @@ Get the connection status of a CoAP context.
 ##### **Arduino**
 
 ```cpp
+if (!modem.coapGetContextStatus(MODEM_COAP_PROFILE)) {
+    Serial.println("CoAP: CoAP profile is not connected to the remote server");
+    return;
+} else {
+    Serial.println("CoAP: CoAP profile is connected to the remote server");
+}
 ```
 
 ##### **ESP-IDF**
 
 ```cpp
+if (!modem.coapGetContextStatus(MODEM_COAP_PROFILE)) {
+    ESP_LOGE(TAG, "CoAP profile is not connected to the remote server");
+    return;
+} else {
+    ESP_LOGI(TAG, "CoAP profile is connected to the remote server");
+}
 ```
 
 <!-- tabs:end -->
@@ -107,11 +143,23 @@ Set a CoAP header.
 ##### **Arduino**
 
 ```cpp
+if (!modem.coapSetHeader(MODEM_COAP_PROFILE, counter)) {
+    Serial.println("CoAP: Could not set the CoAP header");
+} else {
+    Serial.print("CoAP: Set COAP header with message id ");
+    Serial.println(counter);
+}
 ```
 
 ##### **ESP-IDF**
 
 ```cpp
+if (!modem.coapSetHeader(MODEM_COAP_PROFILE, counter)) {
+    ESP_LOGE(TAG, "Could not set the CoAP header");
+    return;
+} else {
+    ESP_LOGI(TAG, "Set COAP header with message id %d", counter);
+}
 ```
 
 <!-- tabs:end -->
@@ -127,11 +175,23 @@ Set the options for the next CoAP message.
 ##### **Arduino**
 
 ```cpp
+if (!modem.coapSetOptions(MODEM_COAP_PROFILE,WALTER_MODEM_COAP_OPT_DELETE, WALTER_MODEM_COAP_OPT_CODE_URI_PATH)) {
+    Serial.println("CoAP: Could not set the CoAP options");
+    return
+} else {
+    Serial.println("CoAP: Set COAP options succesfully");
+}
 ```
 
 ##### **ESP-IDF**
 
 ```cpp
+if (!modem.coapSetOptions(MODEM_COAP_PROFILE,WALTER_MODEM_COAP_OPT_DELETE, WALTER_MODEM_COAP_OPT_CODE_URI_PATH)) {
+    ESP_LOGE(TAG, "Could not set the CoAP options");
+    return
+} else {
+    ESP_LOGI(TAG, "Set COAP options succesfully");
+}
 ```
 
 <!-- tabs:end -->
@@ -150,11 +210,33 @@ Send a datagram
 ##### **Arduino**
 
 ```cpp
+if (!modem.coapSendData(
+        MODEM_COAP_PROFILE,
+        WALTER_MODEM_COAP_SEND_TYPE_CON,
+        WALTER_MODEM_COAP_SEND_METHOD_GET,
+        8,
+        dataBuf)) {
+    Serial.println("CoAP: Could not send COAP datagram");
+    return;
+} else {
+    Serial.println("CoAP: Sent COAP datagram");
+}
 ```
 
 ##### **ESP-IDF**
 
 ```cpp
+if (!modem.coapSendData(
+        MODEM_COAP_PROFILE,
+        WALTER_MODEM_COAP_SEND_TYPE_CON,
+        WALTER_MODEM_COAP_SEND_METHOD_GET,
+        8,
+        dataBuf)) {
+    ESP_LOGE(TAG, "Could not send COAP datagram");
+    return;
+} else {
+    ESP_LOGI(TAG, "Sent COAP datagram");
+}
 ```
 
 <!-- tabs:end -->
@@ -170,11 +252,17 @@ Fetch incoming CoAP messages, if any.
 ##### **Arduino**
 
 ```cpp
+while (modem.coapDidRing(MODEM_COAP_PROFILE, incomingBuf, sizeof(incomingBuf), &rsp)) {
+    Serial.println("CoAP: incoming ring!");
+}
 ```
 
 ##### **ESP-IDF**
 
 ```cpp
+while (modem.coapDidRing(MODEM_COAP_PROFILE, incomingBuf, sizeof(incomingBuf), &rsp)) {
+    ESP_LOGI(TAG, "incoming ring!");
+}
 ```
 
 <!-- tabs:end -->
