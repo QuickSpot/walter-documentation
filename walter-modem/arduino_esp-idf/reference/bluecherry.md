@@ -34,11 +34,23 @@ Upload Walter's certificate and private key and the BlueCherry cloud server CA c
 ##### **Arduino**
 
 ```cpp
+if (!modem.blueCherryProvision(BlueCherryZTP::getCert(), BlueCherryZTP::getPrivKey(), bc_ca_cert)) {
+    Serial.println("BlueCherry: Failed to upload the DTLS certificates");
+    return
+} else {
+    Serial.println("BlueCherry: Succesfully uploaded the DTLS certificates");
+}
 ```
 
 ##### **ESP-IDF**
 
 ```cpp
+if (!modem.blueCherryProvision(BlueCherryZTP::getCert(), BlueCherryZTP::getPrivKey(), bc_ca_cert)) {
+    ESP_LOGE(TAG, "Failed to upload the DTLS certificates");
+    return
+} else {
+    ESP_LOGE(TAG, "Succesfully uploaded the DTLS certificates");
+}
 ```
 
 <!-- tabs:end -->
@@ -69,11 +81,23 @@ This function checks if the necessary certificates and private key are present i
 ##### **Arduino**
 
 ```cpp
+if (!modem.blueCherryIsProvisioned()) {
+    Serial.println("BlueCherry: not provisioned!");
+    return
+} else {
+    Serial.println("BlueCherry: provisioned!");
+}
 ```
 
 ##### **ESP-IDF**
 
 ```cpp
+if (!modem.blueCherryIsProvisioned()) {
+    ESP_LOGE(TAG, "not provisioned!");
+    return
+} else {
+    ESP_LOGE(TAG, "provisioned!");
+}
 ```
 
 <!-- tabs:end -->
@@ -83,6 +107,7 @@ This function checks if the necessary certificates and private key are present i
 <!-- tabs:start -->
 
 ##### **Arduino**
+
 
 #### **ESP-IDF**
 
@@ -101,11 +126,23 @@ This function will set the TLS profile id and initialize the accumulated outgoin
 ##### **Arduino**
 
 ```cpp
+if (!modem.blueCherryInit(BC_TLS_PROFILE, otaBuffer, &rsp)) {
+    Serial.println("BlueCherry: not provisioned!");
+    return
+} else {
+    Serial.println("BlueCherry: provisioned!");
+}
 ```
 
 ##### **ESP-IDF**
 
 ```cpp
+if (!modem.blueCherryInit(BC_TLS_PROFILE, otaBuffer, &rsp)) {
+    ESP_LOGE(TAG, "not provisioned!");
+    return
+} else {
+    ESP_LOGE(TAG, "provisioned!");
+}
 ```
 
 <!-- tabs:end -->
@@ -133,11 +170,23 @@ This function will add the message to the accumulated outgoing datagram, which w
 ##### **Arduino**
 
 ```cpp
+WalterModemRsp rsp = {};
+if (modem.getCellInformation(WALTER_MODEM_SQNMONI_REPORTS_SERVING_CELL, &rsp)) {
+    char msg[18];
+    snprintf(msg, sizeof(msg), "{\"RSRP\": %7.2f}", rsp.data.cellInformation.rsrp);
+    modem.blueCherryPublish(0x84, sizeof(msg) - 1, (uint8_t *)msg);
+}
 ```
 
 ##### **ESP-IDF**
 
 ```cpp
+WalterModemRsp rsp = {};
+if (modem.getCellInformation(WALTER_MODEM_SQNMONI_REPORTS_SERVING_CELL, &rsp)) {
+    char msg[18];
+    snprintf(msg, sizeof(msg), "{\"RSRP\": %7.2f}", rsp.data.cellInformation.rsrp);
+    modem.blueCherryPublish(0x84, sizeof(msg) - 1, (uint8_t *)msg);
+}
 ```
 
 <!-- tabs:end -->
@@ -173,49 +222,37 @@ and ask the server for an acknowledgement and for the new incoming MQTT messages
 ##### **Arduino**
 
 ```cpp
+WalterModemRsp rsp = {};
+
+do {
+    if (!modem.blueCherrySync(&rsp)) {
+        Serial.printf(
+            "Error during BlueCherry cloud platform synchronisation: %d\n",
+            rsp.data.blueCherry.state);
+        modem.softReset();
+        lteConnect();
+        return;
+    }
+} while (!rsp.data.blueCherry.syncFinished);
+
 ```
 
 ##### **ESP-IDF**
 
 ```cpp
-```
+WalterModemRsp rsp = {};
 
-<!-- tabs:end -->
-
-#### Params
-
-<!-- tabs:start -->
-
-##### **Arduino**
-
-#### **ESP-IDF**
-
-<!-- tabs:end -->
-
-### `blueCherryDidRing`
-
-Poll BlueCherry for a received response.
-
-> [!NOTE]
-> This call is named `blueCherryDidRing` for consistancy with the HTTP, CoAP and other polling network calls.
-
-> [!NOTE]
-> It can only be used after a blueCherrySync call, and will return the response from the server (an ACK for any published messages, and a list of incoming messages for MQTT topics Walter is subscribed to, if any).
->
-> Only after the (possibly empty) response has been received, or a timeout has been reported, it will be possible to publish more data or do a new blueCherrySync call.
-
-#### Example
-
-<!-- tabs:start -->
-
-##### **Arduino**
-
-```cpp
-```
-
-##### **ESP-IDF**
-
-```cpp
+do {
+    if (!modem.blueCherrySync(&rsp)) {
+        ESP_LOGE(
+            TAG,
+            "Error during BlueCherry cloud platform synchronisation: %d",
+            rsp.data.blueCherry.state);
+        modem.softReset();
+        lteConnect();
+        return;
+    }
+} while(!rsp.data.blueCherry.syncFinished)
 ```
 
 <!-- tabs:end -->
@@ -244,11 +281,23 @@ Close the BlueCherry platform CoAP connection.
 ##### **Arduino**
 
 ```cpp
+if (!modem.blueCherryClose()) {
+    Serial.println("BlueCherry: Could not Close bluecherry");
+    return
+} else {
+    Serial.println("BlueCherry: Closed bluecherry");
+}
 ```
 
 ##### **ESP-IDF**
 
 ```cpp
+if (!modem.blueCherryClose()) {
+    ESP_LOGE(TAG, "Could not Close bluecherry");
+    return
+} else {
+    ESP_LOGE(TAG, "Closed bluecherry");
+}
 ```
 
 <!-- tabs:end -->
