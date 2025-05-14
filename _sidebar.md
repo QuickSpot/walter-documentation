@@ -28,6 +28,7 @@
       * [GNSS](/walter-modem/micropython/reference/gnss.md)
       * [Sockets](/walter-modem/micropython/reference/sockets.md)
       * [HTTP](/walter-modem/micropython/reference/http.md)
+      * [CoAP](/walter-modem/micropython/reference/coap.md)
       * [MQTT](/walter-modem/micropython/reference/mqtt.md)
       * [Sleep](/walter-modem/micropython/reference/sleep.md)
       * [TLS & Certtificates](/walter-modem/micropython/reference/tls_and_certificates.md)
