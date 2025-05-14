@@ -465,18 +465,58 @@ while (modem.coapDidRing(MODEM_COAP_PROFILE, incomingBuf, sizeof(incomingBuf), &
 
 The possible option codes for the CoAP message.
 
+<!-- tabs:start -->
+
+#### **Arduino**
+
+#### **ESP-IDF**
+
+<!-- tabs:end -->
+
 ### `WalterModemCoapOptValue`
 
 The possible option values for the CoAP message.
+
+<!-- tabs:start -->
+
+#### **Arduino**
+
+#### **ESP-IDF**
+
+<!-- tabs:end -->
 
 ### `WalterModemCoapOptAction`
 
 The possible option actions for the CoAP message.
 
+<!-- tabs:start -->
+
+#### **Arduino**
+
+#### **ESP-IDF**
+
+<!-- tabs:end -->
+
 ### `WalterModemCoapSendType`
 
 The possible CoAP send types.
 
+<!-- tabs:start -->
+
+#### **Arduino**
+
+#### **ESP-IDF**
+
+<!-- tabs:end -->
+
 ### `WalterModemCoapSendMethodRsp`
 
 The possible CoAP send methods.
+
+<!-- tabs:start -->
+
+#### **Arduino**
+
+#### **ESP-IDF**
+
+<!-- tabs:end -->
