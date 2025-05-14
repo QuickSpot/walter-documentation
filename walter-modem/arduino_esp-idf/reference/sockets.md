@@ -1,26 +1,35 @@
 ## Methods Overview
 
-- [createSocket](#createsocket)
-- [configSocket](#configsocket)
-- [connectSocket](#connectsocket)
+- [socketConfig](#socketconfig)
+- [socketConfigExtended](#socketconfigextended)
+- [socketDial](#socketdial)
 - [socketSend](#socketsend)
-- [closeSocket](#closesocket)
+- [socketAccept](#socketaccept)
+- [socketListen](#socketlisten)
+- [socketDidRing](#socketdidring)
+- [socketReceive](#socketreceive)
+- [socketClose](#socketclose)
 
 ## Enums Overview
 
 - [WalterModemSocketProto](#waltermodemsocketproto)
 - [WalterModemSocketAcceptAnyRemote](#waltermodemsocketacceptanyremote)
+- [WalterModemSocketRingMode](#waltermodemsocketringmode)
+- [WalterModemSocketRecvMode](#waltermodemsocketrecvmode)
+- [WalterModemSocketListenMode](#waltermodemsocketlistenmode)
+- [WalterModemsocketSendMode](#waltermodemsocketsendmode)
+- [WalterModemSocketListenState](#waltermodemsocketlistenstate)
 
 ---
 
 ## Methods
 
-### `createSocket`
+### `socketConfig`
 
-Create a new socket in a certain PDP context.
+Configure a new socket with a certain PDP context
 
-This function will create a new socket.
-After socket creation one can set additional socket settings
+This function will configure a new socket. After socket configuration one can set additional
+After socket creation one can set additional [socket settings](#socketconfigextended)
 and use the socket for communication.
 
 > [!NOTE]
@@ -35,8 +44,8 @@ and use the socket for communication.
 ```cpp
 WalterModemRsp rsp = {};
 int socketId = 0;
-if(modem.createSocket(&rsp)) {
-    Serial.printf("socket created successfully\n");
+if(modem.socketConfig(&rsp)) {
+    Serial.printf("socket configured successfully\n");
     socketId = rsp.data.socketId;
 }
 ```
@@ -46,8 +55,8 @@ if(modem.createSocket(&rsp)) {
 ```cpp
 WalterModemRsp rsp = {};
 int socketId = 0;
-if(modem.createSocket(&rsp)) {
-    ESP_LOGI("socket", "created successfully");
+if(modem.socketConfig(&rsp)) {
+    ESP_LOGI("socket", "configured successfully");
     socketId = rsp.data.socketId;
 }
 ```
@@ -93,10 +102,10 @@ True on success, False otherwise.
 
 ---
 
-### `configSocket`
+### `socketConfigExtended`
 
-This step is required for the library
-to correctly configure the modem to use this socket.
+Configure the socket extended parameters
+This function confgiures the socket extended parameters.
 
 #### Example
 
@@ -105,8 +114,8 @@ to correctly configure the modem to use this socket.
 ##### **Arduino**
 
 ```cpp
-if(modem.configSocket()) {
-    Serial.printf("socket: Successfully configured the socket\n");
+if(modem.socketConfigExtended(NULL,NULL,NULL,1,WALTER_MODEM_SOCKET_RING_MODE_DATA_VIEW)) {
+    Serial.printf("socket: Successfully  extended the socket configuration\n");
 } else {
     Serial.printf("socket: Could not configure the socket\n");
 }
@@ -115,8 +124,8 @@ if(modem.configSocket()) {
 ##### **ESP-IDF**
 
 ```cpp
-if(modem.configSocket()) { 
-    ESP_LOGI("socket", "Successfully configured the socket"); 
+if(modem.socketConfigExtended(NULL,NULL,NULL,1,WALTER_MODEM_SOCKET_RING_MODE_DATA_VIEW)) { 
+    ESP_LOGI("socket", "Successfully extended the socket configuration"); 
 } else { 
     ESP_LOGI("socket", "Could not configure the socket"); 
 }
@@ -130,21 +139,32 @@ if(modem.configSocket()) {
 
 ##### **Arduino**
 
-| Param      | Description                                                                      | Default  |
-| ---------- | -------------------------------------------------------------------------------- | -------- |
-| `rsp`      | Pointer to a modem response structure to save the result of the command in.      | **NULL** |
-| `cb`       | Optional callback argument, when not NULL this function will return immediately. | **NULL** |
-| `args`     | Optional argument to pass to the callback.                                       | **NULL** |
-| `socketId` | The id of the socket to connect or **-1 to re-use the last one.**                | **-1**   |
+| Param        | Description                                                       | Default                                      |
+| ------------ | ----------------------------------------------------------------- | -------------------------------------------- |
+| `rsp`        | Optional modem response structure to save the result in.          | **NULL**                                     |
+| `cb`         | Optional callback function, if set this function will not block.  | **NULL**                                     |
+| `args`       | Optional argument to pass to the callback.                        | **NULL**                                     |
+| `socketId`   | The ID of the socket to connect or **-1 to re-use the last one.** | **-1**                                       |
+| `ringMode`   | The format of the ring notification.                              | **WALTER_MODEM_SOCKET_RING_MODE_DATA_VIEW**  |
+| `recvMode`   | The data receive mode of the socket.                              | **WALTER_MODEM_SOCKET_RECV_MODE_TEXT**       |
+| `keepAlive`  | The keepAlive time (currently unused).                            | **0**                                        |
+| `listenMode` | Should the socket auto accept incoming connections.               | **WALTER_MODEM_SOCKET_LISTEN_MODE_DISABLED** |
+| `sendMode`   | The format of the send data.                                      | **WALTER_MODEM_SOCKET_SEND_MODE_TEXT**       |
 
 ##### **ESP-IDF**
 
-| Param      | Description                                                                      | Default  |
-| ---------- | -------------------------------------------------------------------------------- | -------- |
-| `rsp`      | Pointer to a modem response structure to save the result of the command in.      | **NULL** |
-| `cb`       | Optional callback argument, when not NULL this function will return immediately. | **NULL** |
-| `args`     | Optional argument to pass to the callback.                                       | **NULL** |
-| `socketId` | The id of the socket to connect or **-1 to re-use the last one.**                | **-1**   |
+| Param        | Description                                                       | Default                                      |
+| ------------ | ----------------------------------------------------------------- | -------------------------------------------- |
+| `rsp`        | Optional modem response structure to save the result in.          | **NULL**                                     |
+| `cb`         | Optional callback function, if set this function will not block.  | **NULL**                                     |
+| `args`       | Optional argument to pass to the callback.                        | **NULL**                                     |
+| `socketId`   | The ID of the socket to connect or **-1 to re-use the last one.** | **-1**                                       |
+| `ringMode`   | The format of the ring notification.                              | **WALTER_MODEM_SOCKET_RING_MODE_DATA_VIEW**  |
+| `recvMode`   | The data receive mode of the socket.                              | **WALTER_MODEM_SOCKET_RECV_MODE_TEXT**       |
+| `keepAlive`  | The keepAlive time (currently unused).                            | **0**                                        |
+| `listenMode` | Should the socket auto accept incoming connections.               | **WALTER_MODEM_SOCKET_LISTEN_MODE_DISABLED** |
+| `sendMode`   | The format of the send data.                                      | **WALTER_MODEM_SOCKET_SEND_MODE_TEXT**       |
+
 
 <!-- tabs:end -->
 
@@ -155,12 +175,12 @@ True on success, False otherwise.
 
 ---
 
-### `connectSocket`
+### `socketDial`
 
-Connect a socket after which data can be exchanged.
+Dial a socket after which data can be exchanged.
 
-This function will connect a socket to a remote host.
-When the connection was successful data can be exchanged.
+This function will dial a socket to a remote host.
+When the dial is successful data can be exchanged.
 
 #### Example
 
@@ -170,19 +190,19 @@ When the connection was successful data can be exchanged.
 
 ```cpp
 /**
- * @brief The address of the server to upload the data to. 
+ * @brief The address of the Walter demo server.
  */
-#define SERV_ADDR "64.225.64.140"
+CONFIG(SERV_ADDR, const char *, "walterdemo.quickspot.io")
 
 /**
- * @brief The port on which the server is listening.
+ * @brief The UDP port of the Walter demo server.
  */
-#define SERV_PORT 1999
+CONFIG_INT(SERV_PORT, 1999)
 
-if(modem.connectSocket(SERV_ADDR, SERV_PORT, SERV_PORT)) {
-    Serial.printf("socket: Connected to server %s:%d\n", SERV_ADDR, SERV_PORT);
+if(modem.socketDial(SERV_ADDR, SERV_PORT)) {
+    Serial.printf("socket: Connected to demo server %s:%d\n", SERV_ADDR, SERV_PORT);
 } else {
-    Serial.printf("socket: Could not connect socket\n");
+    Serial.printf("socket: Could not connect demo socket\n");
 }
 
 ```
@@ -191,19 +211,20 @@ if(modem.connectSocket(SERV_ADDR, SERV_PORT, SERV_PORT)) {
 
 ```cpp
 /**
- * @brief The address of the server to upload the data to. 
+ * @brief The address of the Walter demo server.
  */
-#define SERV_ADDR "64.225.64.140"
+CONFIG(SERV_ADDR, const char *, "walterdemo.quickspot.io")
 
 /**
- * @brief The port on which the server is listening.
+ * @brief The UDP port of the Walter demo server.
  */
-#define SERV_PORT 1999
+CONFIG_INT(SERV_PORT, 1999)
 
-if(modem.connectSocket(SERV_ADDR, SERV_PORT, SERV_PORT)) {
-    ESP_LOGI("socket", "Connected to server %s:%d", SERV_ADDR, SERV_PORT);
+
+if(modem.socketDial(SERV_ADDR, SERV_PORT)) {
+    ESP_LOGI("socket", "Connected to demo server %s:%d", SERV_ADDR, SERV_PORT);
 } else {
-    ESP_LOGI("socket", "Could not connect socket");
+    ESP_LOGI("socket", "Could not connect demo socket");
 }
 ```
 
@@ -261,8 +282,10 @@ This function will send data over a socket.
 > (sync or async).
 
 > [!NOTE]
-> The maximum size of the data buffer is **1500 bytes**.
+> The size of the modem packet is **1500 bytes** when size exceeds **1500 bytes**.
 
+> [!NOTE]
+> The maximum amount of bytes to send is **16777216** bytes. (16MB)
 #### Example
 
 <!-- tabs:start -->
@@ -353,7 +376,232 @@ True on success, False otherwise.
 
 ---
 
-### `closeSocket()`
+### `socketAccept`
+
+accepts an incomming socket connection.
+
+This function will accept an incomming connection after a ring event has been received.
+
+> [!NOTE]
+> This function must be preceded by a call to [socketListen](#socketlisten).
+
+#### Example
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+```cpp
+if(modem.socketAccept()) {
+    Serial.printl("socket: Successfully accepted incomming socket connection");
+} else {
+    Serial.printl("socket: Could not accepted incomming socket connection");
+}
+```
+
+##### **ESP-IDF**
+
+```cpp
+if(modem.socketAccept()) {
+    ESP_LOGI("socket", "Successfully accepted incomming socket connection");
+} else {
+    ESP_LOGI("socket", "Could not accepted incomming socket connection");
+}
+```
+
+<!-- tabs:end -->
+
+#### Params
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+| Param         | Description                                                      | Default   |
+| ------------- | ---------------------------------------------------------------- | --------- |
+| `rsp`         | Optional modem response structure to save the result in.         | **NULL**  |
+| `cb`          | Optional callback function, if set this function will not block. | **NULL**  |
+| `args`        | Optional argument to pass to the callback.                       | **NULL**  |
+| `socketId`    | The ID of the socket to close or **-1 to re-use the last one.**  | **-1**    |
+| `commandMode` | Whether to use command mode for the operation.                   | **false** |
+
+
+##### **ESP-IDF**
+
+| Param         | Description                                                      | Default   |
+| ------------- | ---------------------------------------------------------------- | --------- |
+| `rsp`         | Optional modem response structure to save the result in.         | **NULL**  |
+| `cb`          | Optional callback function, if set this function will not block. | **NULL**  |
+| `args`        | Optional argument to pass to the callback.                       | **NULL**  |
+| `socketId`    | The ID of the socket to close or **-1 to re-use the last one.**  | **-1**    |
+| `commandMode` | Whether to use command mode for the operation.                   | **false** |
+
+<!-- tabs:end -->
+
+
+#### Returns
+
+`bool`
+True on success, False otherwise.
+
+---
+
+### `socketListen`
+
+This function makes the modem listen for incomming socket connections.
+
+> [!WARNING]
+> Only one incomming socket connection can be handled at a time.
+
+> [!NOTE]
+> listens to TCP sockets by default.
+
+#### Example
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+```cpp
+if(modem.socketListen()) {
+    Serial.printl("socket: Successfully started listening for incomming socket connections");
+} else {
+    Serial.printl("socket: Failed to start listening for incomming socket Connections");
+}
+```
+
+##### **ESP-IDF**
+
+```cpp
+if(modem.socketListen()) {
+    ESP_LOGI("socket", "Successfully started listening for incomming socket connections");
+} else {
+    ESP_LOGI("socket", "Failed to start listening for incomming socket Connections");
+}
+```
+
+<!-- tabs:end -->
+
+#### Returns
+
+`bool`
+True on success, False otherwise.
+
+---
+
+### `socketDidRing`
+
+check if the Socket received a Ring URC.
+
+> [!WARNING]
+> rings will be halted until the data has been received.
+
+> [!WARNING]
+> The target buffer will only be filled when ringMode is set to WALTER_MODEM_SOCKET_RING_MODE_DATA_VIEW in [socketConfigExtended](#socketconfigextended).
+
+> [!TIP]
+> use the socket event handler to now when data has been received.
+
+#### Example
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+```cpp
+if(modem.socketDidRing(1)){
+    Serial.println("socket: received ring notification");
+    //receive data.
+}
+```
+
+##### **ESP-IDF**
+
+```cpp
+if(modem.socketDidRing(1)){
+    ESP_LOGI("socket", "received ring notification");
+    //receive data.
+}
+```
+
+<!-- tabs:end -->
+
+#### Params
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+| Param           | Description                                                                  | Default     |
+| --------------- | ---------------------------------------------------------------------------- | ----------- |
+| `socketId`      | The ID of the socket to wait for the ring, or **-1 to re-use the last one.** | **-1**      |
+| `targetBufSize` | The size of the target buffer.                                               | **0**       |
+| `targetBuf`     | The buffer to store the received data in.                                    | **nullptr** |
+
+##### **ESP-IDF
+
+| Param           | Description                                                                  | Default     |
+| --------------- | ---------------------------------------------------------------------------- | ----------- |
+| `socketId`      | The ID of the socket to wait for the ring, or **-1 to re-use the last one.** | **-1**      |
+| `targetBufSize` | The size of the target buffer.                                               | **0**       |
+| `targetBuf`     | The buffer to store the received data in.                                    | **nullptr** |
+
+<!-- tabs:end -->
+<!-- tabs:end -->
+
+#### Returns
+
+`bool`
+True on ring received, False otherwise.
+
+---
+
+### `socketReceive`
+
+Receive data from an incomming socket connection, or from the remote server.
+
+> [!TIP]
+> make sure you have received a ring notification beforehand.
+
+> [!tip]
+> use the size retrieved from the event handler.
+> 
+#### Example
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+```cpp
+uint8_t ringBuffer[1500];
+
+if(modem.socketReceive(1500,ringBuffer)) {
+    Serial.printl("socket: Successfully received the data");
+} else {
+    Serial.printl("socket: Could not receive the data");
+}
+```
+
+##### **ESP_IDF**
+
+```cpp
+uint8_t ringBuffer[1500];
+
+if(modem.socketReceive(1500,ringBuffer)) {
+    ESP_LOGI("socket", "Successfully received the data");
+} else {
+    ESP_LOGI("socket", "Could not receive the data");
+}
+```
+
+#### Returns
+
+`bool`
+True on success, False otherwise.
+
+<!-- tabs:start -->
+
+### `socketClose`
 
 Close a socket connection.
 
@@ -367,17 +615,17 @@ Close a socket connection.
 ##### **Arduino**
 
 ```cpp
-if(modem.closeSocket()) {
-    Serial.printf("socket: Successfully closed the socket\n");
+if(modem.socketClose()) {
+    Serial.printl("socket: Successfully closed the socket");
 } else {
-    Serial.printf("socket: Could not close the socket\n");
+    Serial.printl("socket: Could not close the socket");
 }
 ```
 
 ##### **ESP-IDF**
 
 ```cpp
-if(modem.closeSocket()) { 
+if(modem.socketClose()) { 
     ESP_LOGI("socket", "Successfully closed the socket"); 
 } else { 
     ESP_LOGI("socket", "Could not close the socket"); 
@@ -465,5 +713,121 @@ besides the IP-address and remote port it is configured for.
 > Only acccept read \
 > **WALTER_MODEM_ACCEPT_ANY_REMOTE_RX_AND_TX** = `2` \
 > Accept read write from remote
+
+<!-- tabs:end -->
+
+### `WalterModemSocketRingMode`
+
+This enumeration determines how the **SQNSRING** message should be **formatted**.
+
+<!-- tabs:start -->
+
+#### **Arduino**
+
+> **WALTER_MODEM_SOCKET_RING_MODE_NORMAL** = `0` \
+> Only the socket id is in the URC. \
+> **WALTER_MODEM_SOCKET_RING_MODE_DATA_AMOUNT** = `1` \
+> The received data amount has been added to the URC \
+> **WALTER_MODEM_SOCKET_RING_MODE_DATA_VIEW** = `2` \
+> The URC contains the data amount and the payload
+
+#### **ESP-IDF**
+
+> **WALTER_MODEM_SOCKET_RING_MODE_NORMAL** = `0` \
+> Only the socket id is in the URC. \
+> **WALTER_MODEM_SOCKET_RING_MODE_DATA_AMOUNT** = `1` \
+> The received data amount has been added to the URC \
+> **WALTER_MODEM_SOCKET_RING_MODE_DATA_VIEW** = `2` \
+> The URC contains the data amount and the payload
+
+<!-- tabs:end -->
+
+### `WalterModemSocketRecvMode`
+
+This enumeration determines in what way the **payload data** should be returned.
+
+<!-- tabs:start -->
+
+#### **Arduino**
+
+> **WALTER_MODEM_SOCKET_RECV_MODE_TEXT** = `0` \
+> Receive the payload data as raw byte text. \
+> **WALTER_MODEM_SOCKET_RECV_MODE_HEX** = `1` \
+> Receive the payload data as a hex string
+
+#### **ESP-IDF**
+
+> **WALTER_MODEM_SOCKET_RECV_MODE_TEXT** = `0` \
+> Receive the payload data as raw byte text. \
+> **WALTER_MODEM_SOCKET_RECV_MODE_HEX** = `1` \
+> Receive the payload data as a hex string
+
+<!-- tabs:end -->
+
+### `WalterModemSocketListenMode`
+
+This enumeration determines whether an incomming socket connection should be auto accepted
+
+<!-- tabs:start -->
+
+#### **Arduino**
+
+> **WALTER_MODEM_SOCKET_LISTEN_MODE_DISABLED** = `0` \
+> Incomming socket connections will `not` be auto accepted \
+> **WALTER_MODEM_SOCKET_LISTEN_MODE_ENABLED** = `1` \
+> Incomming socket connections will be auto accepted
+
+#### **ESP-IDF**
+
+> **WALTER_MODEM_SOCKET_LISTEN_MODE_DISABLED** = `0` \
+> Incomming socket connections will `not` be auto accepted \
+> **WALTER_MODEM_SOCKET_LISTEN_MODE_ENABLED** = `1` \
+> Incomming socket connections will be auto accepted
+
+<!-- tabs:end -->
+
+### `WalterModemsocketSendMode`
+
+This enumeration determines how the send data should be `expected`
+
+<!-- tabs:start -->
+
+#### **Arduino**
+
+> **WALTER_MODEM_SOCKET_SEND_MODE_TEXT** = `0` \
+> Expect the payload data as a raw byte string \
+> **WALTER_MODEM_SOCKET_SEND_MODE_HEX** = `1` \
+> Expect the payload data as a hex string
+
+#### **ESP-IDF**
+
+> **WALTER_MODEM_SOCKET_SEND_MODE_TEXT** = `0` \
+> Expect the payload data as a raw byte string. \
+> **WALTER_MODEM_SOCKET_SEND_MODE_HEX** = `1` \
+> Expect the payload data as a hex string.
+
+<!-- tabs:end -->
+
+### `WalterModemSocketListenState`
+
+This enumeration represents the listen state of the socket
+
+<!-- tabs:start -->
+
+#### **Arduino**
+
+> **WALTER_MODEM_SOCKET_LISTEN_STATE_CLOSE** = `0` \
+> Close a listening socket. \
+> **WALTER_MODEM_SOCKET_LISTEN_STATE_IPV4** = `1` \
+> Open a listening IPV4 socket. \
+> **WALTER_MODEM_SOCKET_LISTEN_STATE_IPV6** = `2`
+
+#### **ESP-IDF**
+
+> **WALTER_MODEM_SOCKET_LISTEN_STATE_CLOSE** = `0` \
+> Close a listening socket. \
+> **WALTER_MODEM_SOCKET_LISTEN_STATE_IPV4** = `1` \
+> Open a listening IPV4 socket. \
+> **WALTER_MODEM_SOCKET_LISTEN_STATE_IPV6** = `2`
 
 <!-- tabs:end -->
