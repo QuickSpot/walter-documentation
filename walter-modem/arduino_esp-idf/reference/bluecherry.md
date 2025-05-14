@@ -373,6 +373,22 @@ if (!modem.blueCherryClose()) {
 
 The possible statuses of a BlueCherry communication cycle.
 
+<!-- tabs:start -->
+
+#### **Arduino**
+
+#### **ESP-IDF**
+
+<!-- tabs:end -->
+
 ### `WalterModemBlueCherryEventType`
 
 The possible types of BlueCherry events.
+
+<!-- tabs:start -->
+
+#### **Arduino**
+
+#### **ESP-IDF**
+
+<!-- tabs:end -->
