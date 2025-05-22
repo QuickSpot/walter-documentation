@@ -1,27 +1,27 @@
-* Guides
+* [Guides](/guides/guides.md)
   * [Getting Started](/)
   * [Cellular Connectivity](/guides/cellular_connectivity.md)
-* Hardware
+* [Hardware](/hardware/hardware.md)
   * [Walter](/hardware/walter.md)
   * [Walter Feels](/hardware/walter_feels.md)
-* Development Toolchains
+* [Development Toolchains](/developer-toolchains/developer-toolchains.md)
   * [Arduino](/developer-toolchains/arduino.md)
   * [ESP IDF](/developer-toolchains/esp-idf.md)
   * [Micropython](/developer-toolchains/micropython.md)
   * [Toit](/developer-toolchains/toit.md)
   * [Zephyr](/developer-toolchains/zephyr.md)
-* Walter Modem library
-  * Arduino & ESP-IDF
-    * Setup
+* [Walter Modem library](/walter-modem/walter-modem.md)
+  * [Arduino & ESP-IDF](/walter-modem/arduino_esp-idf/arduino_esp-idf.md)
+    * [Setup](/walter-modem/arduino_esp-idf/setup/setup.md)
       * [Arduino](/walter-modem/arduino_esp-idf/setup/arduino.md)
       * [ESP-IDF](/walter-modem/arduino_esp-idf/setup/esp-idf.md)
-    * Reference
+    * [API Reference](/walter-modem/arduino_esp-idf/reference/reference.md)
       * [Sockets](/walter-modem/arduino_esp-idf/reference/sockets.md)
       * [HTTP](/walter-modem/arduino_esp-idf/reference/http.md)
       * [MQTT](/walter-modem/arduino_esp-idf/reference/mqtt.md)
-  * Micropothon
+  * [Micropothon](/walter-modem/micropython/micropython.md)
     * [Setup](/walter-modem/micropython/setup.md)
-    * Reference
+    * [API Reference](/walter-modem/micropython/reference/reference.md)
       * [Common](/walter-modem/micropython/reference/common.md)
       * [SIM & Network](/walter-modem/micropython/reference/sim_and_network.md)
       * [PDP Context Management](/walter-modem/micropython/reference/pdp_ctx_management.md)
