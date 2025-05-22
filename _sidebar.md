@@ -19,7 +19,7 @@
       * [Sockets](/walter-modem/arduino_esp-idf/reference/sockets.md)
       * [HTTP](/walter-modem/arduino_esp-idf/reference/http.md)
       * [MQTT](/walter-modem/arduino_esp-idf/reference/mqtt.md)
-  * [Micropothon](/walter-modem/micropython/micropython.md)
+  * [Micropython](/walter-modem/micropython/micropython.md)
     * [Setup](/walter-modem/micropython/setup.md)
     * [API Reference](/walter-modem/micropython/reference/reference.md)
       * [Common](/walter-modem/micropython/reference/common.md)
