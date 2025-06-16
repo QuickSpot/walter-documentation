@@ -47,7 +47,7 @@ ensure that your board is properly selected and configured:
    ![Board Selection Screen](img/board_selection_screen.png)
 
 3. Ensure the partition scheme under **Flash Size** is set to:
-   (128Mb APP/12.5MB FATFS), this is required to allow mmodem firmware updates.
+   (2MB APP/12.5MB FATFS), this is required to allow mmodem firmware updates.
 
 ### 4. Running the Sketch
 
