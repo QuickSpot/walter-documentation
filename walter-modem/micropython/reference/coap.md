@@ -28,7 +28,7 @@
 Create a CoAP context, required to perform CoAP related operations.
 
 If the server_address & server_port are omitted and only local_port is provided,
-the context is created in isten mode, waiting for an incoming connection.
+the context is created in listen mode, waiting for an incoming connection.
 
 #### Example
 
@@ -51,19 +51,19 @@ await modem.coap_context_create(
 
 | Param               | Description                                                                                                                                          | Default   |
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
-| `ctx_id`            | Context profile identifier (0, 1, 2)                                                                                                                 |           |
-| `server_address`    | IP address/hostname  of the CoAP server                                                                                                              | **None**  |
-| `server_port`       | The UDP remote port of the CoAP server                                                                                                               | **None**  |
-| `local_port`        | The UDP local port, if omitted, a randomly available port is assigned (recommended)                                                                  | **None**  |
-| `timeout`           | The time, in seconds, to wait for a response from the CoAP server before aborting (1-120) *(independent of the ACK_TIMEOUT used for retransmission)* | **20**    |
-| `dtls`              | Whether or not to use DTLS encryption                                                                                                                | **False** |
-| `secure_profile_id` | The SSL/TLS security profile configuration (ID) to use.                                                                                              | **None**  |
-| `rsp`               | Reference to a modem response instance                                                                                                               | **None**  |
+| `ctx_id`            | Context profile identifier (0, 1, 2).                                                                                                                 |           |
+| `server_address`    | IP address/hostname  of the CoAP server.                                                                                                              | **None**  |
+| `server_port`       | The UDP remote port of the CoAP server.                                                                                                               | **None**  |
+| `local_port`        | The UDP local port, if omitted, a randomly available port is assigned (recommended).                                                                  | **None**  |
+| `timeout`           | The time, in seconds, to wait for a response from the CoAP server before aborting (1-120) *(independent of the ACK_TIMEOUT used for retransmission)*. | **20**    |
+| `dtls`              | Whether or not to use DTLS encryption.                                                                                                                | **False** |
+| `secure_profile_id` | The SSL/TLS security profile configuration (ID) to use.                                                                                               | **None**  |
+| `rsp`               | Reference to a modem response instance.                                                                                                               | **None**  |
 
 #### Returns
 
 `bool`
-True on success, False on failure
+True on success, False otherwise.
 
 ---
 
@@ -79,15 +79,15 @@ await modem.coap_context_close(ctx_id=1)
 
 #### Params
 
-| Param    | Description                            | Default  |
-| -------- | -------------------------------------- | -------- |
-| `ctx_id` | Context profile identifier (0, 1, 2)   |          |
-| `rsp`    | Reference to a modem response instance | **None** |
+| Param    | Description                             | Default  |
+| -------- | --------------------------------------- | -------- |
+| `ctx_id` | Context profile identifier (0, 1, 2).   |          |
+| `rsp`    | Reference to a modem response instance. | **None** |
 
 #### Returns
 
 `bool`
-True on success, False on failure
+True on success, False otherwise.
 
 ### `coap_set_options`
 
@@ -128,24 +128,24 @@ print(f'Value: {modem_rsp.coap_options.value}')
 
 #### Params
 
-| Param    | Description                                                                           | Default  |
-| -------- | ------------------------------------------------------------------------------------- | -------- |
-| `ctx_id` | Context profile identifier (0, 1, 2)                                                  |          |
-| `action` | Action to perform ([WalterModemCoapOptionAction](#waltermodemcoapoptionaction))       |          |
-| `option` | The option to perform the action on ([WalterModemCoapOption](#waltermodemcoapoption)) |          |
-| `value`  | Value(s) to pass along                                                                | **None** |
-| `rsp`    | Reference to a modem response instance                                                | **None** |
+| Param    | Description                                                                            | Default  |
+| -------- | -------------------------------------------------------------------------------------- | -------- |
+| `ctx_id` | Context profile identifier (0, 1, 2).                                                  |          |
+| `action` | Action to perform ([WalterModemCoapOptionAction](#waltermodemcoapoptionaction)).       |          |
+| `option` | The option to perform the action on ([WalterModemCoapOption](#waltermodemcoapoption)). |          |
+| `value`  | Value(s) to pass along.                                                                | **None** |
+| `rsp`    | Reference to a modem response instance.                                                | **None** |
 
 #### Returns
 
 `bool`
-True on success, False on failure
+True on success, False otherwise.
 
 ---
 
 ### `coap_set_header`
 
-Configure the CoAP header fo the next message to be sent.
+Configure the CoAP header for the next message to be sent.
 
 If **only msg_id is set**, the CoAP client sets a **random token** value.  
 If **only token is set**, the CoAP client sets a **random msg_id** value.
@@ -162,28 +162,28 @@ if not await modem.coap_set_header(
 
 #### Params
 
-| Param  | Description                                                                                             | Default  |
-| ------ | ------------------------------------------------------------------------------------------------------- | -------- |
-| ctx_id | Context profile identifier (0, 1, 2)                                                                    |          |
-| msg_id | Message ID of the CoAP header (0-65535)                                                                 | **None** |
-| token  | hexidecimal format, token to be used in the CoAP header, specify "NO_TOKEN" for a header without token. | **None** |
-| rsp    | Reference to a modem response instance                                                                  | **None** |
+| Param  | Description                                                                                               | Default  |
+| ------ | --------------------------------------------------------------------------------------------------------- | -------- |
+| ctx_id | Context profile identifier (0, 1, 2).                                                                     |          |
+| msg_id | Message ID of the CoAP header (0-65535).                                                                  | **None** |
+| token  | Hexidecimal formatted token to be used in the CoAP header, specify "NO_TOKEN" for a header without token. | **None** |
+| rsp    | Reference to a modem response instance.                                                                   | **None** |
 
 #### Returns
 
 `bool`
-True on success, False on failure
+True on success, False otherwise.
 
 ---
 
 ### `coap_send`
 
-Send data over CoAP.  
+Send over CoAP.  
 If no data is sent, length must be set to zero.
 
 > [!NOTE]
 > This method supports passing along a path or content type, when doing so the
-> method automatically sets these as options before sending the messagee.  
+> method automatically sets these as options before sending the message.  
 > These are not mandatory and can be ignored or set using coap_set_options manually.
 
 #### Examples
@@ -218,32 +218,34 @@ if not await modem.coap_send(
 
 #### Params
 
-| Param          | Description                                                                                      | Default  |
-| -------------- | ------------------------------------------------------------------------------------------------ | -------- |
-| `ctx_id`       | Context profile identifier (0, 1, 2)                                                             |          |
-| `m_type`       | CoAP message type ([WalterModemCoapType](#waltermodemcoaptype))                                  |          |
-| `method`       | Method ([WalterModemCoapMethod](#waltermodemcoapmethod))                                         |          |
-| `data`         | Binary data to send (bytes, bytearray) or string (will be UTF-8 encoded)                         | **None** |
-| `length`       | Length of the payload (optional, auto-calculated if not provided)                                | **None** |
-| `path`         | Optional: the URI_PATH to send on *(this will set the path in the CoAP options before sending)*  | **None** |
-| `content_type` | Optional: the content_type *(this will set the content type in the CoAP options before sending)* | **None** |
-| `rsp`          | Reference to a modem response instance                                                           | **None** |
+| Param          | Description                                                                                       | Default  |
+| -------------- | ------------------------------------------------------------------------------------------------- | -------- |
+| `ctx_id`       | Context profile identifier (0, 1, 2).                                                             |          |
+| `m_type`       | CoAP message type ([WalterModemCoapType](#waltermodemcoaptype)).                                  |          |
+| `method`       | Method ([WalterModemCoapMethod](#waltermodemcoapmethod)).                                         |          |
+| `data`         | Binary data to send (bytes, bytearray) or string (will be UTF-8 encoded).                         | **None** |
+| `length`       | Length of the payload (optional, auto-calculated if not provided).                                | **None** |
+| `path`         | Optional: the URI_PATH to send on *(this will set the path in the CoAP options before sending)*.  | **None** |
+| `content_type` | Optional: the content_type *(this will set the content type in the CoAP options before sending)*. | **None** |
+| `rsp`          | Reference to a modem response instance.                                                           | **None** |
 
 #### Returns
 
 `bool`
-True on success, False on failure
+True on success, False otherwise.
 
 ---
 
 ### `coap_receive_data`
 
-Read the contents of a CoAP message after it's ring has been received.
+Read the contents of a CoAP message after its ring has been received.
 
 #### Example
 
 ```py
-# Create CoAP context & send a message expecting a response in return (eg. GET)
+# Assume the following prerequisites exist before this code:
+# 1. Initialized CoAP context (COAP_CTX_ID)
+# 2. Sent CoAP request that expects a response (e.g., GET)
 
 while len(modem.coap_context_states[COAP_CTX_ID].rings) = 0:
     await asyncio.sleep(1)
@@ -264,29 +266,31 @@ print(modem_rsp.coap_rcv_response.payload)
 
 #### Params
 
-| Param       | Description                                                        | Default  |
-| ----------- | ------------------------------------------------------------------ | -------- |
-| `ctx_id`    | Context profile identifier (0, 1, 2)                               |          |
-| `msg_id`    | CoAP message ID                                                    |          |
-| `length`    | The length of the payload to receive *(length is set in the ring)* |          |
-| `max_bytes` | How many bytes of the message payload to read at once              | **1024** |
-| `rsp`       | Reference to a modem response instance                             | **None** |
+| Param       | Description                                                                | Default  |
+| ----------- | -------------------------------------------------------------------------- | -------- |
+| `ctx_id`    | Context profile identifier (0, 1, 2).                                      |          |
+| `msg_id`    | CoAP message ID.                                                           |          |
+| `length`    | The length of the payload to receive *(length can be read from the ring)*. |          |
+| `max_bytes` | How many bytes of the message payload to read at once.                     | **1024** |
+| `rsp`       | Reference to a modem response instance.                                    | **None** |
 
 #### Returns
 
 `bool`
-True on success, False on failure
+True on success, False otherwise.
 
 ---
 
 ### `coap_receive_options`
 
-Read the options of a CoAP message after it's ring has been received.
+Read the options of a CoAP message after its ring has been received.
 
 #### Example
 
 ```py
-# Create CoAP context & send a message expecting a response in return (eg. GET)
+# Assume the following prerequisites exist before this code:
+# 1. Initialized CoAP context (COAP_CTX_ID)
+# 2. Sent CoAP request that expects a response (e.g., GET)
 
 while len(modem.coap_context_states[COAP_CTX_ID].rings) = 0:
     await asyncio.sleep(1)
@@ -308,17 +312,17 @@ for coap_option in modem_rsp.coap_options:
 
 #### Params
 
-| Param         | Description                                                  | Default  |
-| ------------- | ------------------------------------------------------------ | -------- |
-| `ctx_id`      | Context profile identifier (0, 1, 2)                         |          |
-| `msg_id`      | CoAP message ID                                              |          |
-| `max_options` | The maximum options that can be shown in the response (0-32) | **32**   |
-| `rsp`         | Reference to a modem response instance                       | **None** |
+| Param         | Description                                                   | Default  |
+| ------------- | ------------------------------------------------------------- | -------- |
+| `ctx_id`      | Context profile identifier (0, 1, 2).                         |          |
+| `msg_id`      | CoAP message ID.                                              |          |
+| `max_options` | The maximum options that can be shown in the response (0-32). | **32**   |
+| `rsp`         | Reference to a modem response instance.                       | **None** |
 
 #### Returns
 
 `bool`
-True on success, False on failure
+True on success, False otherwise.
 
 ---
 
@@ -326,7 +330,7 @@ True on success, False on failure
 
 ### `WalterModemCoapCloseCause`
 
-Reason why connection has been closed.
+Reason why the connection has been closed.
 
 > **USER** = ``b'USER'``  
 > Connection closed by the user.  
@@ -341,7 +345,7 @@ Reason why connection has been closed.
 
 ### `WalterModemCoapReqResp`
 
-Indicator whether a ring is a request from or response from a CoAP seever.
+Indicator whether a ring is a request or response from a CoAP seever.
 
 > **REQUEST** = `0`  
 > A CoAP request message.  
@@ -461,7 +465,7 @@ CoAP option numbers and their semantics.
 > enabling cache validation and conditional requests.  
 > **IF_NONE_MATCH** = `5`  
 > Makes a request conditional on none of the current representation's
-> ETags matching the provided value—often used to avoid re-sending unchanged data.  
+> ETags matching the provided value, often used to avoid re-sending unchanged data.  
 > **OBSERVE** = `6`  
 > Registers (in requests) or updates (in notifications) an observation relationship;
 > the value is a sequence number for notification ordering.  
