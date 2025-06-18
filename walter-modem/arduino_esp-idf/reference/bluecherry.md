@@ -5,7 +5,6 @@
 - [blueCherryInit](#bluecherryinit)
 - [blueCherryPublish](#bluecherrypublish)
 - [blueCherrySync](#bluecherrysync)
-- [blueCherryDidRing](#bluecherrydidring)
 - [blueCherryClose](#bluecherryclose)
 
 ## Enums Overview
@@ -25,7 +24,7 @@ Upload Walter's certificate and private key and the BlueCherry cloud server CA c
 > The key parameters are NULL terminated strings containing the PEM data with each line terminated by CRLF (\r\n).
 
 > [!WARNING]
-> profile `0`,`5`,`6` are reserved for BlueCherry
+> Profiles: `0`,`5` and `6` are reserved for BlueCherry.
 
 #### Example
 
@@ -84,6 +83,13 @@ if (!modem.blueCherryProvision(BlueCherryZTP::getCert(), BlueCherryZTP::getPrivK
 
 <!-- tabs:end -->
 
+#### Returns
+
+`bool`
+True on success, False otherwise.
+
+---
+
 ### `blueCherryIsProvisioned`
 
 Check if Walter is provisioned for BlueCherry IoT connectivity.
@@ -121,11 +127,19 @@ if (!modem.blueCherryIsProvisioned()) {
 
 <!-- tabs:end -->
 
+#### Returns
+
+`bool`
+True when provisioned, false if not.
+
+---
+
 ### `blueCherryInit`
 
 Initialize BlueCherry `MQTT <-> CoAP` bridge.
 
-This function will set the TLS profile id and initialize the accumulated outgoing datagram, initialize the current message id to 1, the last acknowledged id to 0 and set the state machine to IDLE.
+This function sets the TLS profile ID and initializes the accumulated outgoing datagram.
+It sets the current message ID to 1, the last acknowledged ID to 0, and sets the state machine to IDLE.
 
 #### Example
 
@@ -179,9 +193,16 @@ if (!modem.blueCherryInit(BC_TLS_PROFILE, otaBuffer, &rsp)) {
 
 <!-- tabs:end -->
 
+#### Returns
+
+`bool`
+True on success, False otherwise.
+
+---
+
 ### `blueCherryPublish`
 
-Enqueue a MQTT publish message.
+Enqueue an MQTT publish message.
 
 This function will add the message to the accumulated outgoing datagram, which will - after blueCherrySync - be sent to the BlueCherry cloud server and published through MQTT.
 
@@ -235,15 +256,24 @@ if (modem.getCellInformation(WALTER_MODEM_SQNMONI_REPORTS_SERVING_CELL, &rsp)) {
 
 <!-- tabs:end -->
 
+#### Returns
+
+`bool`
+True on success, False otherwise.
+
+---
+
 ### `blueCherrySync`
 
 Send accumulated MQTT messages and poll for incoming data.
 
-This function will send all accumulated MQTT publish messages to the BlueCherry cloud server,
-and ask the server for an acknowledgement and for the new incoming MQTT messages since the last blueCherrySync call.
+This function sends all accumulated MQTT publish messages to the BlueCherry cloud server,
+requests an acknowledgement from the server,
+and retrieves any new incoming MQTT messages that have arrived since the last blueCherrySync call.
 
 > [!WARNING]
-> Even if nothing was enqueued for publish, this call must frequently be executed if Walter is subscribed to one or more MQTT topics or has enabled BlueCherry OTA updates.
+> Even if nothing was enqueued for publish,
+> this call must frequently be executed if Walter is subscribed to one or more MQTT topics or has enabled BlueCherry OTA updates.
 
 > [!NOTE]
 > A response might not fit in a single datagram response.
@@ -310,6 +340,13 @@ do {
 
 <!-- tabs:end -->
 
+#### Returns
+
+`bool`
+True on success, False otherwise.
+
+---
+
 ### `blueCherryClose`
 
 Close the BlueCherry platform CoAP connection.
@@ -367,6 +404,13 @@ if (!modem.blueCherryClose()) {
 
 <!-- tabs:end -->
 
+#### Returns
+
+`bool`
+True on success, False otherwise.
+
+---
+
 ## Enums
 
 ### `WalterModemBlueCherryStatus`
@@ -388,7 +432,7 @@ The possible statuses of a BlueCherry communication cycle.
 > **WALTER_MODEM_BLUECHERRY_STATUS_PENDING_MESSAGES** = `4`\
 > Outgoing messages pending.  \
 > **WALTER_MODEM_BLUECHERRY_STATUS_TIMED_OUT** = `5`\
-> Operation timed out.  \
+> Operation timed out.
 
 
 #### **ESP-IDF**
@@ -404,7 +448,7 @@ The possible statuses of a BlueCherry communication cycle.
 > **WALTER_MODEM_BLUECHERRY_STATUS_PENDING_MESSAGES** = `4`\
 > Outgoing messages pending.  \
 > **WALTER_MODEM_BLUECHERRY_STATUS_TIMED_OUT** = `5`\
-> Operation timed out.  \
+> Operation timed out.
 
 <!-- tabs:end -->
 
@@ -431,7 +475,7 @@ The possible types of BlueCherry events.
 > **WALTER_MODEM_BLUECHERRY_EVENT_TYPE_MOTA_FINISH** = `7`\
 > End MOTA update.  \
 > **WALTER_MODEM_BLUECHERRY_EVENT_TYPE_MOTA_ERROR** = `8`\
-> MOTA error.  \
+> MOTA error.
 
 #### **ESP-IDF**
 
@@ -450,6 +494,6 @@ The possible types of BlueCherry events.
 > **WALTER_MODEM_BLUECHERRY_EVENT_TYPE_MOTA_FINISH** = `7`\
 > End MOTA update.  \
 > **WALTER_MODEM_BLUECHERRY_EVENT_TYPE_MOTA_ERROR** = `8`\
-> MOTA error.  \
+> MOTA error.
 
 <!-- tabs:end -->
