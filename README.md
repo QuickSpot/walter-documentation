@@ -33,4 +33,4 @@ quickspot website. The documentation website can be found here:
 
 ## Local testing/viewing
 
-For local testing and viewing you cann follow the docsify [quickstart](https://docsify.js.org/#/quickstart) guide
+For local testing and viewing you can follow the docsify [quickstart](https://docsify.js.org/#/quickstart) guide.
