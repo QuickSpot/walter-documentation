@@ -27,6 +27,10 @@ more than welcome.
 
 ## Structure
 
-All documentation is created in markdown and it is visualized by docsify on the
+All documentation is created in markdown and it is visualized by [docsify](https://docsify.js.org/#/) on the
 quickspot website. The documentation website can be found here:
 <https://www.quickspot.io/documentation.html>
+
+## Local testing/viewing
+
+For local testing and viewing you can follow the docsify [quickstart](https://docsify.js.org/#/quickstart) guide.
