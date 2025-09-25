@@ -7,7 +7,7 @@ This guide specifies the supported packet formats for data transmission.
 ## Support Packet Lengths
 
 The server accepts packets with these exact byte lengths:
-**8, 14, 15, 18, 20, 23, 27, 29, 37, 39, 71 bytes.**  
+**8, 14, 15, 18, 20, 23, 24, 27, 29, 30, 37, 39, 51, 71 bytes.**  
 All packets begin with a 6-byte device MAC address, followed by sensor data in
 a format specific to the packet length.
 
