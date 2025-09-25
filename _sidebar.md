@@ -1,6 +1,7 @@
 * [Guides](/guides/guides.md)
   * [Getting Started](/)
   * [Cellular Connectivity](/guides/cellular_connectivity.md)
+  * [WalterDemo](/guides/walterdemo.md)
 * [Hardware](/hardware/hardware.md)
   * [Walter](/hardware/walter.md)
   * [Walter Feels](/hardware/walter_feels.md)
