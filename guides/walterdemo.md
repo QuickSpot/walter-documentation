@@ -13,28 +13,28 @@ a format specific to the packet length.
 
 ## Packet Formats
 
-- [8-Byte Packet: Counter](#_8-byte-packet-counter)
-- [14-Byte Packet: Environmental Sensors](#_14-byte-packet-environmental-sensors)
-- [15-Byte Packet: GPS Position](#_15-byte-packet-gps-position)
-- [18-Byte Packet: Single Sensor & GPS](#_18-byte-packet-single-sensor--gps)
-- [20-Byte Packet: Audio & Cellular Network](#_20-byte-packet-audio--cellular-network)
-- [23-Byte Packet: Environmental & GPS](#_23-byte-packet-environmental--gps)
-- [24-Byte Packet: Counter, Sensor, Celinfo & RAT](#_24-byte-packet-counter-sensor-celinfo--rat)
-- [27-Byte Packet: Air Quality, Environmental & GPS](#_27-byte-packet-air-quality-environmental--gps)
-- [29-Byte Packet: Positioning](#_29-byte-packet-positioning)
-- [30-Byte Packet: Positioning & RAT](#_30-byte-packet-positioning--rat)
-- [37/39-Byte Packet: Walter Feels](#_3739-byte-packet-walter-feels)
-- [51-Byte Packet: Walter Feels, Cell Info & RAT](#_51-byte-packet-walter-feels-cell-info--rat)
-- [71-Byte Packet: Environmental & Marine](#_71-byte-packet-environmental--marine)
+- [8 Byte Counter](#_8-byte-counter)
+- [14-Byte Environmental Sensors](#_14-byte-environmental-sensors)
+- [15-Byte GPS Position](#_15-byte-gps-position)
+- [18-Byte Single Sensor and GPS](#_18-byte-single-sensor-and-gps)
+- [20-Byte Audio and Cellinfo Packet](#_20-byte-audio-and-cellinfo-packet)
+- [23-Byte Environmental and GPS Packet](#_23-byte-environmental-and-gps-packet)
+- [24-Byte Counter, Sensor, Cellinfo and RAT Packet](#_24-byte-counter-sensor-cellinfo-and-rat-packet)
+- [27-Byte Environmental and GPS Packet](#_27-byte-environmental-and-gps-packet)
+- [29-Byte Positioning Packet](#_29-byte-positioning-packet)
+- [30-Byte Positioning and RAT Packet](#_30-byte-positioning-and-rat-packet)
+- [37/39-Byte Walter Feels Packet](#_3739-byte-walter-feels-packet)
+- [51-Byte Walter Feels, Cell Info and RAT Packet](#_51-byte-walter-feels-cell-info-and-rat-packet)
+- [71-Byte Environmental and Marine Packet](#_71-byte-environmental-and-marine-packet)
 
-### 8-Byte Packet: Counter
+### 8 Byte Counter
 
 | Bytes | Field       | Type      |
 | ----- | ----------- | --------- |
 | `0-5` | MAC Address | Raw bytes |
 | `6-7` | Counter     | uint16 BE |
 
-### 14-Byte Packet: Environmental Sensors
+### 14-Byte Environmental Sensors
 
 | Bytes   | Field             | Type      | Note                      |
 | ------- | ----------------- | --------- | ------------------------- |
@@ -44,7 +44,7 @@ a format specific to the packet length.
 | `10-11` | Light Level       | uint16 BE | *value / 10 = lux*        |
 | `12-13` | Ambient Pressure  | uint16 BE | *value / 10 = hPa*        |
 
-### 15-Byte Packet: GPS Position
+### 15-Byte GPS Position
 
 | Bytes   | Field           | Type       | Note      |
 | ------- | --------------- | ---------- | --------- |
@@ -53,7 +53,7 @@ a format specific to the packet length.
 | `7-10`  | Latitude        | float32 LE | *Degrees* |
 | `11-14` | Longitde        | float32 LE | *Degrees* |
 
-### 18-Byte Packet: Single Sensor & GPS
+### 18-Byte Single Sensor and GPS
 
 | Bytes   | Field           | Type       | Note                                   |
 | ------- | --------------- | ---------- | -------------------------------------- |
@@ -64,7 +64,7 @@ a format specific to the packet length.
 | `10-13` | Latitude        | float32 LE |                                        |
 | `14-17` | Longitude       | float32 LE |                                        |
 
-### 20-Byte Packet: Audio & Cellular Network
+### 20-Byte Audio and Cellinfo Packet
 
 | Bytes   | Field       | Type      | Note                                        |
 | ------- | ----------- | --------- | ------------------------------------------- |
@@ -78,7 +78,7 @@ a format specific to the packet length.
 | `15-18` | Cell ID     | uint32 BE |                                             |
 | `19`    | RSRP        | uint8     | *Signal strength (positive value for -dBm)* |
 
-### 23-Byte Packet: Environmental & GPS
+### 23-Byte Environmental and GPS Packet
 
 | Bytes   | Field             | Type       | Note                      |
 | ------- | ----------------- | ---------- | ------------------------- |
@@ -91,7 +91,7 @@ a format specific to the packet length.
 | `15-18` | Latitude          | float32 LE | *Degrees*                 |
 | `19-22` | Longitude         | float32 LE | *Degrees*                 |
 
-### 24-Byte Packet: Counter, Sensor, Celinfo & RAT
+### 24-Byte Counter, Sensor, Cellinfo and RAT Packet
 
 | Bytes   | Field       | Type      | Note                                  |
 | ------- | ----------- | --------- | ------------------------------------- |
@@ -106,7 +106,7 @@ a format specific to the packet length.
 | `21`    | RSRQ        | uint8     | *Signal strength (positive for -dBm)* |
 | `22`    | RAT         | uint8     | *Radio Access Technology*             |
 
-### 27-Byte Packet: Air Quality, Environmental & GPS
+### 27-Byte Environmental and GPS Packet
 
 | Bytes   | Field             | Type       | Note                      |
 | ------- | ----------------- | ---------- | ------------------------- |
@@ -121,7 +121,7 @@ a format specific to the packet length.
 | `19-22` | Latitude          | float32 LE |                           |
 | `23-26` | Longitude         | float32 LE |                           |
 
-### 29-Byte Packet: Positioning
+### 29-Byte Positioning Packet
 
 | Bytes   | Field           | Type       | Note                                        |
 | ------- | --------------- | ---------- | ------------------------------------------- |
@@ -137,7 +137,7 @@ a format specific to the packet length.
 | `24-27` | Cell ID         | uint32 BE  |                                             |
 | `28`    | RSRP            | uint8      | *Signal strength (positive value for -dBm)* |
 
-### 30-Byte Packet: Positioning & RAT
+### 30-Byte Positioning and RAT Packet
 
 | Bytes   | Field           | Type       | Note                                   |
 | ------- | --------------- | ---------- | -------------------------------------- |
@@ -154,7 +154,7 @@ a format specific to the packet length.
 | `28`    | RSRP            | uint8      | *Signal strength (positive for -dBm)*  |
 | `29`    | RAT             | uint8      | *Radio Access Technology*              |
 
-### 37/39-Byte Packet: Walter Feels
+### 37/39-Byte Walter Feels Packet
 
 | Bytes   | Field           | Type      | Note               |
 | ------- | --------------- | --------- | ------------------ |
@@ -188,7 +188,7 @@ a format specific to the packet length.
 | `31-34` | Latitude           | float32 LE |                   |
 | `35-38` | Longitude          | float32 LE |                   |
 
-### 51-Byte Packet: Walter Feels, Cell Info & RAT
+### 51-Byte Walter Feels, Cell Info and RAT Packet
 
 | Bytes   | Field           | Type       | Note                                  |
 | ------- | --------------- | ---------- | ------------------------------------- |
@@ -215,7 +215,7 @@ a format specific to the packet length.
 | `49`    | RSRP            | uint8      | *Signal strength (positive for -dBm)* |
 | `50`    | RAT             | uint8      | *Radio Access Technology*             |
 
-### 71-Byte Packet: Environmental & Marine
+### 71-Byte Environmental and Marine Packet
 
 | Bytes   | Field                | Type       | Note               |
 | ------- | -------------------- | ---------- | ------------------ |
