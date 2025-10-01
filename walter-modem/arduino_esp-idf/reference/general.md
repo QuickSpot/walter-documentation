@@ -118,9 +118,13 @@ The necessary carriage return and line feed characters will be added automatical
 
 #### Params
 
-| Param | Description               |
-|-------|---------------------------|
-| `cmd` | The AT command to send.   |
+| Param      | Description                                                      | Default  |
+| ---------- | ---------------------------------------------------------------- | -------- |
+| `atCmd`    | The AT command to send.                                          |          |
+| `atCmdRsp` | The expected AT command response.                                | **OK**   |
+| `rsp`      | Optional modem response structure to save the result in.         | **NULL** |
+| `cb`       | Optional callback function, if set this function will not block. | **NULL** |
+| `args`     | Optional argument to pass to the callback.                       | **NULL** |
 
 #### Returns
 
