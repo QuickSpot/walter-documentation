@@ -28,7 +28,9 @@ The settings are persistent over reboots but may need to be set again after a mo
 Between fixes, this function can be used to change the sensitivity mode.
 
 > [!TIP]
-> It is recommended to run this function at least once before GNSS is used.
+> It is recommended to run this function at least once before GNSS is used.  
+> In our findings, calling config again after a valid fix has been acquired
+> reduces the time it would take for consecutive fixin within a range of 100km.
 
 #### Params
 
