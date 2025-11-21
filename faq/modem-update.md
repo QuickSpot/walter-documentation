@@ -2,7 +2,7 @@
 
 ### How can I see the Sequans GM02SP firmware version
 
-First flash the [modem passthrough](https://github.com/QuickSpot/walter-arduino/tree/main/examples/ModemPassthrough)
+First flash the [modem passthrough](https://github.com/QuickSpot/walter-arduino/tree/main/examples/passthrough)
 example onto Walter to get direct access to the AT command interface of the modem. You can now
 issue the following commands:
  - `ATI1`: to get the firmware revision of the modem
@@ -10,7 +10,7 @@ issue the following commands:
 
 ### How can I update the Sequans GM02SP firmware
 
-The latest official firmware version is **LR8.2.1.0-61488**. This release includes significant improvements in **NB-IoT performance**. The first step in the upgrade process is to flash the [modem passthrough](https://github.com/QuickSpot/walter-arduino/tree/main/examples/ModemPassthrough) example onto Walter to get direct access to the AT command interface of the modem. 
+The latest official firmware version is **LR8.2.1.0-61488**. This release includes significant improvements in **NB-IoT performance**. The first step in the upgrade process is to flash the [modem passthrough](https://github.com/QuickSpot/walter-arduino/tree/main/examples/passthrough) example onto Walter to get direct access to the AT command interface of the modem. 
 
 Now use the `ATI1` command to make sure that the modem is currently running version **LR8.2.0.3-60186**. You cannot
 use the below update method starting from other firmware versions.
