@@ -50,3 +50,4 @@
   * [Software Development](/faq/software-development.md)
   * [Troubleshooting](/faq/troubleshooting.md)
   * [Modem update](/faq/modem-update.md)
+  * [eSIM/iSIM](/faq/e-sim-and-i-sim.md)
