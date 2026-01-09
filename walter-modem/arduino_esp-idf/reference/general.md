@@ -373,6 +373,11 @@ The function immediately affects the ESP32-S3, but the modem may be delayed or p
 >
 > Deep sleep is typically used together with PSM and/or eDRX.
 
+> [!TIP]
+> When putting walter to sleep without using the library's sleep method
+> the 3v pin resets on wake, explicitly holding the pin low prevents this.
+> `#include "driver/rtc_io.h"`
+
 #### Params
 
 | Param        | Description                        | Default   |
