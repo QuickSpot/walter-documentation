@@ -22,7 +22,7 @@ It allows you to install packages from
 and from third-party sites *(including Github & Gitlab)*.
 
 You can use `mpremote`, the officially-supported tool for interacting
-with a MicroPython device, to install the Modem Library MIP packagae to your device.
+with a MicroPython device, to install the Modem Library MIP package to your device.
 
 Simply run:
 
