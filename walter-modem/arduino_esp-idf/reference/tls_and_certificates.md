@@ -22,24 +22,32 @@ It configures a set of TLS profiles within the modem, with optional client authe
 validation level (none, URL, CA, URL and CA), and TLS version.
 Later HTTP, MQTT, CoAP, BlueCherry, and Socket sessions can use these preconfigured profile IDs.
 
+> [!NOTE]
+> A `profile_id` outside 1-6 (`WALTER_MODEM_MAX_TLS_PROFILES`) returns false with
+> `WALTER_MODEM_STATE_NO_SUCH_PROFILE`.
+
+> [!WARNING]
+> TLS 1.3 needs modem firmware LR8.2.2.1 or higher. On older firmware the library logs a warning and auto switch to TLS 1.2,
+> but still configures the profile.
+
 #### Params
 
-| Param                 | Description                                                                                           | Default                              |
-| --------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| `profileId`           | Security profile ID (range 1-6).                                                                      |                                      |
-| `tlsValid`            | TLS validation level: none, URL, CA, or URL and CA. ([WalterModemTlsVersion](#waltermodemtlsversion)) | **WALTER_MODEM_TLS_VALIDATION_NONE** |
-| `tlsVersion`          | TLS version to use. ([WalterModemTlsValidation](#waltermodemtlsvalidation))                           | **WALTER_MODEM_TLS_VERSION_12**      |
-| `caCertificateId`     | CA certificate index (0-19), or 0xff to specify none.                                                 | **0xff**                             |
-| `clientCertificateId` | Client TLS certificate index (0-19), or 0xff to specify none.                                         | **0xff**                             |
-| `clientPrivKeyId`     | Client TLS private key index (0-19), or 0xff to specify none.                                         | **0xff**                             |
-| `rsp`                 | Optional modem response structure to save the result.                                                 | **NULL**                             |
-| `cb`                  | Optional callback function, if set this function will not block.                                      | **NULL**                             |
-| `args`                | Optional argument to pass to the callback.                                                            | **NULL**                             |
+| Param                | Description                                                                                                 | Default                              |
+| -------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| `profile_id`         | Security profile ID (1-6).                                                                                  |                                      |
+| `tls_valid`          | TLS validation level: none, URL, CA, or URL and CA. ([WalterModemTlsValidation](#waltermodemtlsvalidation)) | **WALTER_MODEM_TLS_VALIDATION_NONE** |
+| `tls_version`        | TLS version to use. ([WalterModemTlsVersion](#waltermodemtlsversion))                                       | **WALTER_MODEM_TLS_VERSION_12**      |
+| `ca_cert_id`         | CA certificate index (0-19), or 0xff to specify none.                                                       | **0xff**                             |
+| `client_ca_id`       | Client TLS certificate index (0-19), or 0xff to specify none.                                               | **0xff**                             |
+| `client_priv_key_id` | Client TLS private key index (0-19), or 0xff to specify none.                                               | **0xff**                             |
+| `rsp`                | Optional modem response structure to save the result in.                                                    | **NULL**                             |
+| `cb`                 | Optional callback function, if set this function will not block.                                            | **NULL**                             |
+| `args`               | Optional argument to pass to the callback.                                                                  | **NULL**                             |
 
 #### Returns
 
 `bool`  
-True on success, false otherwise.
+True on "OK" response, false otherwise.
 
 #### Example
 
@@ -97,7 +105,7 @@ This function uploads a key or certificate to the modem NVRAM.
 | Param          | Description                                                            | Default |
 | -------------- | ---------------------------------------------------------------------- | ------- |
 | `isPrivateKey` | True if the credential is a private key, false if it is a certificate. |         |
-| `slotIdx`      | Slot index within the modem NVRAM keystore.                            |         |
+| `slotIdx`      | Slot index within the modem NVRAM keystore (0-19).                     |         |
 | `credential`   | NULL-terminated string containing the PEM key or certificate data.     |         |
 
 #### Returns
@@ -139,7 +147,7 @@ const char *cert = "-----BEGIN CERTIFICATE-----\r\n\
 
 // ...
 
-if (modem.tlsWriteCredential(false, 9, cert)) {
+if (modem.tlsWriteCredential(false, 10, cert)) {
     ESP_LOGI("tls_and_certs_docs_demo", "Cert uploaded");
 } else {
     ESP_LOGE("tls_and_certs_docs_demo", "Failed to upload cert");
@@ -165,7 +173,7 @@ The supported TLS versions.
 > **WALTER_MODEM_TLS_VERSION_12** = `2`  
 > TLS version 1.2.  
 > **WALTER_MODEM_TLS_VERSION_13** = `3`  
-> TLS version 1.3.  
+> TLS version 1.3, needs modem firmware LR8.2.2.1 or higher.  
 > **WALTER_MODEM_TLS_VERSION_RESET** = `255`  
 > Reset to default TLS version.  
 
@@ -176,7 +184,7 @@ The TLS validation policy.
 > **WALTER_MODEM_TLS_VALIDATION_NONE** = `0`  
 > No TLS validation performed.  
 > **WALTER_MODEM_TLS_VALIDATION_CA** = `1`  
-> Validate against Certificate Authority (CA).  
+> Validate the certificate chain against the Certificate Authority (CA) and the validity period.  
 > **WALTER_MODEM_TLS_VALIDATION_URL** = `4`  
 > Validate using URL.  
 > **WALTER_MODEM_TLS_VALIDATION_URL_AND_CA** = `5`  

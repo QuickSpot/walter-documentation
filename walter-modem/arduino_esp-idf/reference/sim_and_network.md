@@ -24,10 +24,19 @@
 - [WalterModemCEREGReportsType](#waltermodemceregreportstype)
 - [WalterModemOpState](#waltermodemopstate)
 - [WalterModemSIMState](#waltermodemsimstate)
-- [WalterModemRat](#waltermodemrat)
+- [WalterModemRAT](#waltermodemrat)
 - [WalterModemNetworkRegState](#waltermodemnetworkregstate)
 - [WalterModemSQNMONIReportsType](#waltermodemsqnmonireportstype)
 - [WalterModemRAI](#waltermodemrai)
+
+## Structs Overview
+
+- [WalterModemSIMCardID](#waltermodemsimcardid)
+- [WalterModemSignalQuality](#waltermodemsignalquality)
+- [WalterModemCellInformation](#waltermodemcellinformation)
+- [WalterModemBandSelectionConfigSet](#waltermodembandselectionconfigset)
+- [WalterModemBandSelection](#waltermodembandselection)
+- [WalterModemOperator](#waltermodemoperator)
 
 ---
 
@@ -1178,7 +1187,7 @@ The possible states of the SIM card.
 > **WALTER_MODEM_SIM_STATE_CORPORATE_PUK_REQUIRED** = `15`  
 > Corporate SIM unlock PUK is required.  
 
-### `WalterModemRat`
+### `WalterModemRAT`
 
 Types of 3GPP access technologies supported by Walter.
 
@@ -1245,3 +1254,83 @@ Indicates Release Assistance Information (RAI) for NB-IoT connections, signaling
 > No further transmission or reception expected.  
 > **WALTER_MODEM_RAI_ONLY_SINGLE_RXTX_EXPECTED** = `2`  
 > Only a single transmission or reception is expected.
+
+> [!NOTE]
+> The RAI is passed to the socket send functions, see
+> [Sockets](/walter-modem/arduino_esp-idf/reference/sockets.md).
+
+---
+
+## Structs
+
+### `WalterModemSIMCardID`
+
+The SIM card identifiers in `rsp.data.simCardID`, see [getSIMCardID](#getsimcardid).
+
+| Field     | Type       | Description                                            |
+| --------- | ---------- | ------------------------------------------------------ |
+| `iccid`   | `char[23]` | 0-terminated string representation of the SIM ICCID.   |
+| `euiccid` | `char[33]` | 0-terminated string representation of the SIM eUICCID. |
+
+### `WalterModemSignalQuality`
+
+The RSRQ and RSRP signal quality in `rsp.data.signalQuality`, see [getSignalQuality](#getsignalquality).
+
+| Field  | Type  | Description                                               |
+| ------ | ----- | --------------------------------------------------------- |
+| `rsrq` | `int` | The RSRQ in tenths of a dB, for example -195 is -19.5 dB. |
+| `rsrp` | `int` | The RSRP in dBm.                                          |
+
+### `WalterModemCellInformation`
+
+The cell information in `rsp.data.cellInformation`, see [getCellInformation](#getcellinformation).
+
+> [!NOTE]
+> The struct holds one cell. With a scope that reports more than one cell, each reported cell
+> overwrites the fields it contains, so the result can mix values of several cells.
+
+| Field     | Type       | Description                                            |
+| --------- | ---------- | ------------------------------------------------------ |
+| `netName` | `char[16]` | Name of the network operator.                          |
+| `cc`      | `uint16_t` | Mobile country code.                                   |
+| `nc`      | `uint16_t` | Mobile network operator code.                          |
+| `rsrp`    | `float`    | Reference Signal Received Power.                       |
+| `cinr`    | `float`    | Carrier to Interference-plus-Noise Ratio.              |
+| `rsrq`    | `float`    | Reference Signal Received Quality.                     |
+| `tac`     | `uint16_t` | Tracking Area Code.                                    |
+| `pci`     | `uint16_t` | Physical Cell ID.                                      |
+| `earfcn`  | `uint16_t` | E-UTRA Assigned Radio Channel.                         |
+| `rssi`    | `float`    | Received signal strength in dBm.                       |
+| `paging`  | `uint16_t` | DRX cycle in number of radio frames (1 frame = 10 ms). |
+| `cid`     | `uint32_t` | 28-bit E-UTRAN Cell Identity.                          |
+| `band`    | `uint8_t`  | Band number.                                           |
+| `bw`      | `uint16_t` | Downlink bandwidth in kHz.                             |
+| `ceLevel` | `uint8_t`  | Coverage Enhancement level.                            |
+
+### `WalterModemBandSelectionConfigSet`
+
+The band selection configurations in `rsp.data.bandSelCfgSet`, see [getRadioBands](#getradiobands).
+
+| Field    | Type                                                        | Description                                                     |
+| -------- | ----------------------------------------------------------- | --------------------------------------------------------------- |
+| `count`  | `uint8_t`                                                   | The number of configurations in the set.                        |
+| `config` | [WalterModemBandSelection](#waltermodembandselection)`[32]` | The band selection configurations, the first `count` are valid. |
+
+### `WalterModemBandSelection`
+
+The band selection for one RAT and operator.
+
+| Field         | Type                                        | Description                                                                                  |
+| ------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `rat`         | [WalterModemRAT](#waltermodemrat)           | The radio access technology for which the bands are configured.                              |
+| `netOperator` | [WalterModemOperator](#waltermodemoperator) | The mobile network operator, or "3GPP" or "standard" for unknown or generic operators.       |
+| `bands`       | `uint32_t`                                  | Bitset of the configured bands, test it with the [WalterModemBand](#waltermodemband) values. |
+
+### `WalterModemOperator`
+
+A network operator.
+
+| Field    | Type                                                    | Description                                 |
+| -------- | ------------------------------------------------------- | ------------------------------------------- |
+| `format` | [WalterModemOperatorFormat](#waltermodemoperatorformat) | The format in which the operator is stored. |
+| `name`   | `char[17]`                                              | The name of the operator.                   |

@@ -13,8 +13,14 @@
 - [WalterModemGNSSSensMode](#waltermodemgnsssensmode)
 - [WalterModemGNSSAcqMode](#waltermodemgnssacqmode)
 - [WalterModemGNSSAction](#waltermodemgnssaction)
-- [WalterModemGNSSFixStatus](#waltermodemgnssfixstatus)
-- [WalterModemGNSSAssistanceType](#waltermodemgnssassistancetype)
+- [WMGNSSFixStatus](#wmgnssfixstatus)
+- [WMGNSSAssistanceType](#wmgnssassistancetype)
+
+## Structs Overview
+
+- [WMGNSSFixEvent](#wmgnssfixevent)
+- [WMGNSSSat](#wmgnsssat)
+- [WMGNSSAssistance](#wmgnssassistance)
 
 ---
 
@@ -30,7 +36,7 @@ Between fixes, this function can be used to change the sensitivity mode.
 > [!TIP]
 > It is recommended to run this function at least once before GNSS is used.  
 > In our findings, calling config again after a valid fix has been acquired
-> reduces the time it would take for consecutive fixin within a range of 100km.
+> reduces the time it would take for consecutive fixes within a range of 100km.
 
 #### Params
 
@@ -94,6 +100,8 @@ if (modem.gnssConfig()) {
 Get the current GNSS assistance data status.
 
 This function retrieves the status of the assistance data currently loaded in the GNSS subsystem.
+The result is stored in `rsp.data.gnssAssistance`, an array of [WMGNSSAssistance](#wmgnssassistance)
+with one entry per [WMGNSSAssistanceType](#wmgnssassistancetype), indexed by that type.
 
 #### Params
 
@@ -122,7 +130,12 @@ WalterModemRsp rsp = {};
 // ...
 
 if (modem.gnssGetAssistanceStatus(&rsp)) {
-    // Data can be found under: rsp.data.gnssAssistance
+    for (int i = 0; i < WALTER_MODEM_GNSS_ASSISTANCE_TYPE_COUNT; i++) {
+        WMGNSSAssistance *assistance = &rsp.data.gnssAssistance[i];
+        Serial.printf("Info: Assistance type %d: available=%d, update in %lds, expires in %lds\n",
+                      assistance->type, assistance->available,
+                      (long) assistance->timeToUpdate, (long) assistance->timeToExpire);
+    }
 } else {
     Serial.println("Error: Failed to get GNSS assistance status");
 }
@@ -141,9 +154,14 @@ WalterModemRsp rsp = {};
 // ...
 
 if (modem.gnssGetAssistanceStatus(&rsp)) {
-    // Data can be found under: rsp.data.gnssAssistance
+    for (int i = 0; i < WALTER_MODEM_GNSS_ASSISTANCE_TYPE_COUNT; i++) {
+        WMGNSSAssistance *assistance = &rsp.data.gnssAssistance[i];
+        ESP_LOGI("gnss_docs_demo", "Assistance type %d: available=%d, update in %lds, expires in %lds",
+                 assistance->type, assistance->available,
+                 (long) assistance->timeToUpdate, (long) assistance->timeToExpire);
+    }
 } else {
-    Serial.println("Error: Failed to get GNSS assistance status");
+    ESP_LOGE("gnss_docs_demo", "Failed to get GNSS assistance status");
 }
 
 // ...
@@ -162,6 +180,11 @@ and update the GNSS subsystem with this data.
 
 > [!TIP]
 > The most efficient type of assistance data is real-time ephemeris.
+
+> [!NOTE]
+> This function returns as soon as the modem has accepted the request, not when the download is done.
+> The modem reports that the assistance data was updated with a `WALTER_MODEM_GNSS_EVENT_ASSISTANCE` event,
+> see [setGNSSEventHandler](/walter-modem/arduino_esp-idf/reference/event_handlers.md#setgnsseventhandler).
 
 #### Params
 
@@ -224,6 +247,12 @@ Perform a GNSS action.
 
 This function programs the GNSS subsystem to perform a specified action.
 
+> [!NOTE]
+> This function returns as soon as the modem has accepted the action, it does not wait for a fix.
+> The fix is delivered as a [WMGNSSFixEvent](#wmgnssfixevent) through a `WALTER_MODEM_GNSS_EVENT_FIX` event,
+> see [setGNSSEventHandler](/walter-modem/arduino_esp-idf/reference/event_handlers.md#setgnsseventhandler).
+> Check the `status` of the fix: only `WALTER_MODEM_GNSS_FIX_STATUS_READY` means a fix was obtained.
+
 #### Params
 
 | Param    | Description                                                      | Default                                     |
@@ -271,7 +300,6 @@ if (modem.gnssPerformAction()) {
 } else {
     ESP_LOGE("gnss_docs_demo", "Failed to request GNSS fix");
 }
-
 // ...
 ```
 
@@ -285,12 +313,12 @@ Sets the UTC time for GNSS usage.
 
 #### Params
 
-| Param       | Description                                                      | Default  |
-| ----------- | ---------------------------------------------------------------- | -------- |
-| `epochTime` | Unix timestamp for UTC time (see getClock).                      |          |
-| `rsp`       | Optional modem response structure to save the result.            | **NULL** |
-| `cb`        | Optional callback function, if set this function will not block. | **NULL** |
-| `args`      | Optional argument to pass to the callback.                       | **NULL** |
+| Param       | Description                                                                                                | Default  |
+| ----------- | ---------------------------------------------------------------------------------------------------------- | -------- |
+| `epochTime` | Unix timestamp for UTC time (see [getClock](/walter-modem/arduino_esp-idf/reference/general.md#getclock)). |          |
+| `rsp`       | Optional modem response structure to save the result.                                                      | **NULL** |
+| `cb`        | Optional callback function, if set this function will not block.                                           | **NULL** |
+| `args`      | Optional argument to pass to the callback.                                                                 | **NULL** |
 
 #### Returns
 
@@ -347,7 +375,8 @@ if (modem.gnssSetUTCTime(epochTime)) {
 Gets the UTC time for GNSS usage.
 
 > [!NOTE]  
-> The UTC time can be found in the clock portion of the response data (`rsp`).
+> The UTC time is stored as a Unix timestamp in `rsp.data.clock.epochTime`.
+> When the modem has no GNSS clock yet, this function returns false and `epochTime` is set to 0.
 
 #### Params
 
@@ -376,7 +405,8 @@ WalterModemRsp rsp = {};
 // ...
 
 if (modem.gnssGetUTCTime(&rsp)) {
-   // Data can be found in the lockc portion of the rsp object.
+    Serial.print("Info: GNSS UTC time: ");
+    Serial.println(rsp.data.clock.epochTime);
 } else {
     Serial.println("Error: Failed to get GNSS UTC time");
 }
@@ -395,7 +425,7 @@ WalterModemRsp rsp = {};
 // ...
 
 if (modem.gnssGetUTCTime(&rsp)) {
-    // Data can be found in the lockc portion of the rsp object.
+    ESP_LOGI("gnss_docs_demo", "GNSS UTC time: %lld", (long long) rsp.data.clock.epochTime);
 } else {
     ESP_LOGE("gnss_docs_demo", "Failed to get GNSS UTC time");
 }
@@ -415,17 +445,21 @@ The GNSS location modus. When set to 'on-device location' the GNSS subsystem wil
 position and speed and estimate the error on these parameters.
 
 > **WALTER_MODEM_GNSS_LOC_MODE_ON_DEVICE_LOCATION** = `0`  
+> Position and speed are computed on the device.
 
 ### `WalterModemGNSSSensMode`
 
-The possible sensitivity settings use by Walter's GNSS receiver.
+The possible sensitivity settings used by Walter's GNSS receiver.
 This sets the amount of time that the receiver is actually on.
 
 More sensitivity requires more power.
 
 > **WALTER_MODEM_GNSS_SENS_MODE_LOW** = `1`  
+> Lowest sensitivity, lowest power consumption.  
 > **WALTER_MODEM_GNSS_SENS_MODE_MEDIUM** = `2`  
+> Medium sensitivity and power consumption.  
 > **WALTER_MODEM_GNSS_SENS_MODE_HIGH** = `3`  
+> Highest sensitivity, highest power consumption.
 
 ### `WalterModemGNSSAcqMode`
 
@@ -435,27 +469,33 @@ When no ephemerides are available and/or the time is not known
 cold start will be used automatically.
 
 > **WALTER_MODEM_GNSS_ACQ_MODE_COLD_WARM_START** = `0`  
-> Walter has no clue where on earth it is.  
+> Use when Walter's position is unknown (cold or warm start).  
 > **WALTER_MODEM_GNSS_ACQ_MODE_HOT_START** = `1`  
-> Walter must know where it is within 100km.
+> Use when Walter's position is known within 100km.
 
 ### `WalterModemGNSSAction`
 
 The supported actions that Walter's GNSS can execute.
 
 > **WALTER_MODEM_GNSS_ACTION_GET_SINGLE_FIX** = `0`  
+> Start acquiring a single fix.  
 > **WALTER_MODEM_GNSS_ACTION_CANCEL** = `1`  
+> Stop the ongoing fix acquisition.
 
-### `WalterModemGNSSFixStatus`
+### `WMGNSSFixStatus`
 
 The possible GNSS fix statuses.
 
 > **WALTER_MODEM_GNSS_FIX_STATUS_READY** = `0`  
+> A fix was obtained.  
 > **WALTER_MODEM_GNSS_FIX_STATUS_STOPPED_BY_USER** = `1`  
+> The fix acquisition was cancelled with `WALTER_MODEM_GNSS_ACTION_CANCEL`.  
 > **WALTER_MODEM_GNSS_FIX_STATUS_NO_RTC** = `2`  
+> No fix because the GNSS clock is not set, see [gnssSetUTCTime](#gnsssetutctime).  
 > **WALTER_MODEM_GNSS_FIX_STATUS_LTE_CONCURRENCY** = `3`  
+> No fix because the receiver could not run alongside LTE activity.
 
-### `WalterModemGNSSAssistanceType`
+### `WMGNSSAssistanceType`
 
 Types of GNSS assistance data used to improve positioning performance.
 
@@ -465,3 +505,51 @@ Types of GNSS assistance data used to improve positioning performance.
 > Real-time satellite position and velocity data for immediate accuracy.  
 > **WALTER_MODEM_GNSS_ASSISTANCE_TYPE_PREDICTED_EPHEMERIS** = `2`  
 > Forecasted satellite position data for faster cold starts without a live connection.  
+> **WALTER_MODEM_GNSS_ASSISTANCE_TYPE_COUNT** = `3`  
+> The number of assistance types, used as the size of `rsp.data.gnssAssistance`.
+
+---
+
+## Structs
+
+### `WMGNSSFixEvent`
+
+A GNSS fix, delivered with a `WALTER_MODEM_GNSS_EVENT_FIX` event
+(see [setGNSSEventHandler](/walter-modem/arduino_esp-idf/reference/event_handlers.md#setgnsseventhandler)).
+
+| Field                 | Type                                | Description                                               |
+| --------------------- | ----------------------------------- | --------------------------------------------------------- |
+| `status`              | [WMGNSSFixStatus](#wmgnssfixstatus) | The status of the fix.                                    |
+| `fixId`               | `uint8_t`                           | The id of the fix, always in [0-9].                       |
+| `timestamp`           | `int64_t`                           | The time of the fix as a Unix timestamp.                  |
+| `timeToFix`           | `uint32_t`                          | The number of milliseconds used to get the fix.           |
+| `estimatedConfidence` | `double`                            | The estimated horizontal confidence of the fix in meters. |
+| `latitude`            | `double`                            | The latitude of the fix.                                  |
+| `longitude`           | `double`                            | The longitude of the fix.                                 |
+| `height`              | `double`                            | The height above sea level.                               |
+| `northSpeed`          | `double`                            | The speed in northern direction in meters per second.     |
+| `eastSpeed`           | `double`                            | The speed in eastern direction in meters per second.      |
+| `downSpeed`           | `double`                            | The downwards speed in meters per second.                 |
+| `satCount`            | `uint8_t`                           | The number of received satellites.                        |
+| `sats`                | [WMGNSSSat](#wmgnsssat)[]           | The received satellites, the first `satCount` are valid.  |
+
+### `WMGNSSSat`
+
+A satellite received during a GNSS fix.
+
+| Field            | Type      | Description                                                                        |
+| ---------------- | --------- | ---------------------------------------------------------------------------------- |
+| `satNo`          | `uint8_t` | The number of the satellite.                                                       |
+| `signalStrength` | `uint8_t` | The CN0 signal strength in dB/Hz. The minimum required signal strength is 30dB/Hz. |
+
+### `WMGNSSAssistance`
+
+The status of one type of GNSS assistance data, see [gnssGetAssistanceStatus](#gnssgetassistancestatus).
+
+| Field          | Type                                          | Description                                                                        |
+| -------------- | --------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `type`         | [WMGNSSAssistanceType](#wmgnssassistancetype) | The type of assistance data this entry is about.                                   |
+| `available`    | `bool`                                        | True when this type of assistance data is available.                               |
+| `lastUpdate`   | `int32_t`                                     | The number of seconds since the last update of this type of assistance data.       |
+| `timeToUpdate` | `int32_t`                                     | The number of seconds before this data should be updated to keep GNSS performance. |
+| `timeToExpire` | `int32_t`                                     | The number of seconds after which this data expires and can no longer be used.     |

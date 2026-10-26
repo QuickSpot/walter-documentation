@@ -11,6 +11,10 @@
 - [configCEREGReports](#configceregreports)
 - [getIdentity](#getidentity)
 - [getClock](#getclock)
+- [configTemperatureMonitor](#configtemperaturemonitor)
+- [getTemperature](#gettemperature)
+- [configVoltageMonitor](#configvoltagemonitor)
+- [getVoltage](#getvoltage)
 
 ## Enums Overview
 
@@ -18,6 +22,17 @@
 - [WalterModemRspDataType](#waltermodemrspdatatype)
 - [WalterModemCMEErrorReportsType](#waltermodemcmeerrorreportstype)
 - [WalterModemCMEError](#waltermodemcmeerror)
+- [WalterModemTempMonitorMode](#waltermodemtempmonitormode)
+- [WalterModemTempStatus](#waltermodemtempstatus)
+- [WalterModemVoltageMonitorMode](#waltermodemvoltagemonitormode)
+- [WalterModemVoltageStatus](#waltermodemvoltagestatus)
+
+## Structs Overview
+
+- [WalterModemRsp](#waltermodemrsp)
+- [WalterModemRspData](#waltermodemrspdata)
+- [WalterModemClockInfo](#waltermodemclockinfo)
+- [WalterModemIdentity](#waltermodemidentity)
 
 ---
 
@@ -51,6 +66,10 @@ This function initializes the modem and must be called before using the modem de
 | `watchdogTimeout` | Timeout in seconds before auto-reboot; minimum is 300 seconds. | **0**   |
 
 <!-- tabs:end -->
+
+> [!NOTE]
+> A `watchdogTimeout` of 0 disables the library watchdog.
+> When set to a nonzero value, [tickleWatchdog](#ticklewatchdog) must be called before the timeout expires.
 
 #### Returns
 
@@ -160,9 +179,9 @@ if (modem.sendCmd("ATI")) {
 // ...
 
 if (modem.sendCmd("ATI")) {
-    ESP_LOGI("general_docs_docs_demo", "Success");
+    ESP_LOGI("general_docs_demo", "Success");
 } else {
-    ESP_LOGE("general_docs_docs_demo", "Failed");
+    ESP_LOGE("general_docs_demo", "Failed");
 }
 
 // ...
@@ -176,7 +195,7 @@ if (modem.sendCmd("ATI")) {
 
 Software reset the modem and wait for it to reset.
 
-This function is required when switching from RAT (Radio Access Technology).
+This function is required when switching RAT (Radio Access Technology).
 
 > [!WARNING]
 > The function will fail if the modem does not reset.
@@ -223,15 +242,16 @@ if (modem.softReset()) {
 // ...
 
 if (modem.softReset()) {
-    ESP_LOGI("general_docs_docs_demo", "Modem soft reset");
+    ESP_LOGI("general_docs_demo", "Modem soft reset");
 } else {
-    ESP_LOGE("general_docs_docs_demo", "Modem soft reset failed");
+    ESP_LOGE("general_docs_demo", "Modem soft reset failed");
 }
 
 // ...
 ```
 
 <!-- tabs:end -->
+
 ---
 
 ### `reset`
@@ -285,9 +305,9 @@ if (modem.reset()) {
 // ...
 
 if (modem.reset()) {
-    ESP_LOGI("general_docs_docs_demo", "Modem reset");
+    ESP_LOGI("general_docs_demo", "Modem reset");
 } else {
-    ESP_LOGE("general_docs_docs_demo", "Modem Reset failed");
+    ESP_LOGE("general_docs_demo", "Modem Reset failed");
 }
 
 // ...
@@ -345,9 +365,9 @@ if (modem.checkComm()) {
 // ...
 
 if (modem.checkComm()) {
-    ESP_LOGI("general_docs_docs_demo", "Comm OK");
+    ESP_LOGI("general_docs_demo", "Comm OK");
 } else {
-    ESP_LOGE("general_docs_docs_demo", "Comm ERROR");
+    ESP_LOGE("general_docs_demo", "Comm ERROR");
 }
 
 // ...
@@ -471,9 +491,9 @@ if (modem.configCMEErrorReports()) {
 // ...
 
 if (modem.configCMEErrorReports()) {
-    ESP_LOGI("general_docs_docs_demo", "CME error reports configured");
+    ESP_LOGI("general_docs_demo", "CME error reports configured");
 } else {
-    ESP_LOGE("general_docs_docs_demo", "Failed to configure CME error reports");
+    ESP_LOGE("general_docs_demo", "Failed to configure CME error reports");
 }
 
 // ...
@@ -536,9 +556,9 @@ if (modem.configCEREGReports()) {
 // ...
 
 if (modem.configCEREGReports()) {
-    ESP_LOGI("general_docs_docs_demo", "CEREG reports configured");
+    ESP_LOGI("general_docs_demo", "CEREG reports configured");
 } else {
-    ESP_LOGE("general_docs_docs_demo", "Failed to configure CEREG reports");
+    ESP_LOGE("general_docs_demo", "Failed to configure CEREG reports");
 }
 
 // ...
@@ -557,6 +577,8 @@ This function retrieves the:
 - IMEI (International Mobile Equipment Identity)
 - IMEISV (IMEI with Software Version)
 - SVN (Software Version Number) from the modem.
+
+The result is stored in `rsp.data.identity` _([WalterModemIdentity](#waltermodemidentity))_.
 
 #### Params
 
@@ -610,12 +632,12 @@ WalterModemRsp rsp = {};
 // ...
 
 if (modem.getIdentity(&rsp)) {
-    ESP_LOGI("general_docs_docs_demo", "Identity information:");
-    ESP_LOGI("general_docs_docs_demo", "-> imei: %s", rsp.data.identity.imei);
-    ESP_LOGI("general_docs_docs_demo", "-> imeisv: %s", rsp.data.identity.imeisv);
-    ESP_LOGI("general_docs_docs_demo", "-> svn: %s", rsp.data.identity.svn)
+    ESP_LOGI("general_docs_demo", "Identity information:");
+    ESP_LOGI("general_docs_demo", "-> imei: %s", rsp.data.identity.imei);
+    ESP_LOGI("general_docs_demo", "-> imeisv: %s", rsp.data.identity.imeisv);
+    ESP_LOGI("general_docs_demo", "-> svn: %s", rsp.data.identity.svn);
 } else {
-    ESP_LOGE("general_docs_docs_demo", "Error: Failed to get identity");
+    ESP_LOGE("general_docs_demo", "Error: Failed to get identity");
 }
 
 // ...
@@ -630,6 +652,7 @@ if (modem.getIdentity(&rsp)) {
 Get the current modem time and date.
 
 This function retrieves the current time and date from the modem.
+The result is stored in `rsp.data.clock` _([WalterModemClockInfo](#waltermodemclockinfo))_.
 
 #### Params
 
@@ -681,11 +704,291 @@ WalterModemRsp rsp = {};
 // ...
 
 if (modem.getClock(&rsp)) {
-    ESP_LOGI("general_docs_docs_demo", "Clock information:");
-    ESP_LOGI("general_docs_docs_demo", "-> epoch time: %s", rsp.data.clock.epochTime);
-    ESP_LOGI("general_docs_docs_demo", "-> timezone offset: %s", rsp.data.clock.timeZoneOffset);
+    ESP_LOGI("general_docs_demo", "Clock information:");
+    ESP_LOGI("general_docs_demo", "-> epoch time: %lld", (long long) rsp.data.clock.epochTime);
+    ESP_LOGI("general_docs_demo", "-> timezone offset: %d", (int) rsp.data.clock.timeZoneOffset);
 } else {
-    ESP_LOGE("general_docs_docs_demo", "Error: Failed to get clock information");
+    ESP_LOGE("general_docs_demo", "Error: Failed to get clock information");
+}
+
+// ...
+```
+
+<!-- tabs:end -->
+
+---
+
+### `configTemperatureMonitor`
+
+Configure the temperature monitor.
+
+This function configures the temperature monitor of the modem.
+It sets the thresholds for extreme low, warning low, warning high and extreme high temperatures.
+The mode determines how the temperature monitor operates.
+
+> [!NOTE]
+> Use [setTemperatureEventHandler](/walter-modem/arduino_esp-idf/reference/event_handlers.md#settemperatureeventhandler)
+> to receive temperature monitor events.
+
+#### Params
+
+| Param          | Description                                                      | Default  |
+| -------------- | ---------------------------------------------------------------- | -------- |
+| `mode`         | The temperature monitor mode _(WalterModemTempMonitorMode)_.     |          |
+| `extreme_low`  | The extreme low temperature threshold in °C.                     | **-40**  |
+| `warning_low`  | The warning low temperature threshold in °C.                     | **-30**  |
+| `warning_high` | The warning high temperature threshold in °C.                    | **80**   |
+| `extreme_high` | The extreme high temperature threshold in °C.                    | **90**   |
+| `rsp`          | Optional modem response structure to save the result in.         | **NULL** |
+| `cb`           | Optional callback function, if set this function will not block. | **NULL** |
+| `args`         | Optional argument to pass to the callback.                       | **NULL** |
+
+#### Returns
+
+`bool`  
+True on success, false otherwise.
+
+#### Example
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+```cpp
+#include <WalterModem.h>
+
+// ...
+
+if (modem.configTemperatureMonitor(WALTER_MODEM_TEMP_MONITOR_MODE_ON)) {
+    Serial.println("Info: Temperature monitor configured");
+} else {
+    Serial.println("Error: Failed to configure temperature monitor");
+}
+
+// ...
+```
+
+##### **ESP-IDF**
+
+```cpp
+#include <esp_log.h>
+#include <WalterModem.h>
+
+// ...
+
+if (modem.configTemperatureMonitor(WALTER_MODEM_TEMP_MONITOR_MODE_ON)) {
+    ESP_LOGI("general_docs_demo", "Temperature monitor configured");
+} else {
+    ESP_LOGE("general_docs_demo", "Failed to configure temperature monitor");
+}
+
+// ...
+```
+
+<!-- tabs:end -->
+
+---
+
+### `getTemperature`
+
+Get the current temperature from the modem.
+
+This function retrieves the current temperature from the modem and stores it in `rsp.data.temperature`
+_([WalterModemTempData](/walter-modem/arduino_esp-idf/reference/event_handlers.md#waltermodemtempdata))_.
+The `status` field is derived from the thresholds configured with [configTemperatureMonitor](#configtemperaturemonitor).
+
+#### Params
+
+| Param  | Description                                                      | Default  |
+| ------ | ---------------------------------------------------------------- | -------- |
+| `rsp`  | Optional modem response structure to save the result in.         | **NULL** |
+| `cb`   | Optional callback function, if set this function will not block. | **NULL** |
+| `args` | Optional argument to pass to the callback.                       | **NULL** |
+
+#### Returns
+
+`bool`  
+True on success, false otherwise.
+
+#### Example
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+```cpp
+#include <WalterModem.h>
+
+WalterModemRsp rsp = {};
+
+// ...
+
+if (modem.getTemperature(&rsp)) {
+    Serial.printf("Info: Temperature: %d°C (status: %d)\n",
+                  rsp.data.temperature.temperature, rsp.data.temperature.status);
+} else {
+    Serial.println("Error: Failed to get temperature");
+}
+
+// ...
+```
+
+##### **ESP-IDF**
+
+```cpp
+#include <esp_log.h>
+#include <WalterModem.h>
+
+WalterModemRsp rsp = {};
+
+// ...
+
+if (modem.getTemperature(&rsp)) {
+    ESP_LOGI("general_docs_demo", "Temperature: %d°C (status: %d)",
+             rsp.data.temperature.temperature, rsp.data.temperature.status);
+} else {
+    ESP_LOGE("general_docs_demo", "Failed to get temperature");
+}
+
+// ...
+```
+
+<!-- tabs:end -->
+
+---
+
+### `configVoltageMonitor`
+
+Configure the voltage monitor.
+
+This function configures the voltage monitor of the modem.
+It sets the threshold for low voltage detection and the period between measurements.
+
+> [!NOTE]
+> Use [setVoltageEventHandler](/walter-modem/arduino_esp-idf/reference/event_handlers.md#setvoltageeventhandler)
+> to receive voltage monitor events.
+
+#### Params
+
+| Param       | Description                                                      | Default  |
+| ----------- | ---------------------------------------------------------------- | -------- |
+| `mode`      | The voltage monitor mode _(WalterModemVoltageMonitorMode)_.      |          |
+| `threshold` | The low voltage threshold in tenths of a volt.                   | **25**   |
+| `period`    | The time between measurements in seconds.                        | **30**   |
+| `rsp`       | Optional modem response structure to save the result in.         | **NULL** |
+| `cb`        | Optional callback function, if set this function will not block. | **NULL** |
+| `args`      | Optional argument to pass to the callback.                       | **NULL** |
+
+#### Returns
+
+`bool`  
+True on success, false otherwise.
+
+#### Example
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+```cpp
+#include <WalterModem.h>
+
+// ...
+
+if (modem.configVoltageMonitor(WALTER_MODEM_VOLTAGE_MONITOR_MODE_ACTIVE)) {
+    Serial.println("Info: Voltage monitor configured");
+} else {
+    Serial.println("Error: Failed to configure voltage monitor");
+}
+
+// ...
+```
+
+##### **ESP-IDF**
+
+```cpp
+#include <esp_log.h>
+#include <WalterModem.h>
+
+// ...
+
+if (modem.configVoltageMonitor(WALTER_MODEM_VOLTAGE_MONITOR_MODE_ACTIVE)) {
+    ESP_LOGI("general_docs_demo", "Voltage monitor configured");
+} else {
+    ESP_LOGE("general_docs_demo", "Failed to configure voltage monitor");
+}
+
+// ...
+```
+
+<!-- tabs:end -->
+
+---
+
+### `getVoltage`
+
+Get the current voltage monitor configuration and voltage reading from the modem.
+
+This function stores the result in `rsp.data.voltage`
+_([WalterModemVoltageData](/walter-modem/arduino_esp-idf/reference/event_handlers.md#waltermodemvoltagedata))_.
+
+> [!NOTE]
+> The modem does not report a status for this query,
+> so `status` is always `WALTER_MODEM_VOLTAGE_STATUS_ABOVE_THRESHOLD`.
+> Use the voltage event handler to be notified when the voltage drops below the threshold.
+
+#### Params
+
+| Param  | Description                                                      | Default  |
+| ------ | ---------------------------------------------------------------- | -------- |
+| `rsp`  | Optional modem response structure to save the result in.         | **NULL** |
+| `cb`   | Optional callback function, if set this function will not block. | **NULL** |
+| `args` | Optional argument to pass to the callback.                       | **NULL** |
+
+#### Returns
+
+`bool`  
+True on success, false otherwise.
+
+#### Example
+
+<!-- tabs:start -->
+
+##### **Arduino**
+
+```cpp
+#include <WalterModem.h>
+
+WalterModemRsp rsp = {};
+
+// ...
+
+if (modem.getVoltage(&rsp)) {
+    Serial.printf("Info: Voltage: %u (threshold: %u, period: %us)\n",
+                  rsp.data.voltage.voltage, rsp.data.voltage.threshold,
+                  rsp.data.voltage.period);
+} else {
+    Serial.println("Error: Failed to get voltage");
+}
+
+// ...
+```
+
+##### **ESP-IDF**
+
+```cpp
+#include <esp_log.h>
+#include <WalterModem.h>
+
+WalterModemRsp rsp = {};
+
+// ...
+
+if (modem.getVoltage(&rsp)) {
+    ESP_LOGI("general_docs_demo", "Voltage: %u (threshold: %u, period: %us)",
+             rsp.data.voltage.voltage, rsp.data.voltage.threshold, rsp.data.voltage.period);
+} else {
+    ESP_LOGE("general_docs_demo", "Failed to get voltage");
 }
 
 // ...
@@ -719,15 +1022,9 @@ The possible state codes returned by modem functions and operational components.
 > Referenced socket does not exist.  
 > **WALTER_MODEM_STATE_NO_SUCH_PROFILE** = `8`  
 > Specified profile could not be found.  
-> **WALTER_MODEM_STATE_NOT_EXPECTING_RING** = `9`  
-> An unexpected ring was received.  
-> **WALTER_MODEM_STATE_AWAITING_RING** = `10`  
-> Waiting for an incoming ring.  
-> **WALTER_MODEM_STATE_AWAITING_RESPONSE** = `11`  
-> Awaiting a response to a previous command.  
-> **WALTER_MODEM_STATE_BUSY** = `12`  
+> **WALTER_MODEM_STATE_BUSY** = `9`  
 > Modem is busy with another operation.  
-> **WALTER_MODEM_STATE_NO_DATA** = `13`  
+> **WALTER_MODEM_STATE_NO_DATA** = `10`  
 > No data available when expected.  
 
 ### `WalterModemRspDataType`
@@ -760,8 +1057,8 @@ The different implemented response data types.
 > Bandset configuration status.  
 > **WALTER_MODEM_RSP_DATA_TYPE_PDP_ADDR** = `12`  
 > PDP context IP address.  
-> **WALTER_MODEM_RSP_DATA_TYPE_SOCKET_ID** = `13`  
-> Socket identifier.  
+> **WALTER_MODEM_RSP_DATA_TYPE_SOCKET** = `13`  
+> Socket data.  
 > **WALTER_MODEM_RSP_DATA_TYPE_GNSS_ASSISTANCE_DATA** = `14`  
 > GNSS assistance data.  
 > **WALTER_MODEM_RSP_DATA_TYPE_GNSS_UTC_TIME** = `15`  
@@ -770,14 +1067,16 @@ The different implemented response data types.
 > Modem internal clock data.  
 > **WALTER_MODEM_RSP_DATA_TYPE_IDENTITY** = `17`  
 > Modem identity data.  
-> **WALTER_MODEM_RSP_DATA_TYPE_BLUECHERRY** = `18`  
-> BlueCherry specific response data.  
-> **WALTER_MODEM_RSP_DATA_TYPE_HTTP_RESPONSE** = `19`  
+> **WALTER_MODEM_RSP_DATA_TYPE_HTTP** = `18`  
 > HTTP response data.  
-> **WALTER_MODEM_RSP_DATA_TYPE_COAP** = `20`  
+> **WALTER_MODEM_RSP_DATA_TYPE_COAP** = `19`  
 > CoAP message data.  
-> **WALTER_MODEM_RSP_DATA_TYPE_MQTT** = `21`  
-> MQTT message data.
+> **WALTER_MODEM_RSP_DATA_TYPE_MQTT** = `20`  
+> MQTT message data.  
+> **WALTER_MODEM_RSP_DATA_TYPE_TEMPERATURE** = `21`  
+> Modem temperature data.  
+> **WALTER_MODEM_RSP_DATA_TYPE_VOLTAGE** = `22`  
+> Modem voltage data.
 
 ### `WalterModemCMEErrorReportsType`
 
@@ -896,3 +1195,120 @@ All supported CME error codes.
 > Hardware configuration failed (invalid function parameter).  
 > **WALTER_MODEM_CME_HW_CONFIG_FAILED_PINS_ALREADY_ASSIGNED** = `543`  
 > Hardware configuration failed (pins already assigned).
+
+### `WalterModemTempMonitorMode`
+
+The temperature monitor modes.
+
+> **WALTER_MODEM_TEMP_MONITOR_MODE_OFF** = `0`  
+> Temperature monitor disabled.  
+> **WALTER_MODEM_TEMP_MONITOR_MODE_ON** = `1`  
+> Temperature monitor enabled.  
+> **WALTER_MODEM_TEMP_MONITOR_MODE_ON_EMERGENCY_SHUTDOWN** = `2`  
+> Temperature monitor enabled, the modem shuts down at extreme temperatures.
+
+### `WalterModemTempStatus`
+
+The temperature status relative to the configured thresholds.
+
+> **WALTER_MODEM_TEMP_STATUS_EXTREME_LOW** = `-2`  
+> Temperature at or below the extreme low threshold.  
+> **WALTER_MODEM_TEMP_STATUS_WARNING_LOW** = `-1`  
+> Temperature at or below the warning low threshold.  
+> **WALTER_MODEM_TEMP_STATUS_NORMAL** = `0`  
+> Temperature within the normal range.  
+> **WALTER_MODEM_TEMP_STATUS_WARNING_HIGH** = `1`  
+> Temperature at or above the warning high threshold.  
+> **WALTER_MODEM_TEMP_STATUS_EXTREME_HIGH** = `2`  
+> Temperature at or above the extreme high threshold.  
+> **WALTER_MODEM_TEMP_STATUS_SHUTDOWN** = `10`  
+> The modem is shutting down due to temperature.
+
+### `WalterModemVoltageMonitorMode`
+
+The voltage monitor modes.
+
+> **WALTER_MODEM_VOLTAGE_MONITOR_MODE_DISABLED** = `0`  
+> Voltage monitor disabled.  
+> **WALTER_MODEM_VOLTAGE_MONITOR_MODE_ACTIVE** = `1`  
+> Voltage monitor enabled.  
+> **WALTER_MODEM_VOLTAGE_MONITOR_MODE_ACTIVE_SHUTDOWN** = `2`  
+> Voltage monitor enabled, the modem shuts down below the threshold.  
+> **WALTER_MODEM_VOLTAGE_MONITOR_MODE_ACTIVE_SLEEP** = `3`  
+> Voltage monitor enabled, also during sleep.  
+> **WALTER_MODEM_VOLTAGE_MONITOR_MODE_ACTIVE_SLEEP_SHUTDOWN** = `4`  
+> Voltage monitor enabled, also during sleep, the modem shuts down below the threshold.
+
+### `WalterModemVoltageStatus`
+
+The voltage status relative to the configured threshold.
+
+> **WALTER_MODEM_VOLTAGE_STATUS_ABOVE_THRESHOLD** = `0`  
+> Voltage above the threshold.  
+> **WALTER_MODEM_VOLTAGE_STATUS_BELOW_THRESHOLD** = `1`  
+> Voltage below the threshold.  
+> **WALTER_MODEM_VOLTAGE_STATUS_SHUTDOWN** = `10`  
+> The modem is shutting down due to low voltage.
+
+---
+
+## Structs
+
+### `WalterModemRsp`
+
+The response to a command, passed as the optional `rsp` parameter of most modem functions.
+
+| Field    | Type                                              | Description                                                          |
+| -------- | ------------------------------------------------- | -------------------------------------------------------------------- |
+| `result` | [WalterModemState](#waltermodemstate)             | The result of the executed command.                                  |
+| `type`   | [WalterModemRspDataType](#waltermodemrspdatatype) | The type of response data, tells which field of `data` is filled in. |
+| `data`   | [WalterModemRspData](#waltermodemrspdata)         | The parsed response data.                                            |
+
+### `WalterModemRspData`
+
+A union that holds the response data of a command.
+Only the field that matches the response `type` is valid.
+
+| Field             | Type                                                                                                       | Description                                                |
+| ----------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| `opState`         | `WalterModemOpState`                                                                                       | The operational state of the modem.                        |
+| `simState`        | `WalterModemSIMState`                                                                                      | The state of the SIM card.                                 |
+| `simCardID`       | `WalterModemSIMCardID`                                                                                     | The ICCID and/or eUICCID of the SIM card.                  |
+| `imsi`            | `char[16]`                                                                                                 | The 0-terminated string representation of the active IMSI. |
+| `cmeError`        | [WalterModemCMEError](#waltermodemcmeerror)                                                                | The CME error received from the modem.                     |
+| `pdpCtxId`        | `int`                                                                                                      | The ID of a PDP context.                                   |
+| `rat`             | `WalterModemRAT`                                                                                           | The radio access technology.                               |
+| `rssi`            | `int`                                                                                                      | The RSSI of the signal in dBm.                             |
+| `signalQuality`   | `WalterModemSignalQuality`                                                                                 | The current signal quality.                                |
+| `cellInformation` | `WalterModemCellInformation`                                                                               | The serving and neighbouring cell information.             |
+| `bandSelCfgSet`   | `WalterModemBandSelectionConfigSet`                                                                        | The band selection configuration set.                      |
+| `pdpAddressList`  | `WalterModemPDPAddressList`                                                                                | The addresses of a PDP context.                            |
+| `profileId`       | `int`                                                                                                      | The ID of a profile.                                       |
+| `gnssAssistance`  | [WMGNSSAssistance](/walter-modem/arduino_esp-idf/reference/gnss.md#wmgnssassistance)[]                     | The GNSS assistance data statuses.                         |
+| `clock`           | [WalterModemClockInfo](#waltermodemclockinfo)                                                              | The modem time and date.                                   |
+| `identity`        | [WalterModemIdentity](#waltermodemidentity)                                                                | The modem identity.                                        |
+| `httpResponse`    | `WalterModemHttpResponse`                                                                                  | The HTTP response.                                         |
+| `coapResponse`    | `WalterModemCoapResponse`                                                                                  | The CoAP response.                                         |
+| `mqttResponse`    | `WalterModemMqttResponse`                                                                                  | The MQTT response.                                         |
+| `socketResponse`  | `WalterModemSocketResponse`                                                                                | The socket response.                                       |
+| `temperature`     | [WalterModemTempData](/walter-modem/arduino_esp-idf/reference/event_handlers.md#waltermodemtempdata)       | The modem temperature data.                                |
+| `voltage`         | [WalterModemVoltageData](/walter-modem/arduino_esp-idf/reference/event_handlers.md#waltermodemvoltagedata) | The modem voltage data.                                    |
+
+### `WalterModemClockInfo`
+
+The modem time and date, see [getClock](#getclock).
+
+| Field            | Type      | Description                                               |
+| ---------------- | --------- | --------------------------------------------------------- |
+| `epochTime`      | `int64_t` | Unix timestamp of the current time and date in the modem. |
+| `timeZoneOffset` | `int32_t` | The timezone offset in seconds.                           |
+
+### `WalterModemIdentity`
+
+The modem identity, see [getIdentity](#getidentity).
+
+| Field    | Type       | Description                                              |
+| -------- | ---------- | -------------------------------------------------------- |
+| `imei`   | `char[16]` | 0-terminated string representation of the IMEI number.   |
+| `imeisv` | `char[17]` | 0-terminated string representation of the IMEISV number. |
+| `svn`    | `char[3]`  | 0-terminated string representation of the SVN number.    |

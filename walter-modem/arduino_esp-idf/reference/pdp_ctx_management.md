@@ -17,23 +17,37 @@
 - [WalterModemPDPPCSCFDiscoveryMethod](#waltermodempdppcscfdiscoverymethod)
 - [WalterModemPDPAuthProtocol](#waltermodempdpauthprotocol)
 
+## Structs Overview
+
+- [WalterModemPDPAddressList](#waltermodempdpaddresslist)
+
 ---
 
 ## Methods
+
+> [!NOTE]
+> Functions that take a `pdp_ctx_id` of -1 use the PDP context that was used last:
+> the last one passed with an explicit id to any PDP function, or the last one activated with
+> [setPDPContextActive](#setpdpcontextactive).
 
 ### `definePDPContext`
 
 Define a new packet data protocol (PDP) context.
 
 This function will define a new packet data protocol.
+The id of the defined context is stored in `rsp.data.pdpCtxId`.
+
+> [!NOTE]
+> `pdp_ctx_id` must be lower than `WALTER_MODEM_MAX_PDP_CTXTS` (8 by default, set in Kconfig),
+> otherwise this function returns false with `WALTER_MODEM_STATE_NO_FREE_PDP_CONTEXT`.
 
 #### Params
 
 | Param                     | Description                                                                                                         | Default                                      |
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
-| `ctxId`                   | The context id to store the definition in.                                                                          | **1**                                        |
+| `pdp_ctx_id`              | The context id to store the definition in.                                                                          | **1**                                        |
 | `apn`                     | The access point name.                                                                                              | **NULL**                                     |
-| `rsp`                     | Optional modem response structure to save the result.                                                               | **NULL**                                     |
+| `rsp`                     | Optional modem response structure to save the result in.                                                            | **NULL**                                     |
 | `cb`                      | Optional callback function, if set this function will not block.                                                    | **NULL**                                     |
 | `args`                    | Optional argument to pass to the callback.                                                                          | **NULL**                                     |
 | `type`                    | The type of PDP context to create. ([WalterModemPDPType](#waltermodempdptype))                                      | **WALTER_MODEM_PDP_TYPE_IP**                 |
@@ -53,7 +67,7 @@ This function will define a new packet data protocol.
 #### Returns
 
 `bool`  
-True on success, false otherwise.
+True on "OK" response, false otherwise.
 
 #### Example
 
@@ -88,7 +102,7 @@ CONFIG(CELLULAR_APN, const char *, "")
 // ...
 
 if (modem.definePDPContext(1, CELLULAR_APN)) {
-    ESP_LOGI("pdp_ctx_mgnt_docs_demo", "PDP CTX Created");
+    ESP_LOGI("pdp_ctx_mgnt_docs_demo", "PDP CTX created");
 } else {
     ESP_LOGE("pdp_ctx_mgnt_docs_demo", "Failed to create PDP CTX");
 }
@@ -107,25 +121,28 @@ Authenticate a PDP context.
 When a PDP context's APN requires authentication,
 this function will prepare the PDP context for this authentication.
 
-> [!NOTE]
-> If the authentication method is set to 'NONE', this function performs no operation.
+> [!WARNING]
+> In the current library version this function does not send the credentials to the modem.
+> It checks the authentication protocol stored in the PDP context, which is always
+> `WALTER_MODEM_PDP_AUTH_PROTO_NONE`, before storing the new one, so it returns true without
+> doing anything.
 
 #### Params
 
-| Param       | Description                                                                                                         | Default                              |
-| ----------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| `authProto` | The authentication protocol to use for the PDP context. ([WalterModemPDPAuthProtocol](#waltermodempdpauthprotocol)) | **WALTER_MODEM_PDP_AUTH_PROTO_NONE** |
-| `authUser`  | Authentication username.                                                                                            | **NULL**                             |
-| `authPass`  | Authentication password.                                                                                            | **NULL**                             |
-| `pdpCtxId`  | The PDP context ID to configure, or -1 to reuse the last one.                                                       | **-1**                               |
-| `rsp`       | Optional modem response structure to save the result.                                                               | **NULL**                             |
-| `cb`        | Optional callback function, if set this function will not block.                                                    | **NULL**                             |
-| `args`      | Optional argument to pass to the callback.                                                                          | **NULL**                             |
+| Param        | Description                                                                                                         | Default                              |
+| ------------ | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| `auth_proto` | The authentication protocol to use for the PDP context. ([WalterModemPDPAuthProtocol](#waltermodempdpauthprotocol)) | **WALTER_MODEM_PDP_AUTH_PROTO_NONE** |
+| `auth_user`  | Authentication username.                                                                                            | **NULL**                             |
+| `auth_pass`  | Authentication password.                                                                                            | **NULL**                             |
+| `pdp_ctx_id` | The PDP context ID to configure, or -1 to use the last one.                                                         | **-1**                               |
+| `rsp`        | Optional modem response structure to save the result in.                                                            | **NULL**                             |
+| `cb`         | Optional callback function, if set this function will not block.                                                    | **NULL**                             |
+| `args`       | Optional argument to pass to the callback.                                                                          | **NULL**                             |
 
 #### Returns
 
 `bool`  
-True on success, false otherwise.
+True on "OK" response, false otherwise.
 
 #### Example
 
@@ -179,18 +196,18 @@ This function activates or deactivates a given PDP context.
 
 #### Params
 
-| Param      | Description                                                            | Default  |
-| ---------- | ---------------------------------------------------------------------- | -------- |
-| `active`   | True to activate the PDP context, false to deactivate.                 | **true** |
-| `pdpCtxId` | The PDP context ID to activate/deactivate or -1 to reuse the last one. | **-1**   |
-| `rsp`      | Optional modem response structure to save the result.                  | **NULL** |
-| `cb`       | Optional callback function, if set this function will not block.       | **NULL** |
-| `args`     | Optional argument to pass to the callback.                             | **NULL** |
+| Param        | Description                                                           | Default  |
+| ------------ | --------------------------------------------------------------------- | -------- |
+| `active`     | True to activate the PDP context, false to deactivate.                | **true** |
+| `pdp_ctx_id` | The PDP context ID to activate/deactivate, or -1 to use the last one. | **-1**   |
+| `rsp`        | Optional modem response structure to save the result in.              | **NULL** |
+| `cb`         | Optional callback function, if set this function will not block.      | **NULL** |
+| `args`       | Optional argument to pass to the callback.                            | **NULL** |
 
 #### Returns
 
 `bool`  
-True on success, false otherwise.
+True on "OK" response, false otherwise.
 
 #### Example
 
@@ -206,7 +223,7 @@ True on success, false otherwise.
 if (modem.setPDPContextActive(true)) {
     Serial.println("Info: PDP CTX activated");
 } else {
-    Serial.println("Error: Failed to active PDP CTX");
+    Serial.println("Error: Failed to activate PDP CTX");
 }
 
 // ...
@@ -221,7 +238,7 @@ if (modem.setPDPContextActive(true)) {
 // ...
 
 if (modem.setPDPContextActive(true)) {
-    ESP_LOGI("pdp_ctx_mgnt_docs_demo", "PDP CTX actived");
+    ESP_LOGI("pdp_ctx_mgnt_docs_demo", "PDP CTX activated");
 } else {
     ESP_LOGE("pdp_ctx_mgnt_docs_demo", "Failed to activate PDP CTX");
 }
@@ -244,14 +261,14 @@ This function will attach to or detach from a packet domain service.
 | Param    | Description                                                      | Default  |
 | -------- | ---------------------------------------------------------------- | -------- |
 | `attach` | True to attach, false to detach.                                 | **true** |
-| `rsp`    | Optional modem response structure to save the result.            | **NULL** |
+| `rsp`    | Optional modem response structure to save the result in.         | **NULL** |
 | `cb`     | Optional callback function, if set this function will not block. | **NULL** |
 | `args`   | Optional argument to pass to the callback.                       | **NULL** |
 
 #### Returns
 
 `bool`  
-True on success, false otherwise.
+True on "OK" response, false otherwise.
 
 #### Example
 
@@ -299,20 +316,21 @@ if (modem.setNetworkAttachmentState(true)) {
 Get a list of PDP addresses of a PDP context.
 
 This function will retrieve the list of PDP addresses for the requested PDP context ID.
+The result is stored in `rsp.data.pdpAddressList` _([WalterModemPDPAddressList](#waltermodempdpaddresslist))_.
 
 #### Params
 
-| Param      | Description                                                      | Default  |
-| ---------- | ---------------------------------------------------------------- | -------- |
-| `rsp`      | Optional modem response structure to save the result.            | **NULL** |
-| `cb`       | Optional callback function, if set this function will not block. | **NULL** |
-| `args`     | Optional argument to pass to the callback.                       | **NULL** |
-| `pdpCtxId` | The PDP context ID to query or -1 to reuse the last one.         | **-1**   |
+| Param        | Description                                                      | Default  |
+| ------------ | ---------------------------------------------------------------- | -------- |
+| `rsp`        | Optional modem response structure to save the result in.         | **NULL** |
+| `cb`         | Optional callback function, if set this function will not block. | **NULL** |
+| `args`       | Optional argument to pass to the callback.                       | **NULL** |
+| `pdp_ctx_id` | The PDP context ID to query, or -1 to use the last one.          | **-1**   |
 
 #### Returns
 
 `bool`  
-True on success, false otherwise.
+True on "OK" response, false otherwise.
 
 #### Example
 
@@ -328,9 +346,6 @@ WalterModemRsp rsp = {};
 // ...
 
 if (modem.getPDPAddress(&rsp)) {
-    Serial.print("PDP addresses for CTX ID: ");
-    Serial.println(rsp.data.pdpAddressList.pdpCtxId);
-    
     Serial.print("Primary PDP Address: ");
     if (rsp.data.pdpAddressList.pdpAddress && rsp.data.pdpAddressList.pdpAddress[0] != '\0') {
         Serial.println(rsp.data.pdpAddressList.pdpAddress);
@@ -362,21 +377,19 @@ WalterModemRsp rsp = {};
 // ...
 
 if (modem.getPDPAddress(&rsp)) {
-    ESP_LOGI("pdp_ctx_mgnt_docs_demo", , "PDP addresses for CTX ID: %d", rsp.data.pdpAddressList.pdpCtxId);
-    
     if (rsp.data.pdpAddressList.pdpAddress && rsp.data.pdpAddressList.pdpAddress[0] != '\0') {
-        ESP_LOGI("pdp_ctx_mgnt_docs_demo", , "Primary PDP Address: %s", rsp.data.pdpAddressList.pdpAddress);
+        ESP_LOGI("pdp_ctx_mgnt_docs_demo", "Primary PDP Address: %s", rsp.data.pdpAddressList.pdpAddress);
     } else {
-        ESP_LOGI("pdp_ctx_mgnt_docs_demo", , "Primary PDP Address: None");
+        ESP_LOGI("pdp_ctx_mgnt_docs_demo", "Primary PDP Address: None");
     }
-    
+
     if (rsp.data.pdpAddressList.pdpAddress2 && rsp.data.pdpAddressList.pdpAddress2[0] != '\0') {
-        ESP_LOGI("pdp_ctx_mgnt_docs_demo", , "Secondary PDP Address: %s", rsp.data.pdpAddressList.pdpAddress2);
+        ESP_LOGI("pdp_ctx_mgnt_docs_demo", "Secondary PDP Address: %s", rsp.data.pdpAddressList.pdpAddress2);
     } else {
-        ESP_LOGI("pdp_ctx_mgnt_docs_demo", , "Secondary PDP Address: None");
+        ESP_LOGI("pdp_ctx_mgnt_docs_demo", "Secondary PDP Address: None");
     }
 } else {
-    ESP_LOGE("pdp_ctx_mgnt_docs_demo", , "Failed to get PDP address list");
+    ESP_LOGE("pdp_ctx_mgnt_docs_demo", "Failed to get PDP address list");
 }
 
 // ...
@@ -485,6 +498,9 @@ The supported types of P-CSCF discovery in a packet data context.
 > **WALTER_MDOEM_PDP_PCSCF_NAS** = `1`  
 > NAS-based P-CSCF discovery.  
 
+> [!NOTE]
+> `WALTER_MDOEM_PDP_PCSCF_NAS` is spelled with "MDOEM" in the library, use it exactly like this.
+
 ### `WalterModemPDPAuthProtocol`
 
 The authentication protocol used within the PDP context.
@@ -495,3 +511,22 @@ The authentication protocol used within the PDP context.
 > Password Authentication Protocol (PAP).  
 > **WALTER_MODEM_PDP_AUTH_PROTO_CHAP** = `2`  
 > Challenge-Handshake Authentication Protocol (CHAP).
+
+---
+
+## Structs
+
+### `WalterModemPDPAddressList`
+
+The addresses of a PDP context, see [getPDPAddress](#getpdpaddress).
+
+> [!WARNING]
+> The library does not fill in `pdpCtxId`.
+> The address strings point into the library's own storage and are overwritten by the next
+> [getPDPAddress](#getpdpaddress) for the same context, copy them if you need them later.
+
+| Field         | Type          | Description                                                                   |
+| ------------- | ------------- | ----------------------------------------------------------------------------- |
+| `pdpCtxId`    | `int`         | The ID of the context which owns the addresses. Not filled in by the library. |
+| `pdpAddress`  | `const char*` | 0-terminated string with the first address.                                   |
+| `pdpAddress2` | `const char*` | 0-terminated string with the second address, empty when there is none.        |

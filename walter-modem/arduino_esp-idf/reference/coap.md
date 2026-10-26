@@ -2,11 +2,10 @@
 
 - [coapCreateContext](#coapcreatecontext)
 - [coapClose](#coapclose)
-- [coapGetContextStatus](#coapgetcontextstatus)
 - [coapSetHeader](#coapsetheader)
 - [coapSetOptions](#coapsetoptions)
 - [coapSendData](#coapsenddata)
-- [coapDidRing](#coapdidring)
+- [coapReceive](#coapreceive)
 
 ## Enums Overview
 
@@ -15,6 +14,10 @@
 - [WalterModemCoapOptAction](#waltermodemcoapoptaction)
 - [WalterModemCoapSendType](#waltermodemcoapsendtype)
 - [WalterModemCoapSendMethodRsp](#waltermodemcoapsendmethodrsp)
+
+## Structs Overview
+
+- [WalterModemCoapResponse](#waltermodemcoapresponse)
 
 ---
 
@@ -29,21 +32,21 @@ before you can set headers or options or send or receive data.
 
 #### Params
 
-| Param          | Description                                                       | Default  |
-| -------------- | ----------------------------------------------------------------- | -------- |
-| `profileId`    | CoAP profile ID.                                                  |          |
-| `serverName`   | The server name to connect to.                                    |          |
-| `port`         | The port of the server to connect to.                             |          |
-| `tlsProfileId` | If not 0, DTLS is used with the given profile (1-6).              | **0**    |
-| `localPort`    | The local port to use (0 = random).                               | **-1**   |
-| `rsp`          | Optional modem response structure to save the result in.          | **NULL** |
-| `cb`           | Optional callback function, if set, this function will not block. | **NULL** |
-| `args`         | Optional argument to pass to the callback.                        | **NULL** |
+| Param            | Description                                                                | Default  |
+| ---------------- | -------------------------------------------------------------------------- | -------- |
+| `profile_id`     | CoAP profile ID (0, 1 or 2).                                               |          |
+| `hostname`       | The server name to connect to.                                             |          |
+| `port`           | The port of the server to connect to.                                      |          |
+| `tls_profile_id` | If not 0, DTLS is used with the given profile (1-6).                       | **0**    |
+| `local_port`     | The local port to use. With the default -1, the modem picks a random port. | **-1**   |
+| `rsp`            | Optional modem response structure to save the result in.                   | **NULL** |
+| `cb`             | Optional callback function, if set, this function will not block.          | **NULL** |
+| `args`           | Optional argument to pass to the callback.                                 | **NULL** |
 
 #### Returns
 
 `bool`  
-True on success, False otherwise.
+True on "OK" response, false otherwise
 
 #### Example
 
@@ -103,17 +106,17 @@ call.
 
 #### Params
 
-| Param       | Description                                                       | Default  |
-| ----------- | ----------------------------------------------------------------- | -------- |
-| `profileId` | CoAP profile ID.                                                  |          |
-| `rsp`       | Optional modem response structure to save the result in.          | **NULL** |
-| `cb`        | Optional callback function, if set, this function will not block. | **NULL** |
-| `args`      | Optional argument to pass to the callback.                        | **NULL** |
+| Param        | Description                                                       | Default  |
+| ------------ | ----------------------------------------------------------------- | -------- |
+| `profile_id` | CoAP profile ID (0, 1 or 2).                                      |          |
+| `rsp`        | Optional modem response structure to save the result in.          | **NULL** |
+| `cb`         | Optional callback function, if set, this function will not block. | **NULL** |
+| `args`       | Optional argument to pass to the callback.                        | **NULL** |
 
 #### Returns
 
 `bool`  
-True on success, false otherwise.
+True on "OK" response, false otherwise
 
 #### Example
 
@@ -160,68 +163,6 @@ if (modem.coapClose(MODEM_COAP_PROFILE)) {
 
 ---
 
-### `coapGetContextStatus`
-
-Get the connection status of a CoAP context.
-
-#### Params
-
-| Param       | Description                                | Default |
-| ----------- | ------------------------------------------ | ------- |
-| `profileId` | The profile ID (0-2) of the context. |         |
-
-#### Returns
-
-`bool`  
-True if context with the profile id is connected, false if not.
-
-#### Example
-
-<!-- tabs:start -->
-
-##### **Arduino**
-
-```cpp
-#include <WalterModem.h>
-
-CONFIG_UINT8(MODEM_COAP_PROFILE, 1)
-
-// ...
-
-if (modem.coapGetContextStatus(MODEM_COAP_PROFILE)) {
-    Serial.println("Info: CoAP profile is connected to the remote server");
-} else {
-    Serial.println("Error: CoAP profile is not connected to the remote server");
-}
-
-// ...
-```
-
-##### **ESP-IDF**
-
-```cpp
-#include <esp_log.h>
-#include <WalterModem.h>
-
-CONFIG_UINT8(MODEM_COAP_PROFILE, 1)
-
-// ...
-
-if (modem.coapGetContextStatus(MODEM_COAP_PROFILE)) {
-    ESP_LOGI("coap_docs_demo", "CoAP profile is connected to the remote server");
-} else {
-    ESP_LOGI("coap_docs_demo", "CoAP profile is not connected to the remote server");
-}
-
-// ...
-```
-
-<!-- tabs:end -->
-
----
-
-<!-- tabs:end -->
-
 ### `coapSetHeader`
 
 Set a CoAP header.
@@ -234,19 +175,19 @@ This function will set the header of the next message to send.
 
 #### Params
 
-| Param       | Description                                                                                                                                                                                    | Default        |
-| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `profileId` | CoAP profile id (0-2)                                                                                                                                                                          |                |
-| `messageId` | The message id of the next message to send.                                                                                                                                                    | **1**          |
-| `token`     | The token of the next message to send as a string of 16 hex digits for a max token length of 8 bytes, with default value "NO_TOKEN" which is the magic value to send a datagram without token. | **"NO_TOKEN"** |
-| `rsp`       | Optional modem response structure to save the result in.                                                                                                                                       | **NULL**       |
-| `cb`        | Optional callback function, if set, this function will not block.                                                                                                                              | **NULL**       |
-| `args`      | Optional argument to pass to the callback.                                                                                                                                                     | **NULL**       |
+| Param        | Description                                                                                                                                                                                    | Default        |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `profile_id` | CoAP profile ID (0, 1 or 2).                                                                                                                                                                   |                |
+| `message_id` | The message id of the next message to send.                                                                                                                                                    | **1**          |
+| `token`      | The token of the next message to send as a string of 16 hex digits for a max token length of 8 bytes, with default value "NO_TOKEN" which is the magic value to send a datagram without token. | **"NO_TOKEN"** |
+| `rsp`        | Optional modem response structure to save the result in.                                                                                                                                       | **NULL**       |
+| `cb`         | Optional callback function, if set, this function will not block.                                                                                                                              | **NULL**       |
+| `args`       | Optional argument to pass to the callback.                                                                                                                                                     | **NULL**       |
 
 #### Returns
 
 `bool`  
-True on success, False otherwise.
+True on "OK" response, false otherwise.
 
 #### Example
 
@@ -299,20 +240,20 @@ Set the options for the next CoAP message.
 
 #### Params
 
-| Param       | Description                                                                                                                                                              | Default  |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
-| `profileId` | CoAP profile id (0-2)                                                                                                                                                    |          |
-| `action`    | The action code of the option.                                                                                                                                           |          |
-| `code`      | The code of the options.                                                                                                                                                 |          |
-| `values`    | The optional values array, expected as a comma delimited string of up to 6 strings or recognized option values (see [WalterModemCoapOptValue](#waltermodemcoapoptvalue)) | **NULL** |
-| `rsp`       | Optional modem response structure to save the result in.                                                                                                                 | **NULL** |
-| `cb`        | Optional callback function, if set, this function will not block.                                                                                                        | **NULL** |
-| `args`      | Optional argument to pass to the callback.                                                                                                                               | **NULL** |
+| Param        | Description                                                                                                                                                              | Default  |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
+| `profile_id` | CoAP profile ID (0, 1 or 2).                                                                                                                                             |          |
+| `action`     | The action code of the option.                                                                                                                                           |          |
+| `code`       | The code of the options.                                                                                                                                                 |          |
+| `values`     | The optional values array, expected as a comma delimited string of up to 6 strings or recognized option values (see [WalterModemCoapOptValue](#waltermodemcoapoptvalue)) | **NULL** |
+| `rsp`        | Optional modem response structure to save the result in.                                                                                                                 | **NULL** |
+| `cb`         | Optional callback function, if set, this function will not block.                                                                                                        | **NULL** |
+| `args`       | Optional argument to pass to the callback.                                                                                                                               | **NULL** |
 
 #### Returns
 
 `bool`  
-True on success, False otherwise.
+True on "OK" response, false otherwise
 
 #### Example
 
@@ -353,9 +294,9 @@ if (modem.coapSetOptions(
         MODEM_COAP_PROFILE,
         WALTER_MODEM_COAP_OPT_DELETE,
         WALTER_MODEM_COAP_OPT_CODE_URI_PATH)) {
-    ESP_LOGE("coap_docs_demo", "CoAP options set");
+    ESP_LOGI("coap_docs_demo", "CoAP options set");
 } else {
-    ESP_LOGI("coap_docs_demo", "Failed to set the CoAP options");
+    ESP_LOGE("coap_docs_demo", "Failed to set the CoAP options");
 }
 
 // ...
@@ -374,21 +315,21 @@ Send a datagram over CoAP.
 
 #### Params
 
-| Param       | Description                                                       | Default  |
-| ----------- | ----------------------------------------------------------------- | -------- |
-| `profileId` | CoAP profile id (0-2)                                             |          |
-| `type`      | The type of message (NON, CON, ACK, RST).                         |          |
-| `methodRsp` | The method or response code.                                      |          |
-| `length`    | The length of the payload.                                        |          |
-| `payload`   | The payload to send, max 1024 bytes.                              |          |
-| `rsp`       | Optional modem response structure to save the result in.          | **NULL** |
-| `cb`        | Optional callback function, if set, this function will not block. | **NULL** |
-| `args`      | Optional argument to pass to the callback.                        | **NULL** |
+| Param        | Description                                                       | Default  |
+| ------------ | ----------------------------------------------------------------- | -------- |
+| `profile_id` | CoAP profile ID (0, 1 or 2).                                      |          |
+| `type`       | The type of message (NON, CON, ACK, RST).                         |          |
+| `method_rsp` | The method or response code.                                      |          |
+| `buf_size`   | The length of the payload (1-1024).                               |          |
+| `buf`        | The payload to send.                                              |          |
+| `rsp`        | Optional modem response structure to save the result in.          | **NULL** |
+| `cb`         | Optional callback function, if set, this function will not block. | **NULL** |
+| `args`       | Optional argument to pass to the callback.                        | **NULL** |
 
 #### Returns
 
 `bool`  
-True on success, False otherwise.
+True on "OK" response, false otherwise.
 
 #### Example
 
@@ -403,14 +344,14 @@ CONFIG_UINT8(MODEM_COAP_PROFILE, 1)
 
 // ...
 
-static const char demoData[] = "Demo Data";
+static uint8_t demoData[] = "Demo Data";
 
 if (modem.coapSendData(
         MODEM_COAP_PROFILE,
         WALTER_MODEM_COAP_SEND_TYPE_CON,
         WALTER_MODEM_COAP_SEND_METHOD_GET,
         sizeof(demoData) - 1,
-        (const uint8_t *)demoData)) {
+        demoData)) {
     Serial.println("Info: CoAP datagram sent");
 } else {
     Serial.println("Error: Failed to send CoAP datagram");
@@ -429,14 +370,14 @@ CONFIG_UINT8(MODEM_COAP_PROFILE, 1)
 
 // ...
 
-static const char demoData[] = "Demo Data";
+static uint8_t demoData[] = "Demo Data";
 
 if (modem.coapSendData(
         MODEM_COAP_PROFILE,
         WALTER_MODEM_COAP_SEND_TYPE_CON,
         WALTER_MODEM_COAP_SEND_METHOD_GET,
         sizeof(demoData) - 1,
-        (const uint8_t *)demoData)) {
+        demoData)) {
     ESP_LOGI("coap_docs_demo", "CoAP datagram sent");
 } else {
     ESP_LOGE("coap_docs_demo", "Failed to send CoAP datagram");
@@ -449,25 +390,28 @@ if (modem.coapSendData(
 
 ---
 
-### `coapDidRing`
+### `coapReceive`
 
-Fetch incoming CoAP messages, if any.
+Receives CoAP data from the modem buffer.
+
+The message details are stored in `rsp.data.coapResponse` _([WalterModemCoapResponse](#waltermodemcoapresponse))_.
 
 #### Params
 
-| Param           | Description                                                        | Default  |
-| --------------- | ------------------------------------------------------------------ | -------- |
-| `profileId`     | Profile for which to get incoming data (0-2)                       |          |
-| `targetBuf`     | User buffer to store response in.                                  |          |
-| `targetBufSize` | Size of the user buffer, including space for a terminating 0-byte. |          |
-| `rsp`           | Optional modem response structure to save the result in.           | **NULL** |
+| Param        | Description                                                  | Default  |
+| ------------ | ------------------------------------------------------------ | -------- |
+| `profile_id` | CoAP profile ID (0, 1 or 2).                                 |          |
+| `message_id` | CoAP message identifier to receive.                          |          |
+| `buf`        | User buffer to store the received data. No termination.      |          |
+| `buf_size`   | Size of the buffer (maximum bytes to receive). (1-1024)      |          |
+| `rsp`        | Pointer to the response structure to save the result in.     | **NULL** |
+| `cb`         | Callback function, if not NULL this function will not block. | **NULL** |
+| `args`       | Arguments to pass to the callback.                           | **NULL** |
 
 #### Returns
 
 `bool`  
-**true** on success  
-**false** if no data arrived, if there was an error or if no data is expected
-(eg. no ring received).
+True on "OK" response, false otherwise.
 
 #### Example
 
@@ -478,17 +422,27 @@ Fetch incoming CoAP messages, if any.
 ```cpp
 #include <WalterModem.h>
 
-CONFIG_UINT8(MODEM_COAP_PROFILE, 1)
+static uint8_t inBuf[1024];
 
-WalterModemRsp rsp = {};
+void myCoAPEventHandler(WMCoAPEventType event, const WMCoAPEventData *data, void *args)
+{
+    if (event != WALTER_MODEM_COAP_EVENT_RING) {
+        return;
+    }
+
+    WalterModemRsp rsp = {};
+
+    if (modem.coapReceive(data->profile_id, data->msg_id, inBuf, sizeof(inBuf), &rsp)) {
+        Serial.printf("Info: Received %u bytes on profile %d\r\n",
+                      rsp.data.coapResponse.length, data->profile_id);
+    } else {
+        Serial.println("Error: Failed to receive the CoAP message");
+    }
+}
 
 // ...
 
-uint8_t incomingBuf[256] = {0};
-
-while (modem.coapDidRing(MODEM_COAP_PROFILE, incomingBuf, sizeof(incomingBuf), &rsp)) {
-    Serial.println("Info: Incoming ring");
-}
+modem.setCoAPEventHandler(myCoAPEventHandler);
 
 // ...
 ```
@@ -499,17 +453,27 @@ while (modem.coapDidRing(MODEM_COAP_PROFILE, incomingBuf, sizeof(incomingBuf), &
 #include <esp_log.h>
 #include <WalterModem.h>
 
-CONFIG_UINT8(MODEM_COAP_PROFILE, 1)
+static uint8_t inBuf[1024];
 
-WalterModemRsp rsp = {};
+void myCoAPEventHandler(WMCoAPEventType event, const WMCoAPEventData *data, void *args)
+{
+    if (event != WALTER_MODEM_COAP_EVENT_RING) {
+        return;
+    }
+
+    WalterModemRsp rsp = {};
+
+    if (modem.coapReceive(data->profile_id, data->msg_id, inBuf, sizeof(inBuf), &rsp)) {
+        ESP_LOGI("coap_docs_demo", "Received %u bytes on profile %d",
+                 rsp.data.coapResponse.length, data->profile_id);
+    } else {
+        ESP_LOGE("coap_docs_demo", "Failed to receive the CoAP message");
+    }
+}
 
 // ...
 
-uint8_t incomingBuf[256] = {0};
-
-while (modem.coapDidRing(MODEM_COAP_PROFILE, incomingBuf, sizeof(incomingBuf), &rsp)) {
-    ESP_LOGI("coap_docs_demo", "Incoming ring");
-}
+modem.setCoAPEventHandler(myCoAPEventHandler);
 
 // ...
 ```
@@ -696,3 +660,19 @@ The possible CoAP send methods.
 > The **GATEWAY TIMEOUT** response code in CoAP indicates that the server, while acting as a gateway, did not receive a timely response from an upstream server.  
 > **WALTER_MODEM_COAP_SEND_RSP_CODE_PROXYING_NOT_SUPPORTED** = `505`  
 > The **PROXYING NOT SUPPORTED** response code in CoAP indicates that the proxy server does not support the requested operation.  
+
+---
+
+## Structs
+
+### `WalterModemCoapResponse`
+
+The details of a received CoAP message, see [coapReceive](#coapreceive).
+
+| Field       | Type                                                          | Description                                  |
+| ----------- | ------------------------------------------------------------- | -------------------------------------------- |
+| `profileId` | `uint8_t`                                                     | The CoAP profile ID.                         |
+| `messageId` | `uint16_t`                                                    | The CoAP message ID.                         |
+| `sendType`  | [WalterModemCoapSendType](#waltermodemcoapsendtype)           | The CoAP send type (CON, NON, ACK or RST).   |
+| `methodRsp` | [WalterModemCoapSendMethodRsp](#waltermodemcoapsendmethodrsp) | The CoAP method or response code.            |
+| `length`    | `uint16_t`                                                    | The length of the received payload in bytes. |
